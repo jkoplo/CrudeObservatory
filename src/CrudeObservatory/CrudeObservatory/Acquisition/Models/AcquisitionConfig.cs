@@ -1,4 +1,7 @@
-﻿using CrudeObservatory.Triggers.Abstractions.Models;
+﻿using CrudeObservatory.DataSources.Abstractions.Models;
+using CrudeObservatory.DataTargets.Abstractions.Models;
+using CrudeObservatory.Intervals.Abstractions.Models;
+using CrudeObservatory.Triggers.Abstractions.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,30 +17,11 @@ namespace CrudeObservatory.Config.Models
         public TriggerConfigBase EndTrigger { get; set; }
 
 
-        public Interval Interval { get; set; }
-        public List<string> DataSources { get; set; }
-        public DataTarget DataTarget { get; set; }
+        public IntervalConfigBase Interval { get; set; }
+        public List<DataSourceConfigBase> DataSources { get; set; }
+        public DataTargetConfigBase DataTarget { get; set; }
     }
 
 
-    public class Interval
-    {
-        public string Type { get; set; }
-        public int Rate { get; set; }
-    }
-
-    public class DataTarget
-    {
-        public string Type { get; set; }
-        public string FilePath { get; set; }
-        public bool IncludeHeader { get; set; }
-    }
-
-
-
-    public class Root
-    {
-        public AcquisitionConfig Acquisition { get; set; }
-    }
 
 }
