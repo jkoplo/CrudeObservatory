@@ -13,7 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Intervals\" />
     <Folder Include="DataSources\" />
     <Folder Include="DataTargets\" />
   </ItemGroup>

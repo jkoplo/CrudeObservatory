@@ -11,27 +11,14 @@ namespace CrudeObservatory.Config.Models
     {
         public string Name { get; set; }
         public TriggerConfigBase StartTrigger { get; set; }
+        public TriggerConfigBase EndTrigger { get; set; }
+
+
         public Interval Interval { get; set; }
         public List<string> DataSources { get; set; }
         public DataTarget DataTarget { get; set; }
     }
 
-    public class Start
-    {
-        public string Type { get; set; }
-    }
-
-    public class End
-    {
-        public string Type { get; set; }
-    }
-
-    public class Trigger
-    {
-        public bool Enabled { get; set; }
-        public Start Start { get; set; }
-        public End End { get; set; }
-    }
 
     public class Interval
     {

@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CrudeObservatory.Triggers.Automatic.Models
+namespace CrudeObservatory.Intervals.Abstractions.Models
 {
-    public class TriggerConfig
+    public enum IntervalType
     {
+        Fixed,
     }
 }

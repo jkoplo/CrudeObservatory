@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CrudeObservatory.Triggers.Manual.Models
+namespace CrudeObservatory.Triggers.Implementations.Manual.Models
 {
     public class TriggerConfig : TriggerConfigBase
     {
