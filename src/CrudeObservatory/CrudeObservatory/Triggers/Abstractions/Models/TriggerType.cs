@@ -9,6 +9,7 @@ namespace CrudeObservatory.Triggers.Abstractions.Models
     public enum TriggerType
     {
         Manual,
-        Automatic
+        Auto,
+        Delay
     }
 }
