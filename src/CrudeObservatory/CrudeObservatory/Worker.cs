@@ -14,6 +14,8 @@ namespace CrudeObservatory
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             //Pull in config - might be at the Program.cs DI level
+            var acqConfig = new AcquisitionConfig();
+
             //Build out classes - might be at the Program.cs DI level
 
             AcquisitionSet acq = new AcquisitionSet();
@@ -38,6 +40,9 @@ namespace CrudeObservatory
 
             //Wait for start trigger
             await acq.StartTrigger.WaitForTriggerAsync(stoppingToken);
+
+            //Write config to Data Target
+            await acq.DataTarget.WriteAcquisitionConfigAsync(acqConfig);
 
             //Acq started (or app cancelled)
             var endTrigger = acq.EndTrigger.WaitForTriggerAsync(stoppingToken);

@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CrudeObservatory.Config.Models
+namespace CrudeObservatory.Acquisition.Models
 {
     public class AcquisitionConfig
     {
