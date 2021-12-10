@@ -8,5 +8,6 @@ namespace CrudeObservatory.DataSources.Abstractions.Models
 {
     public class DataSourceConfigBase
     {
+        public string Alias { get; set; }
     }
 }
