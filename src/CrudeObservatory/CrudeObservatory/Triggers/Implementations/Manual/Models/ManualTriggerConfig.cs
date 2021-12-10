@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CrudeObservatory.Triggers.Implementations.Manual.Models
 {
-    public class TriggerConfig : TriggerConfigBase
+    public class ManualTriggerConfig : TriggerConfigBase
     {
     }
 }
