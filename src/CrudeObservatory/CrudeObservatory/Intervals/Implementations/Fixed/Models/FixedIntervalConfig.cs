@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace CrudeObservatory.Intervals.Implementations.Fixed.Models
 {
-    public class IntervalConfig : IntervalConfigBase
+    public class FixedIntervalConfig : IntervalConfigBase
     {
-        public int Rate { get; set; }
+        public double PeriodSec { get; set; }
     }
 }
