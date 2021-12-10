@@ -23,7 +23,7 @@ namespace CrudeObservatory.Triggers.Implementations.Delay
         {
             //Convert seconds to nearest msec
             var msecDelay = Convert.ToInt32(Math.Round(TriggerConfig.DelaySeconds * 1000));
-            return Task.Delay(msecDelay);
+            return Task.Delay(msecDelay, stoppingToken);
         }
     }
 }
