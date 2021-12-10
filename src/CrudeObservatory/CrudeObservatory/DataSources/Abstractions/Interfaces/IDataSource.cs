@@ -1,4 +1,4 @@
-﻿using CrudeObservatory.DataTargets.Abstractions.Models;
+﻿using CrudeObservatory.Acquisition.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

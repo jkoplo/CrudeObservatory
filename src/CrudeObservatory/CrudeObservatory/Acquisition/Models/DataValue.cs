@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CrudeObservatory.DataTargets.Abstractions.Models
+namespace CrudeObservatory.Acquisition.Models
 {
     internal class DataValue
     {
