@@ -14,6 +14,8 @@ using CrudeObservatory.Intervals.Abstractions.Models;
 using CrudeObservatory.Triggers.Implementations.Delay;
 using CrudeObservatory.Triggers.Implementations.Delay.Models;
 using CrudeObservatory.Triggers.Abstractions.Models;
+using CrudeObservatory.DataTargets.Implementations.CSV;
+using CrudeObservatory.DataTargets.Implementations.CSV.Models;
 
 namespace CrudeObservatory
 {
@@ -31,8 +33,7 @@ namespace CrudeObservatory
             };
             acq.Interval = new FixedInterval(new FixedIntervalConfig() { PeriodSec = .1, Type = IntervalType.Fixed });
             acq.EndTrigger = new DelayTrigger(new DelayTriggerConfig() { Type = TriggerType.Delay, DelaySeconds = 10, Enabled = true });
-
-
+            acq.DataTarget = new CsvDataTarget(new CsvDataTargetConfig() { FilePath = Path.Combine(System.Environment.CurrentDirectory, "DataTarget.csv") });
 
             return acq;
 
