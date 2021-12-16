@@ -29,7 +29,16 @@ namespace CrudeObservatory.DataTargets.Implementations.CSV
 
         public async Task WriteDataAsync(IEnumerable<DataValue> dataValues, CancellationToken stoppingToken)
         {
-            var records = dataValues.Select(x => x.Value);
+            var csvRecord = new CsvRecord()
+            {
+                DataValues = dataValues.Select(x => x.Value).ToList(),
+            };
+
+            var records = new List<CsvRecord>()
+            {
+                csvRecord
+            };
+
 
             // Append to the file.
             var config = new CsvConfiguration(CultureInfo.InvariantCulture)
@@ -41,7 +50,7 @@ namespace CrudeObservatory.DataTargets.Implementations.CSV
             using (var writer = new StreamWriter(stream))
             using (var csv = new CsvWriter(writer, config))
             {
-                await csv.WriteRecordsAsync(records);
+                await csv.WriteRecordsAsync(records, stoppingToken);
             }
         }
     }
