@@ -42,6 +42,7 @@ namespace CrudeObservatory.Intervals.Implementations.Fixed
                 }
             };
 
+            intervalExpiration = intervalExpiration + Convert.ToInt64(IntervalConfig.PeriodSec * 1000);
 
             if (msecTilExpiration < 0)
                 //TODO: Maybe this should error, or have a config option to error
