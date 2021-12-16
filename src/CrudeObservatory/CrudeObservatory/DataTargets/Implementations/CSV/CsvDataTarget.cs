@@ -25,7 +25,22 @@ namespace CrudeObservatory.DataTargets.Implementations.CSV
 
         public Task ShutdownAsync(CancellationToken stoppingToken) => Task.CompletedTask;
 
-        public Task WriteAcquisitionConfigAsync(AcquisitionConfig acqConfig) => Task.CompletedTask;
+        public async Task WriteAcquisitionConfigAsync(AcquisitionConfig acqConfig, CancellationToken stoppingToken)
+        {
+            var records = new List<AcquisitionConfig>()
+            {
+                acqConfig
+            };
+
+            // Append to the file.
+            using (var stream = File.Open(DataTargetConfig.FilePath, FileMode.Create))
+            using (var writer = new StreamWriter(stream))
+            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+            {
+                await csv.WriteRecordsAsync(records, stoppingToken);
+            }
+
+        }
 
         public async Task WriteDataAsync(IEnumerable<DataValue> dataValues, CancellationToken stoppingToken)
         {

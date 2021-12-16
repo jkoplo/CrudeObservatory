@@ -10,7 +10,7 @@ namespace CrudeObservatory.DataTargets.Abstractions.Interfaces
     internal interface IDataTarget
     {
         Task InitializeAsync(CancellationToken stoppingToken);
-        Task WriteAcquisitionConfigAsync(AcquisitionConfig acqConfig);
+        Task WriteAcquisitionConfigAsync(AcquisitionConfig acqConfig, CancellationToken stoppingToken);
         Task WriteDataAsync(IEnumerable<DataValue> dataValues, CancellationToken stoppingToken);
         Task ShutdownAsync(CancellationToken stoppingToken);
     }
