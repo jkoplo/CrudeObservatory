@@ -37,12 +37,12 @@ namespace CrudeObservatory.Intervals.Implementations.Fixed
             {
                 new DataValue()
                 {
-                    Name="Nominal Time", 
+                    Name="Nominal Time",
                     Value= intervalExpiration
                 }
             };
 
-            intervalExpiration = intervalExpiration + Convert.ToInt64(IntervalConfig.PeriodSec * 1000);
+            intervalExpiration += Convert.ToInt64(IntervalConfig.PeriodSec * 1000);
 
             if (msecTilExpiration < 0)
                 //TODO: Maybe this should error, or have a config option to error
