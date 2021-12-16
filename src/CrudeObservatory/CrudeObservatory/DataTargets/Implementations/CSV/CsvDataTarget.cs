@@ -1,5 +1,6 @@
 ﻿using CrudeObservatory.Acquisition.Models;
 using CrudeObservatory.DataTargets.Abstractions.Interfaces;
+using CrudeObservatory.DataTargets.Implementations.CSV.Models;
 using CsvHelper;
 using CsvHelper.Configuration;
 using System;
@@ -13,6 +14,13 @@ namespace CrudeObservatory.DataTargets.Implementations.CSV
 {
     internal class CsvDataTarget : IDataTarget
     {
+        public CsvDataTarget(CsvDataTargetConfig dataTargetConfig)
+        {
+            DataTargetConfig = dataTargetConfig ?? throw new ArgumentNullException(nameof(dataTargetConfig));
+        }
+
+        public CsvDataTargetConfig DataTargetConfig { get; }
+
         public Task InitializeAsync(CancellationToken stoppingToken) => Task.CompletedTask;
 
         public Task ShutdownAsync(CancellationToken stoppingToken) => Task.CompletedTask;

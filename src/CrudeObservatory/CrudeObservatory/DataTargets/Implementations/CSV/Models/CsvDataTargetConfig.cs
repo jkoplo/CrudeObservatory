@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace CrudeObservatory.DataTargets.Implementations.CSV.Models
 {
-    public class DataTargetConfig : DataTargetConfigBase
+    public class CsvDataTargetConfig : DataTargetConfigBase
     {
+        public string FilePath { get; set; }
     }
 }
