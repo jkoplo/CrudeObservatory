@@ -50,8 +50,8 @@ namespace CrudeObservatory
             while (!endTrigger.IsCompleted & !stoppingToken.IsCancellationRequested)
             {
                 //Wait for interval OR end trigger
-                Task.WaitAny(acq.Interval.WaitForIntervalAsync(stoppingToken),
-                             endTrigger);
+                var intervalTask = acq.Interval.WaitForIntervalAsync(stoppingToken);
+                Task.WaitAny(intervalTask, endTrigger);
 
                 //If the end hasn't been triggered and we haven't been cancelled, get data
                 if (!endTrigger.IsCompleted & !stoppingToken.IsCancellationRequested)
@@ -59,8 +59,10 @@ namespace CrudeObservatory
                     //Get data from source(s)
                     var dataValues = await Task.WhenAll(acq.DataSources.Select(x => x.ReadDataAsync(stoppingToken)));
 
+                    var combinedDataValues = intervalTask.Result.Concat(dataValues);
+
                     //Write data to target(s)
-                    await acq.DataTarget.WriteDataAsync(dataValues, stoppingToken);
+                    await acq.DataTarget.WriteDataAsync(combinedDataValues, stoppingToken);
 
                 }
                 //Repeat @ Wait for interval OR end trigger
