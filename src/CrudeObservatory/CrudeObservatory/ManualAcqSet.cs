@@ -30,7 +30,8 @@ namespace CrudeObservatory
             acq.StartTrigger = new TriggerConfigBase() { Type = TriggerType.Auto };
             acq.DataSources = new List<DataSourceConfigBase>()
             {
-                new SineWaveDataSourceConfig(){PeriodSec=5, Alias="SineWave" }
+                new SineWaveDataSourceConfig(){PeriodSec=5, Alias="Sine1" },
+                new SineWaveDataSourceConfig(){PeriodSec=1, Alias="Sine2" }
             };
             acq.Interval = new FixedIntervalConfig() { PeriodSec = .1, Type = IntervalType.Fixed };
             acq.EndTrigger = new DelayTriggerConfig() { Type = TriggerType.Delay, DelaySeconds = 10, Enabled = true };
@@ -48,10 +49,8 @@ namespace CrudeObservatory
 
             acq.Name = "Manual Prototype Set";
             acq.StartTrigger = new AutoTrigger();
-            acq.DataSources = new List<IDataSource>()
-            {
-                new SineWaveDataSource(config.DataSources.OfType<SineWaveDataSourceConfig>().First())
-            };
+            acq.DataSources = new List<IDataSource>();
+            acq.DataSources.AddRange(config.DataSources.OfType<SineWaveDataSourceConfig>().Select(x => new SineWaveDataSource(x)).ToList<IDataSource>());
             acq.Interval = new FixedInterval((FixedIntervalConfig)config.Interval);
             acq.EndTrigger = new DelayTrigger((DelayTriggerConfig)config.EndTrigger);
             acq.DataTarget = new CsvDataTarget((CsvDataTargetConfig)config.DataTarget);
