@@ -27,7 +27,7 @@ namespace CrudeObservatory.DataTargets.Implementations.CSV
 
         public Task WriteAcquisitionConfigAsync(AcquisitionConfig acqConfig) => Task.CompletedTask;
 
-        public Task WriteDataAsync(IEnumerable<DataValue> dataValues, CancellationToken stoppingToken)
+        public async Task WriteDataAsync(IEnumerable<DataValue> dataValues, CancellationToken stoppingToken)
         {
             var records = dataValues.Select(x => x.Value);
 
@@ -37,13 +37,12 @@ namespace CrudeObservatory.DataTargets.Implementations.CSV
                 // Don't write the header again.
                 HasHeaderRecord = false,
             };
-            using (var stream = File.Open("path\\to\\file.csv", FileMode.Append))
+            using (var stream = File.Open(DataTargetConfig.FilePath, FileMode.Append))
             using (var writer = new StreamWriter(stream))
             using (var csv = new CsvWriter(writer, config))
             {
-                csv.WriteRecords(records);
+                await csv.WriteRecordsAsync(records);
             }
-            throw new NotImplementedException();
         }
     }
 }
