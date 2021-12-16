@@ -18,7 +18,7 @@ namespace CrudeObservatory
 
             //Build out classes - might be at the Program.cs DI level
 
-            AcquisitionSet acq = new AcquisitionSet();
+            AcquisitionSet acq = ManualAcqSet.GetAcquisition();
 
 
 
