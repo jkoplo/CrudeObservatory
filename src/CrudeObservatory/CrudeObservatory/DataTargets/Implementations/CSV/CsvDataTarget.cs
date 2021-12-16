@@ -14,9 +14,12 @@ namespace CrudeObservatory.DataTargets.Implementations.CSV
 {
     internal class CsvDataTarget : IDataTarget
     {
+        private bool firstDataWrite;
+
         public CsvDataTarget(CsvDataTargetConfig dataTargetConfig)
         {
             DataTargetConfig = dataTargetConfig ?? throw new ArgumentNullException(nameof(dataTargetConfig));
+            firstDataWrite = true;
         }
 
         public CsvDataTargetConfig DataTargetConfig { get; }
@@ -44,9 +47,22 @@ namespace CrudeObservatory.DataTargets.Implementations.CSV
 
         public async Task WriteDataAsync(IEnumerable<DataValue> dataValues, CancellationToken stoppingToken)
         {
+            if (firstDataWrite)
+            {
+                var names = dataValues.Select(x => x.Name as object).ToList();
+                await WriteCsvRow(names, stoppingToken);
+                firstDataWrite = false;
+            }
+
+            var values = dataValues.Select(x => x.Value).ToList();
+            await WriteCsvRow(values, stoppingToken);
+        }
+
+        private async Task WriteCsvRow(List<object> values, CancellationToken stoppingToken)
+        {
             var csvRecord = new CsvRecord()
             {
-                DataValues = dataValues.Select(x => x.Value).ToList(),
+                DataValues = values,
             };
 
             var records = new List<CsvRecord>()
