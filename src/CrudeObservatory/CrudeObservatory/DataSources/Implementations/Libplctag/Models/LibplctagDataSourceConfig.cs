@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CrudeObservatory.DataSources.Implementations.Libplctag.Models
 {
-    public class DataSourceConfig : DataSourceConfigBase
+    public class LibplctagDataSourceConfig : DataSourceConfigBase
     {
         public string TagPath { get; set; }
     }
