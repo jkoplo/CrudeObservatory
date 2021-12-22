@@ -59,7 +59,9 @@ namespace CrudeObservatory
                     //Get data from source(s)
                     var dataValues = await Task.WhenAll(acq.DataSources.Select(x => x.ReadDataAsync(stoppingToken)));
 
-                    var combinedDataValues = intervalTask.Result.Concat(dataValues);
+                    var combinedDataValues = intervalTask.Result.ToList();
+
+                    combinedDataValues.AddRange((IEnumerable<DataValue>)dataValues);
 
                     //Write data to target(s)
                     await acq.DataTarget.WriteDataAsync(combinedDataValues, stoppingToken);

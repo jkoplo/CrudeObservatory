@@ -20,7 +20,7 @@ namespace CrudeObservatory.DataSources.Implementations.SineWave
 
         public Task InitializeAsync(CancellationToken stoppingToken) => Task.CompletedTask;
 
-        public Task<DataValue> ReadDataAsync(CancellationToken stoppingToken)
+        public Task<IEnumerable<DataValue>> ReadDataAsync(CancellationToken stoppingToken)
         {
             //I don't need the fractional cycle, but it makes debug easier and my head hurt less
             var totalCycles = (double)DateTimeOffset.Now.ToUnixTimeMilliseconds() / (double)(DataSourceConfig.PeriodSec * 1000);
@@ -28,7 +28,12 @@ namespace CrudeObservatory.DataSources.Implementations.SineWave
 
             var sineValue = Math.Sin(fractionalCycle * 360);
 
-            return Task.FromResult(new DataValue() { Name = DataSourceConfig.Alias, Value = sineValue });
+            var results = new List<DataValue>()
+            {
+                new DataValue() { Name = DataSourceConfig.Alias, Value = sineValue }
+            };
+
+            return Task.FromResult(results.AsEnumerable());
         }
 
         public Task ShutdownAsync(CancellationToken stoppingToken) => Task.CompletedTask;
