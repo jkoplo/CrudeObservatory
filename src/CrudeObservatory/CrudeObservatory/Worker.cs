@@ -61,7 +61,10 @@ namespace CrudeObservatory
 
                     var combinedDataValues = intervalTask.Result.ToList();
 
-                    combinedDataValues.AddRange((IEnumerable<DataValue>)dataValues);
+                    foreach (var item in dataValues)
+                    {
+                        combinedDataValues.AddRange(item);
+                    }
 
                     //Write data to target(s)
                     await acq.DataTarget.WriteDataAsync(combinedDataValues, stoppingToken);
