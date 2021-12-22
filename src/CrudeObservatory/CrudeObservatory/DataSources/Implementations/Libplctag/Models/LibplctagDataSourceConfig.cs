@@ -1,4 +1,5 @@
 ﻿using CrudeObservatory.DataSources.Abstractions.Models;
+using libplctag;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,12 @@ namespace CrudeObservatory.DataSources.Implementations.Libplctag.Models
 {
     public class LibplctagDataSourceConfig : DataSourceConfigBase
     {
-        public string TagPath { get; set; }
+        public string Gateway { get; set; }
+        public string Path { get; set; }
+        public Protocol Protocol { get; set; }
+        public PlcType PlcType { get; set; }
+        public float TimeoutSeconds { get; set; }
+
+        public List<string> Tags { get; set; }
     }
 }
