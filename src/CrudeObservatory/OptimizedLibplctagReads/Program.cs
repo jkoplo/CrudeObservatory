@@ -11,7 +11,7 @@ Console.WriteLine("Hello, World!");
 
 
 var allTags = new List<TagDint>();
-var length = 1000;
+var length = 2000;
 
 var stopwatch = new Stopwatch();
 
@@ -35,26 +35,23 @@ for (int i = 0; i < length; i++)
 }
 
 stopwatch.Stop();
-Console.WriteLine($"Tag instantiation = {stopwatch.ElapsedMilliseconds} msec");
+Console.WriteLine($"Tag Instantiation = {stopwatch.ElapsedMilliseconds} msec");
 
 stopwatch.Restart();
 await Task.WhenAll(allTags.Select(x => x.InitializeAsync()));
 stopwatch.Stop();
-Console.WriteLine($"Tag InitAsync = {stopwatch.ElapsedMilliseconds} msec");
+Console.WriteLine($"Tag InitWhenAllAsync = {stopwatch.ElapsedMilliseconds} msec");
 
 
 ReadExamples.ReadForEach(allTags);
+
 await ReadExamples.ReadForEachAsync(allTags);
 
-
-for (int i = 0; i < 5; i++)
-{
-    await ReadExamples.ReadWhenAllAsync(allTags);
-}
+await ReadExamples.ReadWhenAllAsync(allTags);
 
 ReadExamples.ReadParallelForEach(allTags);
 
-ReadExamples.ReadAsyncParallelForEach(allTags);
+//ReadExamples.ReadAsyncParallelForEach(allTags);
 
 await ReadExamples.ReadAsyncParallelForEachAsync(allTags);
 
