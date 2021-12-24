@@ -4,11 +4,11 @@ namespace CrudeObservatory
 {
     public class Worker : BackgroundService
     {
-        private readonly ILogger<Worker> _logger;
+        private readonly ILogger<Worker> logger;
 
         public Worker(ILogger<Worker> logger)
         {
-            _logger = logger;
+            this.logger = logger;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -53,6 +53,8 @@ namespace CrudeObservatory
                 var intervalTask = acq.Interval.WaitForIntervalAsync(stoppingToken);
                 Task.WaitAny(intervalTask, endTrigger);
 
+                logger.LogInformation("Interval trigger [{@interval}] fired", acqConfig.Interval);
+
                 //If the end hasn't been triggered and we haven't been cancelled, get data
                 if (!endTrigger.IsCompleted & !stoppingToken.IsCancellationRequested)
                 {
@@ -72,11 +74,12 @@ namespace CrudeObservatory
                 }
                 //Repeat @ Wait for interval OR end trigger
 
-                //_logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
             }
 
             //Not sure if needed - if cancellation we should wait for endtrigger to cancel
             await endTrigger;
+            logger.LogInformation("End trigger [{@EndTrigger}] fired", acqConfig.EndTrigger);
+
         }
     }
 }
