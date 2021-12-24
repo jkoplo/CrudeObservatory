@@ -1,4 +1,5 @@
 using CrudeObservatory.Acquisition.Models;
+using Microsoft.Extensions.Options;
 
 namespace CrudeObservatory
 {
@@ -6,24 +7,20 @@ namespace CrudeObservatory
     {
         private readonly ILogger<Worker> logger;
         private readonly IHostApplicationLifetime applicationLifetime;
+        private readonly AcquisitionConfig acquisitionConfig;
 
-        public Worker(ILogger<Worker> logger, IHostApplicationLifetime applicationLifetime)
+        public Worker(ILogger<Worker> logger, IHostApplicationLifetime applicationLifetime, AcquisitionConfig acquisitionConfig)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.applicationLifetime = applicationLifetime ?? throw new ArgumentNullException(nameof(applicationLifetime));
+            this.acquisitionConfig = acquisitionConfig ?? throw new ArgumentNullException(nameof(acquisitionConfig));
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            //Pull in config - might be at the Program.cs DI level
-            var acqConfig = ManualAcqSet.GetAcquisitionConfig();
-
             //Build out classes - might be at the Program.cs DI level
 
-            AcquisitionSet acq = ManualAcqSet.GetAcquisition();
-
-
-
+            AcquisitionSet acq = ManualAcqSet.GetAcquisition(acquisitionConfig);
 
             //Initiate connections? Could be DataSources (PLC) or DataTargets (DB) or Intervals(?)
             //Build a list of tasks to init so we can execute them in parallel
@@ -44,7 +41,7 @@ namespace CrudeObservatory
             await acq.StartTrigger.WaitForTriggerAsync(stoppingToken);
 
             //Write config to Data Target
-            await acq.DataTarget.WriteAcquisitionConfigAsync(acqConfig, stoppingToken);
+            await acq.DataTarget.WriteAcquisitionConfigAsync(acquisitionConfig, stoppingToken);
 
             //Acq started (or app cancelled)
             var endTrigger = acq.EndTrigger.WaitForTriggerAsync(stoppingToken);
@@ -55,7 +52,7 @@ namespace CrudeObservatory
                 var intervalTask = acq.Interval.WaitForIntervalAsync(stoppingToken);
                 Task.WaitAny(intervalTask, endTrigger);
 
-                logger.LogInformation("Interval trigger [{@interval}] fired", acqConfig.Interval);
+                logger.LogInformation("Interval trigger [{@interval}] fired", acquisitionConfig.Interval);
 
                 //If the end hasn't been triggered and we haven't been cancelled, get data
                 if (!endTrigger.IsCompleted & !stoppingToken.IsCancellationRequested)
@@ -80,7 +77,7 @@ namespace CrudeObservatory
 
             //Not sure if needed - if cancellation we should wait for endtrigger to cancel
             await endTrigger;
-            logger.LogInformation("End trigger [{@EndTrigger}] fired", acqConfig.EndTrigger);
+            logger.LogInformation("End trigger [{@EndTrigger}] fired", acquisitionConfig.EndTrigger);
             applicationLifetime.StopApplication();
 
         }

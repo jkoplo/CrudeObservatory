@@ -56,20 +56,19 @@ namespace CrudeObservatory
 
         }
 
-        internal static AcquisitionSet GetAcquisition()
+        internal static AcquisitionSet GetAcquisition(AcquisitionConfig acquisitionConfig)
         {
-            var config = ManualAcqSet.GetAcquisitionConfig();
 
             AcquisitionSet acq = new AcquisitionSet();
 
             acq.Name = "Manual Prototype Set";
             acq.StartTrigger = new AutoTrigger();
             acq.DataSources = new List<IDataSource>();
-            acq.DataSources.AddRange(config.DataSources.OfType<SineWaveDataSourceConfig>().Select(x => new SineWaveDataSource(x)).ToList<IDataSource>());
-            acq.DataSources.AddRange(config.DataSources.OfType<LibplctagDataSourceConfig>().Select(x => new LibPlcTagDataSource(x)).ToList<IDataSource>());
-            acq.Interval = new FixedInterval((FixedIntervalConfig)config.Interval);
-            acq.EndTrigger = new DelayTrigger((DelayTriggerConfig)config.EndTrigger);
-            acq.DataTarget = new CsvDataTarget((CsvDataTargetConfig)config.DataTarget);
+            acq.DataSources.AddRange(acquisitionConfig.DataSources.OfType<SineWaveDataSourceConfig>().Select(x => new SineWaveDataSource(x)).ToList<IDataSource>());
+            acq.DataSources.AddRange(acquisitionConfig.DataSources.OfType<LibplctagDataSourceConfig>().Select(x => new LibPlcTagDataSource(x)).ToList<IDataSource>());
+            acq.Interval = new FixedInterval((FixedIntervalConfig)acquisitionConfig.Interval);
+            acq.EndTrigger = new DelayTrigger((DelayTriggerConfig)acquisitionConfig.EndTrigger);
+            acq.DataTarget = new CsvDataTarget((CsvDataTargetConfig)acquisitionConfig.DataTarget);
 
             return acq;
 
