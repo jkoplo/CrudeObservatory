@@ -5,10 +5,12 @@ namespace CrudeObservatory
     public class Worker : BackgroundService
     {
         private readonly ILogger<Worker> logger;
+        private readonly IHostApplicationLifetime applicationLifetime;
 
-        public Worker(ILogger<Worker> logger)
+        public Worker(ILogger<Worker> logger, IHostApplicationLifetime applicationLifetime)
         {
-            this.logger = logger;
+            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            this.applicationLifetime = applicationLifetime ?? throw new ArgumentNullException(nameof(applicationLifetime));
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -79,6 +81,7 @@ namespace CrudeObservatory
             //Not sure if needed - if cancellation we should wait for endtrigger to cancel
             await endTrigger;
             logger.LogInformation("End trigger [{@EndTrigger}] fired", acqConfig.EndTrigger);
+            applicationLifetime.StopApplication();
 
         }
     }
