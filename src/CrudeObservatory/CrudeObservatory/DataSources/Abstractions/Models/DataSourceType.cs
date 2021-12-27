@@ -8,6 +8,7 @@ namespace CrudeObservatory.DataSources.Abstractions.Models
 {
     public enum DataSourceType
     {
-        libplctag
+        libplctag,
+        SineWave
     }
 }

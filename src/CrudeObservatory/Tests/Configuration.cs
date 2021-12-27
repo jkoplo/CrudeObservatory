@@ -1,3 +1,7 @@
+using CrudeObservatory.DataSources.Abstractions.Models;
+using CrudeObservatory.DataSources.Implementations.Libplctag.Models;
+using CrudeObservatory.DataSources.Implementations.SineWave.Models;
+using JsonSubTypes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
@@ -20,15 +24,26 @@ namespace Tests
 
 
             //Act
-            JsonSerializer serializer = new JsonSerializer();
-            serializer.Converters.Add(new JavaScriptDateTimeConverter());
-            serializer.NullValueHandling = NullValueHandling.Ignore;
+            //JsonSerializer serializer = new JsonSerializer();
+            //serializer.Converters.Add(new JavaScriptDateTimeConverter());
+            //serializer.NullValueHandling = NullValueHandling.Ignore;
 
-            using (StreamWriter sw = new StreamWriter(jsonPath))
-            using (JsonWriter writer = new JsonTextWriter(sw))
-            {
-                serializer.Serialize(writer, config);
-            }
+            var settings = new JsonSerializerSettings( );
+            settings.Converters.Add(JsonSubtypesConverterBuilder
+                .Of(typeof(DataSourceConfigBase), "ObjectType") // type property is only defined here
+                .RegisterSubtype(typeof(SineWaveDataSourceConfig), DataSourceType.SineWave)
+                .RegisterSubtype(typeof(LibplctagDataSourceConfig), DataSourceType.libplctag)
+                .SerializeDiscriminatorProperty() // ask to serialize the type property
+                .Build());
+            settings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
+
+            //JsonSerializerSettings settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto };
+
+            string serialized = JsonConvert.SerializeObject(config, settings);
+            
+            //List<Base> deserializedList = JsonConvert.DeserializeObject<List<Base>>(Serialized, settings);
+
+            File.WriteAllText(jsonPath, serialized);
 
             //Assert
             //Just check that the serialized file actually contains the guid (a serialization happened)
