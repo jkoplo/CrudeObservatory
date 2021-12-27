@@ -8,7 +8,5 @@ namespace CrudeObservatory.Triggers.Abstractions.Models
 {
     public class TriggerConfigBase
     {
-        public bool Enabled { get; set; } = true;
-
     }
 }
