@@ -3,6 +3,7 @@ using CrudeObservatory.Acquisition.Services;
 using CrudeObservatory.DataSources.Abstractions.Models;
 using CrudeObservatory.DataSources.Implementations.Libplctag.Models;
 using CrudeObservatory.DataSources.Implementations.SineWave.Models;
+using FluentAssertions;
 using JsonSubTypes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -16,23 +17,23 @@ namespace Tests
     {
 
         [Fact]
-        public void SerializeConfigToJson_TestData_ValidFile()
+        public void SerializeConfigToJson_RandomData_RoundTripEqual()
         {
             //Arrange
             var config = ManualAcqSet.GetAcquisitionConfig();
             var nameGuid = Guid.NewGuid().ToString();
             config.Name = nameGuid;
-            var jsonPath = Path.Combine(Environment.CurrentDirectory, "TestConfig.json");
 
+            var jsonPath = Path.Combine(Environment.CurrentDirectory, "TestConfig.json");
 
             //Act
             var serialized = ParseAcquisitionConfig.SerializeToJson(config);
             File.WriteAllText(jsonPath, serialized);
 
+            var configRoundTrip = ParseAcquisitionConfig.DeserializeFromJson(serialized);
+
             //Assert
-            //Just check that the serialized file actually contains the guid (a serialization happened)
-            var jsonOutput = File.ReadAllText(jsonPath);
-            Assert.Contains(nameGuid, jsonOutput);
+            configRoundTrip.Should().BeEquivalentTo(config);
         }
 
         [Fact]

@@ -23,6 +23,26 @@ namespace CrudeObservatory.Acquisition.Services
     {
         internal static string SerializeToJson(AcquisitionConfig config)
         {
+            JsonSerializerSettings settings = ConfigFileSerializerSettings();
+
+            string serialized = JsonConvert.SerializeObject(config, Formatting.Indented, settings);
+
+            return serialized;
+        }
+
+        internal static AcquisitionConfig DeserializeFromJson(string jsonConfigString)
+        {
+            JsonSerializerSettings settings = ConfigFileSerializerSettings();
+
+            var config = JsonConvert.DeserializeObject<AcquisitionConfig>(jsonConfigString, settings);
+
+            return config;
+        }
+
+
+
+        private static JsonSerializerSettings ConfigFileSerializerSettings()
+        {
             var settings = new JsonSerializerSettings();
 
             //Triggers
@@ -57,10 +77,7 @@ namespace CrudeObservatory.Acquisition.Services
                 .Build());
 
             settings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
-
-            string serialized = JsonConvert.SerializeObject(config, settings);
-
-            return serialized;
+            return settings;
         }
     }
 }

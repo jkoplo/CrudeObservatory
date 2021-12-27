@@ -1,0 +1,51 @@
+﻿{
+	"Name": "Default Test Config",
+	"StartTrigger": {
+		"Type": "Auto"
+	},
+	"EndTrigger": {
+		"DelaySeconds": 10.0,
+		"Type": "Delay"
+	},
+	"Interval": {
+		"PeriodSec": 0.5,
+		"Type": "Fixed"
+	},
+	"DataSources": [
+		{
+			"PeriodSec": 5,
+			"Alias": "Sine1",
+			"Type": "SineWave"
+		},
+		{
+			"PeriodSec": 1,
+			"Alias": "Sine2",
+			"Type": "SineWave"
+		},
+		{
+			"Gateway": "10.10.10.17",
+			"Path": "1,0",
+			"Protocol": "ab_eip",
+			"PlcType": "ControlLogix",
+			"TimeoutSeconds": 5.0,
+			"Tags": [
+				"TestDINT0000",
+				"TestDINT0001",
+				"TestDINT0002",
+				"TestDINT0003",
+				"TestDINT0004",
+				"TestDINT0005",
+				"TestDINT0006",
+				"TestDINT0007",
+				"TestDINT0008",
+				"TestDINT0009"
+			],
+			"Alias": null,
+			"Type": "libplctag"
+		}
+	],
+	"DataTarget": {
+		"FilePath": "C:\\Users\\jkopl\\Code\\CrudeObservatory\\src\\CrudeObservatory\\Tests\\bin\\Debug\\net6.0\\DataTarget.csv",
+		"Type": "CSV"
+	}
+}
