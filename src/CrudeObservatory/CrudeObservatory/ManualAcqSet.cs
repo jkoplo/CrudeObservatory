@@ -31,7 +31,7 @@ namespace CrudeObservatory
 
 
             acq.Name = "Manual Prototype Set";
-            acq.StartTrigger = new TriggerConfigBase() { Type = TriggerType.Auto };
+            acq.StartTrigger = new TriggerConfigBase();
             acq.DataSources = new List<DataSourceConfigBase>()
             {
                 new SineWaveDataSourceConfig(){PeriodSec=5, Alias="Sine1" },
@@ -48,8 +48,8 @@ namespace CrudeObservatory
                     Tags = Enumerable.Range(0, 10).Select(x => $"TestDINT{x.ToString("0000")}").ToList(),
                 },
             };
-            acq.Interval = new FixedIntervalConfig() { PeriodSec = .5, Type = IntervalType.Fixed };
-            acq.EndTrigger = new DelayTriggerConfig() { Type = TriggerType.Delay, DelaySeconds = 10, Enabled = true };
+            acq.Interval = new FixedIntervalConfig() { PeriodSec = .5 };
+            acq.EndTrigger = new DelayTriggerConfig() { DelaySeconds = 10, Enabled = true };
             acq.DataTarget = new CsvDataTargetConfig() { FilePath = Path.Combine(System.Environment.CurrentDirectory, "DataTarget.csv") };
 
             return acq;

@@ -8,6 +8,5 @@ namespace CrudeObservatory.Intervals.Abstractions.Models
 {
     public class IntervalConfigBase
     {
-        public IntervalType Type { get; set; }
     }
 }

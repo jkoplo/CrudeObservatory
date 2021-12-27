@@ -1,3 +1,5 @@
+using CrudeObservatory;
+using CrudeObservatory.Acquisition.Services;
 using CrudeObservatory.DataSources.Abstractions.Models;
 using CrudeObservatory.DataSources.Implementations.Libplctag.Models;
 using CrudeObservatory.DataSources.Implementations.SineWave.Models;
@@ -24,25 +26,7 @@ namespace Tests
 
 
             //Act
-            //JsonSerializer serializer = new JsonSerializer();
-            //serializer.Converters.Add(new JavaScriptDateTimeConverter());
-            //serializer.NullValueHandling = NullValueHandling.Ignore;
-
-            var settings = new JsonSerializerSettings( );
-            settings.Converters.Add(JsonSubtypesConverterBuilder
-                .Of(typeof(DataSourceConfigBase), "ObjectType") // type property is only defined here
-                .RegisterSubtype(typeof(SineWaveDataSourceConfig), DataSourceType.SineWave)
-                .RegisterSubtype(typeof(LibplctagDataSourceConfig), DataSourceType.libplctag)
-                .SerializeDiscriminatorProperty() // ask to serialize the type property
-                .Build());
-            settings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
-
-            //JsonSerializerSettings settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto };
-
-            string serialized = JsonConvert.SerializeObject(config, settings);
-            
-            //List<Base> deserializedList = JsonConvert.DeserializeObject<List<Base>>(Serialized, settings);
-
+            var serialized = ParseAcquisitionConfig.SerializeToJson(config);
             File.WriteAllText(jsonPath, serialized);
 
             //Assert

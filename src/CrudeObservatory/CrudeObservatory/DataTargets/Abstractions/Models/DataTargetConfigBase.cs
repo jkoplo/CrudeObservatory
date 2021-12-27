@@ -8,6 +8,5 @@ namespace CrudeObservatory.DataTargets.Abstractions.Models
 {
     public class DataTargetConfigBase
     {
-        public DataTargetType Type { get; set; }
     }
 }
