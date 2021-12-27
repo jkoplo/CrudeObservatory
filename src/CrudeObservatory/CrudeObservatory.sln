@@ -5,7 +5,9 @@ VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrudeObservatory", "CrudeObservatory\CrudeObservatory.csproj", "{E27C6201-061C-42F4-8263-2FE702A5FADF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OptimizedLibplctagReads", "OptimizedLibplctagReads\OptimizedLibplctagReads.csproj", "{D952305F-17C9-4F5A-9917-880A8926C372}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OptimizedLibplctagReads", "OptimizedLibplctagReads\OptimizedLibplctagReads.csproj", "{D952305F-17C9-4F5A-9917-880A8926C372}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{0D62C088-E927-4BDE-B763-13D6581BA3D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{D952305F-17C9-4F5A-9917-880A8926C372}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D952305F-17C9-4F5A-9917-880A8926C372}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D952305F-17C9-4F5A-9917-880A8926C372}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D62C088-E927-4BDE-B763-13D6581BA3D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D62C088-E927-4BDE-B763-13D6581BA3D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D62C088-E927-4BDE-B763-13D6581BA3D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D62C088-E927-4BDE-B763-13D6581BA3D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
