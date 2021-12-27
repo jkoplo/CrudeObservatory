@@ -13,7 +13,7 @@ namespace CrudeObservatory.DataSources.Implementations.Libplctag
 {
     internal class LibPlcTagDataSource : IDataSource
     {
-        private List<TagDint> tagList;
+        private List<ITag> tagList;
 
         public LibPlcTagDataSource(LibplctagDataSourceConfig dataSourceConfig)
         {
@@ -24,7 +24,7 @@ namespace CrudeObservatory.DataSources.Implementations.Libplctag
 
         public async Task InitializeAsync(CancellationToken stoppingToken)
         {
-            tagList = new List<TagDint>();
+            tagList = new List<ITag>();
 
             foreach (var item in DataSourceConfig.Tags)
             {
