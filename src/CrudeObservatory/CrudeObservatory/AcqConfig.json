@@ -5,7 +5,7 @@
 	},
 	"EndTrigger": {
 		"Type": "Delay",
-		"DelaySeconds": 10.0
+		"DelaySeconds": 120.0
 	},
 	"Interval": {
 		"Type": "Fixed",
@@ -45,6 +45,6 @@
 	],
 	"DataTarget": {
 		"Type": "CSV",
-		"FilePath": "C:\\Users\\jkopl\\Code\\CrudeObservatory\\src\\CrudeObservatory\\Tests\\bin\\Debug\\net6.0\\DataTarget.csv"
+		"FilePath": "DataTarget.csv"
 	}
 }
