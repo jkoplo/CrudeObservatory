@@ -37,12 +37,15 @@ namespace Tests
         }
 
         [Fact]
-        public void ParseConfig_DynamicTypes_SpecificClassLoaded()
+        public void CreateAcquisitionSet_DynamicTypes_ProperConcreteInstantiated()
         {
             //Arrange
-
+            var config = ManualAcqSet.GetAcquisitionConfig();
 
             //Act
+            var factory = new AcquisitionSetFactory();
+            var acqSet = factory.GetAcquisitionSet(config);
+
             //Assert
             Assert.True(true);
         }

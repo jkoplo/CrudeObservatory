@@ -14,11 +14,15 @@ using System.Threading.Tasks;
 
 namespace CrudeObservatory.Triggers.Implementations
 {
-    internal static class TriggerMap
+    internal static class TriggersMap
     {
         internal static Dictionary<TriggerType, Type> ConfigMap { get; }
 
-        static TriggerMap()
+        private static Dictionary<Type, TriggerConstructor> constructorMap;
+
+        private delegate ITrigger TriggerConstructor(ITriggerConfig config);
+
+        static TriggersMap()
         {
             ConfigMap = new Dictionary<TriggerType, Type>()
             {
@@ -26,6 +30,15 @@ namespace CrudeObservatory.Triggers.Implementations
                 { TriggerType.Manual, typeof(ManualTriggerConfig) },
                 { TriggerType.Delay, typeof(DelayTriggerConfig) },
             };
+
+            constructorMap = new Dictionary<Type, TriggerConstructor>()
+            {
+                { typeof(AutoTriggerConfig), (x) =>  new AutoTrigger()},
+                { typeof(ManualTriggerConfig), (x) =>  new ManualTrigger()},
+                { typeof(DelayTriggerConfig), (x) =>  new DelayTrigger((DelayTriggerConfig)x)},
+            };
         }
+
+        static internal ITrigger GetTrigger(ITriggerConfig config) => constructorMap[config.GetType()].Invoke(config);
     }
 }

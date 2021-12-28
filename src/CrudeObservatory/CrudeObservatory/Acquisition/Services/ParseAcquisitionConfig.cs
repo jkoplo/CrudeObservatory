@@ -50,7 +50,7 @@ namespace CrudeObservatory.Acquisition.Services
 
             //Triggers
             settings.Converters.Add(
-                MapTypes(typeof(ITriggerConfig), TriggerMap.ConfigMap.ToDictionary(x => x.Key as object, x => x.Value))
+                MapTypes(typeof(ITriggerConfig), TriggersMap.ConfigMap.ToDictionary(x => x.Key as object, x => x.Value))
             );
 
             //Intervals
