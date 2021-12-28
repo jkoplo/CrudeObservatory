@@ -4,25 +4,26 @@
 		"Type": "Auto"
 	},
 	"EndTrigger": {
-		"DelaySeconds": 10.0,
-		"Type": "Delay"
+		"Type": "Delay",
+		"DelaySeconds": 10.0
 	},
 	"Interval": {
-		"PeriodSec": 0.5,
-		"Type": "Fixed"
+		"Type": "Fixed",
+		"PeriodSec": 0.5
 	},
 	"DataSources": [
 		{
-			"PeriodSec": 5,
-			"Alias": "Sine1",
-			"Type": "SineWave"
+			"Type": "SineWave",
+			"PeriodSec": 10,
+			"Alias": "Sine1"
 		},
 		{
+			"Type": "SineWave",
 			"PeriodSec": 1,
-			"Alias": "Sine2",
-			"Type": "SineWave"
+			"Alias": "Sine2"
 		},
 		{
+			"Type": "libplctag",
 			"Gateway": "10.10.10.17",
 			"Path": "1,0",
 			"Protocol": "ab_eip",
@@ -39,13 +40,11 @@
 				"TestDINT0007",
 				"TestDINT0008",
 				"TestDINT0009"
-			],
-			"Alias": null,
-			"Type": "libplctag"
+			]
 		}
 	],
 	"DataTarget": {
-		"FilePath": "C:\\Users\\jkopl\\Code\\CrudeObservatory\\src\\CrudeObservatory\\Tests\\bin\\Debug\\net6.0\\DataTarget.csv",
-		"Type": "CSV"
+		"Type": "CSV",
+		"FilePath": "C:\\Users\\jkopl\\Code\\CrudeObservatory\\src\\CrudeObservatory\\Tests\\bin\\Debug\\net6.0\\DataTarget.csv"
 	}
 }
