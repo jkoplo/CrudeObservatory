@@ -18,18 +18,18 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
-      run: dotnet restore './src/CrudeObservatory/'
+      run: dotnet restore ./src/CrudeObservatory/
     - name: Build
-      run: dotnet build './src/CrudeObservatory/' --no-restore
+      run: dotnet build ./src/CrudeObservatory/ --no-restore
     - name: Test
-      run: dotnet test './src/CrudeObservatory/' --no-build --verbosity normal
+      run: dotnet test ./src/CrudeObservatory/ --no-build --verbosity normal
 
      #Publish CLI
       # - name: Define MSBuild properties
       #   run: echo "MSBUILD_PROPS=-p:PublishSingleFile=true -p:PublishTrimmed=true -p:TrimMode=link -p:DebuggerSupport=false -p:EnableUnsafeBinaryFormatterSerialization=false -p:EnableUnsafeUTF7Encoding=false -p:InvariantGlobalization=true" >> $GITHUB_ENV
       - name: Publish CLI framework-dependent
         run: |
-          dotnet publish './src/CrudeObservatory/CrudeObservatory/' -c Release
+          dotnet publish ./src/CrudeObservatory/CrudeObservatory/ -c Release
 
     #Upload CLI
       - name: Upload CLI artifacts for Windows framework-dependent
