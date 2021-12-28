@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CrudeObservatory.Triggers.Abstractions.Models
+namespace CrudeObservatory.DataTargets.Abstractions.Interfaces
 {
-    public class TriggerConfigBase
+    public interface IDataTargetConfig
     {
     }
 }

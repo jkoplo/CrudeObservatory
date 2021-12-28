@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CrudeObservatory.Triggers.Implementations.Manual.Models
+namespace CrudeObservatory.Triggers.Implementations.Auto.Models
 {
-    public class ManualTriggerConfig : ITriggerConfig
+    internal class AutoTriggerConfig : ITriggerConfig
     {
     }
 }

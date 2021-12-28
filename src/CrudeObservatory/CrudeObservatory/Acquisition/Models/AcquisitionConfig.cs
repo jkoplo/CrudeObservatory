@@ -1,7 +1,7 @@
-﻿using CrudeObservatory.DataSources.Abstractions.Models;
-using CrudeObservatory.DataTargets.Abstractions.Models;
-using CrudeObservatory.Intervals.Abstractions.Models;
-using CrudeObservatory.Triggers.Abstractions.Models;
+﻿using CrudeObservatory.DataSources.Abstractions.Interfaces;
+using CrudeObservatory.DataTargets.Abstractions.Interfaces;
+using CrudeObservatory.Intervals.Abstractions.Interfaces;
+using CrudeObservatory.Triggers.Abstractions.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,13 +13,13 @@ namespace CrudeObservatory.Acquisition.Models
     public class AcquisitionConfig
     {
         public string Name { get; set; }
-        public TriggerConfigBase StartTrigger { get; set; }
-        public TriggerConfigBase EndTrigger { get; set; }
+        public ITriggerConfig StartTrigger { get; set; }
+        public ITriggerConfig EndTrigger { get; set; }
 
 
-        public IntervalConfigBase Interval { get; set; }
-        public List<DataSourceConfigBase> DataSources { get; set; }
-        public DataTargetConfigBase DataTarget { get; set; }
+        public IIntervalConfig Interval { get; set; }
+        public List<IDataSourceConfig> DataSources { get; set; }
+        public IDataTargetConfig DataTarget { get; set; }
     }
 
 

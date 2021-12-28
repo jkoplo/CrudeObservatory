@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CrudeObservatory.DataTargets.Abstractions.Models
+namespace CrudeObservatory.Intervals.Abstractions.Interfaces
 {
-    public class DataTargetConfigBase
+    public interface IIntervalConfig
     {
     }
 }

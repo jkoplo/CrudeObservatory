@@ -1,4 +1,6 @@
-﻿using CrudeObservatory.Triggers.Abstractions.Models;
+﻿using CrudeObservatory.Triggers.Abstractions.Interfaces;
+using CrudeObservatory.Triggers.Abstractions.Models;
+using CrudeObservatory.Triggers.Implementations.Auto.Models;
 using CrudeObservatory.Triggers.Implementations.Automatic;
 using CrudeObservatory.Triggers.Implementations.Delay;
 using CrudeObservatory.Triggers.Implementations.Delay.Models;
@@ -20,7 +22,7 @@ namespace CrudeObservatory.Triggers.Implementations
         {
             ConfigMap = new Dictionary<TriggerType, Type>()
             {
-                { TriggerType.Auto, typeof(TriggerConfigBase) },
+                { TriggerType.Auto, typeof(AutoTriggerConfig) },
                 { TriggerType.Manual, typeof(ManualTriggerConfig) },
                 { TriggerType.Delay, typeof(DelayTriggerConfig) },
             };

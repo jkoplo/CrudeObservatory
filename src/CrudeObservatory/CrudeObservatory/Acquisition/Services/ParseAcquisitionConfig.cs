@@ -1,14 +1,14 @@
 ﻿using CrudeObservatory.Acquisition.Models;
-using CrudeObservatory.DataSources.Abstractions.Models;
+using CrudeObservatory.DataSources.Abstractions.Interfaces;
 using CrudeObservatory.DataSources.Implementations;
 using CrudeObservatory.DataSources.Implementations.Libplctag.Models;
 using CrudeObservatory.DataSources.Implementations.SineWave.Models;
-using CrudeObservatory.DataTargets.Abstractions.Models;
+using CrudeObservatory.DataTargets.Abstractions.Interfaces;
 using CrudeObservatory.DataTargets.Implementations.CSV.Models;
-using CrudeObservatory.Intervals.Abstractions.Models;
+using CrudeObservatory.Intervals.Abstractions.Interfaces;
 using CrudeObservatory.Intervals.Implementations;
 using CrudeObservatory.Intervals.Implementations.Fixed.Models;
-using CrudeObservatory.Triggers.Abstractions.Models;
+using CrudeObservatory.Triggers.Abstractions.Interfaces;
 using CrudeObservatory.Triggers.Implementations;
 using CrudeObservatory.Triggers.Implementations.Delay.Models;
 using CrudeObservatory.Triggers.Implementations.Manual.Models;
@@ -50,29 +50,29 @@ namespace CrudeObservatory.Acquisition.Services
 
             //Triggers
             settings.Converters.Add(
-                MapTypes(settings, typeof(TriggerConfigBase), TriggerMap.ConfigMap.ToDictionary(x => x.Key as object, x => x.Value))
+                MapTypes(typeof(ITriggerConfig), TriggerMap.ConfigMap.ToDictionary(x => x.Key as object, x => x.Value))
             );
 
             //Intervals
             settings.Converters.Add(
-                MapTypes(settings, typeof(IntervalConfigBase), IntervalsMap.ConfigMap.ToDictionary(x => x.Key as object, x => x.Value))
+                MapTypes(typeof(IIntervalConfig), IntervalsMap.ConfigMap.ToDictionary(x => x.Key as object, x => x.Value))
             );
 
             //Data Sources
             settings.Converters.Add(
-                MapTypes(settings, typeof(DataSourceConfigBase), DataSourcesMap.ConfigMap.ToDictionary(x => x.Key as object, x => x.Value))
+                MapTypes(typeof(IDataSourceConfig), DataSourcesMap.ConfigMap.ToDictionary(x => x.Key as object, x => x.Value))
             );
 
             //Data Targets
             settings.Converters.Add(
-                MapTypes(settings, typeof(DataTargetConfigBase), DataTargetsMap.ConfigMap.ToDictionary(x => x.Key as object, x => x.Value))
+                MapTypes(typeof(IDataTargetConfig), DataTargetsMap.ConfigMap.ToDictionary(x => x.Key as object, x => x.Value))
             );
 
             settings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
             return settings;
         }
 
-        private static JsonConverter MapTypes(JsonSerializerSettings settings, Type baseType, Dictionary<object, Type> map)
+        private static JsonConverter MapTypes(Type baseType, Dictionary<object, Type> map)
         {
             var triggerConverterBuilder = JsonSubtypesConverterBuilder
                 .Of(baseType, "Type"); // type property is only defined here
@@ -81,7 +81,6 @@ namespace CrudeObservatory.Acquisition.Services
             {
                 triggerConverterBuilder.RegisterSubtype(item.Value, item.Key);
             }
-
 
             return triggerConverterBuilder
                 .SerializeDiscriminatorProperty() // ask to serialize the type property

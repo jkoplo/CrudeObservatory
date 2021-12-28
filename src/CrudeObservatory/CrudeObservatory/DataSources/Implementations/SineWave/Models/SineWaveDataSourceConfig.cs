@@ -1,4 +1,4 @@
-﻿using CrudeObservatory.DataSources.Abstractions.Models;
+﻿using CrudeObservatory.DataSources.Abstractions.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace CrudeObservatory.DataSources.Implementations.SineWave.Models
 {
-    internal class SineWaveDataSourceConfig : DataSourceConfigBase
+    internal class SineWaveDataSourceConfig : IDataSourceConfig
     {
         public int PeriodSec { get; set; }
+        public string Alias { get; set; }
     }
 }

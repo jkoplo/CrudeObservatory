@@ -1,4 +1,4 @@
-﻿using CrudeObservatory.Triggers.Abstractions.Models;
+﻿using CrudeObservatory.Triggers.Abstractions.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CrudeObservatory.Triggers.Implementations.Delay.Models
 {
-    internal class DelayTriggerConfig : TriggerConfigBase
+    internal class DelayTriggerConfig : ITriggerConfig
     {
         public double DelaySeconds { get; set; }
     }
