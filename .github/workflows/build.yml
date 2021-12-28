@@ -8,8 +8,15 @@ on:
 
 jobs:
   build:
-
-    runs-on: windows-latest
+    name: Build
+    strategy:
+      matrix:
+        os: [ubuntu-20.04, windows-latest]
+      fail-fast: false
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
 
     steps:
     - uses: actions/checkout@v2
@@ -32,7 +39,15 @@ jobs:
         dotnet publish './src/CrudeObservatory/CrudeObservatory/' -c Release
 
     #Upload CLI
+    - name: Upload CLI artifacts for Linux framework-dependent
+      if: matrix.os == 'ubuntu-20.04'
+      uses: actions/upload-artifact@v2
+      with:
+        name: crudeobservatory-${{ github.sha }}-linux
+        path: src/CrudeObservatory/CrudeObservatory/bin/Release/net6.0/publish/
+
     - name: Upload CLI artifacts for Windows framework-dependent
+      if: matrix.os == 'windows-latest'
       uses: actions/upload-artifact@v2
       with:
         name: crudeobservatory-${{ github.sha }}-windows
