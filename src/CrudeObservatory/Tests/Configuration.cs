@@ -23,14 +23,15 @@ namespace Tests
             var config = ManualAcqSet.GetAcquisitionConfig();
             var nameGuid = Guid.NewGuid().ToString();
             config.Name = nameGuid;
+            var parseConfig = new ParseAcquisitionConfig();
 
             var jsonPath = Path.Combine(Environment.CurrentDirectory, "TestConfig.json");
 
             //Act
-            var serialized = ParseAcquisitionConfig.SerializeToJson(config);
+            var serialized = parseConfig.SerializeToJson(config);
             File.WriteAllText(jsonPath, serialized);
 
-            var configRoundTrip = ParseAcquisitionConfig.DeserializeFromJson(serialized);
+            var configRoundTrip = parseConfig.DeserializeFromJson(serialized);
 
             //Assert
             configRoundTrip.Should().BeEquivalentTo(config);

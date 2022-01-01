@@ -1,30 +1,19 @@
 ﻿using CrudeObservatory.Acquisition.Models;
 using CrudeObservatory.DataSources.Abstractions.Interfaces;
 using CrudeObservatory.DataSources.Implementations;
-using CrudeObservatory.DataSources.Implementations.Libplctag.Models;
-using CrudeObservatory.DataSources.Implementations.SineWave.Models;
 using CrudeObservatory.DataTargets.Abstractions.Interfaces;
-using CrudeObservatory.DataTargets.Implementations.CSV.Models;
 using CrudeObservatory.Intervals.Abstractions.Interfaces;
 using CrudeObservatory.Intervals.Implementations;
-using CrudeObservatory.Intervals.Implementations.Fixed.Models;
 using CrudeObservatory.Triggers.Abstractions.Interfaces;
 using CrudeObservatory.Triggers.Implementations;
-using CrudeObservatory.Triggers.Implementations.Delay.Models;
-using CrudeObservatory.Triggers.Implementations.Manual.Models;
 using JsonSubTypes;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CrudeObservatory.Acquisition.Services
 {
-    internal static class ParseAcquisitionConfig
+    internal class ParseAcquisitionConfig
     {
-        internal static string SerializeToJson(AcquisitionConfig config)
+        internal string SerializeToJson(AcquisitionConfig config)
         {
             JsonSerializerSettings settings = ConfigFileSerializerSettings();
 
@@ -33,7 +22,7 @@ namespace CrudeObservatory.Acquisition.Services
             return serialized;
         }
 
-        internal static AcquisitionConfig DeserializeFromJson(string jsonConfigString)
+        internal AcquisitionConfig DeserializeFromJson(string jsonConfigString)
         {
             JsonSerializerSettings settings = ConfigFileSerializerSettings();
 
@@ -44,7 +33,7 @@ namespace CrudeObservatory.Acquisition.Services
 
 
 
-        private static JsonSerializerSettings ConfigFileSerializerSettings()
+        private JsonSerializerSettings ConfigFileSerializerSettings()
         {
             var settings = new JsonSerializerSettings();
 
@@ -72,7 +61,7 @@ namespace CrudeObservatory.Acquisition.Services
             return settings;
         }
 
-        private static JsonConverter MapTypes(Type baseType, Dictionary<object, Type> map)
+        private JsonConverter MapTypes(Type baseType, Dictionary<object, Type> map)
         {
             var triggerConverterBuilder = JsonSubtypesConverterBuilder
                 .Of(baseType, "Type"); // type property is only defined here
