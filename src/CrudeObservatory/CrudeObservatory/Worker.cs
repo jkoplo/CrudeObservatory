@@ -3,13 +3,13 @@ using Microsoft.Extensions.Options;
 
 namespace CrudeObservatory
 {
-    public class Worker : BackgroundService
+    public class AcquisitionWorker : BackgroundService
     {
-        private readonly ILogger<Worker> logger;
+        private readonly ILogger<AcquisitionWorker> logger;
         private readonly IHostApplicationLifetime applicationLifetime;
         private readonly AcquisitionConfig acquisitionConfig;
 
-        public Worker(ILogger<Worker> logger, IHostApplicationLifetime applicationLifetime, AcquisitionConfig acquisitionConfig)
+        public AcquisitionWorker(ILogger<AcquisitionWorker> logger, IHostApplicationLifetime applicationLifetime, AcquisitionConfig acquisitionConfig)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.applicationLifetime = applicationLifetime ?? throw new ArgumentNullException(nameof(applicationLifetime));

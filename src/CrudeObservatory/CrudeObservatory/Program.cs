@@ -25,8 +25,8 @@ try
         services.AddSingleton<ParseAcquisitionConfig>();
 
         //We do this b/c in future we may want multiplem workers running different acq configs
-        services.AddHostedService<Worker>(x => 
-            new Worker(x.GetRequiredService<ILogger<Worker>>(), 
+        services.AddHostedService<AcquisitionWorker>(x => 
+            new AcquisitionWorker(x.GetRequiredService<ILogger<AcquisitionWorker>>(), 
                         x.GetRequiredService<IHostApplicationLifetime>(),  
                         x.GetRequiredService<ParseAcquisitionConfig>().DeserializeFromJson(jsonConfig)));
     })
