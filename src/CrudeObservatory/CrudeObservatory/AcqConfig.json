@@ -1,50 +1,80 @@
 ﻿{
-	"Name": "Default Test Config",
-	"StartTrigger": {
-		"Type": "Auto"
-	},
-	"EndTrigger": {
-		"Type": "Delay",
-		"DelaySeconds": 120.0
-	},
-	"Interval": {
-		"Type": "Fixed",
-		"PeriodSec": 0.5
-	},
-	"DataSources": [
-		{
-			"Type": "SineWave",
-			"PeriodSec": 10,
-			"Alias": "Sine1"
-		},
-		{
-			"Type": "SineWave",
-			"PeriodSec": 1,
-			"Alias": "Sine2"
-		},
-		{
-			"Type": "libplctag",
-			"Gateway": "10.10.10.17",
-			"Path": "1,0",
-			"Protocol": "ab_eip",
-			"PlcType": "ControlLogix",
-			"TimeoutSeconds": 5.0,
-			"Tags": [
-				"TestDINT0000",
-				"TestDINT0001",
-				"TestDINT0002",
-				"TestDINT0003",
-				"TestDINT0004",
-				"TestDINT0005",
-				"TestDINT0006",
-				"TestDINT0007",
-				"TestDINT0008",
-				"TestDINT0009"
-			]
-		}
-	],
-	"DataTarget": {
-		"Type": "CSV",
-		"FilePath": "DataTarget.csv"
-	}
+  "Name": "Default Test Config",
+  "StartTrigger": {
+    "Type": "Auto"
+  },
+  "EndTrigger": {
+    "Type": "Delay",
+    "DelaySeconds": 120.0
+  },
+  "Interval": {
+    "Type": "Fixed",
+    "PeriodSec": 0.5
+  },
+  "DataSources": [
+    {
+      "Type": "SineWave",
+      "PeriodSec": 10,
+      "Alias": "Sine1"
+    },
+    {
+      "Type": "SineWave",
+      "PeriodSec": 1,
+      "Alias": "Sine2"
+    },
+    {
+      "Type": "libplctag",
+      "Gateway": "10.10.10.17",
+      "Path": "1,0",
+      "Protocol": "ab_eip",
+      "PlcType": "ControlLogix",
+      "TimeoutSeconds": 5.0,
+      "Tags": [
+        {
+          "Name": "TestDINT0000",
+          "TagType": "Dint"
+        },
+        {
+          "Name": "TestDINT0001",
+          "TagType": "Dint"
+        },
+        {
+          "Name": "TestDINT0002",
+          "TagType": "Dint"
+        },
+        {
+          "Name": "TestDINT0003",
+          "TagType": "Dint"
+        },
+        {
+          "Name": "TestDINT0004",
+          "TagType": "Dint"
+        },
+        {
+          "Name": "TestDINT0005",
+          "TagType": "Dint"
+        },
+        {
+          "Name": "TestDINT0006",
+          "TagType": "Dint"
+        },
+        {
+          "Name": "TestDINT0007",
+          "TagType": "Dint"
+        },
+        {
+          "Name": "TestDINT0008",
+          "TagType": "Dint"
+        },
+        {
+          "Name": "TestDINT0009",
+          "TagType": "Dint"
+        }
+      ]
+    }
+  ],
+  "DataTarget": {
+    "Type": "CSV",
+    "FilePath": "DataTarget.csv"
+  }
 }

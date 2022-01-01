@@ -16,7 +16,7 @@ namespace CrudeObservatory.DataSources.Implementations.Libplctag.Models
         public PlcType PlcType { get; set; }
         public float TimeoutSeconds { get; set; }
 
-        public List<string> Tags { get; set; }
+        public List<TagConfig> Tags { get; set; }
 
     }
 }

@@ -28,19 +28,7 @@ namespace CrudeObservatory.DataSources.Implementations.Libplctag
 
             foreach (var item in DataSourceConfig.Tags)
             {
-                var tag = new TagDint()
-                {
-                    //Name is the full path to tag. 
-                    Name = item,
-                    //Gateway is the IP Address of the PLC or communication module.
-                    Gateway = DataSourceConfig.Gateway,
-                    //Path is the location in the control plane of the CPU. Almost always "1,0".
-                    Path = DataSourceConfig.Path,
-                    PlcType = DataSourceConfig.PlcType,
-                    Protocol = DataSourceConfig.Protocol,
-                    Timeout = TimeSpan.FromSeconds(DataSourceConfig.TimeoutSeconds),
-                };
-                tagList.Add(tag);
+                tagList.Add(GetTag(DataSourceConfig, item));
 
             }
 
@@ -63,6 +51,23 @@ namespace CrudeObservatory.DataSources.Implementations.Libplctag
                 item.Dispose();
             }
             return Task.CompletedTask;
+        }
+
+        private ITag GetTag(LibplctagDataSourceConfig controllerConfig, TagConfig tagConfig)
+        {
+            var tag = TagTypeMap.GetDataSource(tagConfig.TagType);
+
+            //Name is the full path to tag. 
+            tag.Name = tagConfig.Name;
+            //Gateway is the IP Address of the PLC or communication module.
+            tag.Gateway = DataSourceConfig.Gateway;
+            //Path is the location in the control plane of the CPU. Almost always "1,0".
+            tag.Path = DataSourceConfig.Path;
+            tag.PlcType = DataSourceConfig.PlcType;
+            tag.Protocol = DataSourceConfig.Protocol;
+            tag.Timeout = TimeSpan.FromSeconds(DataSourceConfig.TimeoutSeconds);
+
+            return tag;
         }
     }
 }
