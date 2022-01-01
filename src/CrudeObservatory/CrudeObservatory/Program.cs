@@ -20,6 +20,7 @@ try
     {
         //Determine what json we want for config
         var acqConfigPath = Path.GetFullPath(hostContext.Configuration["AcqConfigPath"]);
+        Log.Information("Loading Acquisition Config from: {path}", acqConfigPath);
         var jsonConfig = File.ReadAllText(acqConfigPath);
 
         services.AddSingleton<ParseAcquisitionConfig>();
