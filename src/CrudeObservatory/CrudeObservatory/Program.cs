@@ -8,6 +8,7 @@ Log.Logger = new LoggerConfiguration()
     .CreateBootstrapLogger();
 
 Log.Information("Starting up");
+Log.Information("AppContext.BaseDirectory: {path}", AppContext.BaseDirectory);
 
 try
 {
@@ -17,7 +18,6 @@ try
     .ConfigureServices((hostContext, services) =>
     {
         services.AddSingleton<AcquisitionConfig>(ManualAcqSet.GetAcquisitionConfig());
-        //services.Configure<AcquisitionConfig>(hostContext.Configuration.GetSection("Acquisition"));
         services.AddHostedService<Worker>();
     })
     .Build();
