@@ -2,6 +2,7 @@
   "profiles": {
     "CrudeObservatory": {
       "commandName": "Project",
+      "commandLineArgs": "--AcqConfigPath \"AcqConfig.json\"",
       "environmentVariables": {
         "DOTNET_ENVIRONMENT": "Development"
       },

@@ -19,8 +19,8 @@ try
     .ConfigureServices((hostContext, services) =>
     {
         //Determine what json we want for config
-        //TODO: Should come from command line
-        var jsonConfig = File.ReadAllText(Path.Combine(System.Environment.CurrentDirectory, "AcqConfig.json"));
+        var acqConfigPath = Path.GetFullPath(hostContext.Configuration["AcqConfigPath"]);
+        var jsonConfig = File.ReadAllText(acqConfigPath);
 
         services.AddSingleton<ParseAcquisitionConfig>();
 
