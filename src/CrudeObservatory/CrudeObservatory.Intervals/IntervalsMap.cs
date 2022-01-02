@@ -1,12 +1,7 @@
 ﻿using CrudeObservatory.Abstractions.Interfaces;
 using CrudeObservatory.Abstractions.Models;
+using CrudeObservatory.Intervals.Fixed;
 using CrudeObservatory.Intervals.Fixed.Models;
-using CrudeObservatory.Intervals.Implementations.Fixed;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CrudeObservatory.Intervals
 {

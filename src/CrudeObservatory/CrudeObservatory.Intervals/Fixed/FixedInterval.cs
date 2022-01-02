@@ -1,11 +1,5 @@
-﻿using CrudeObservatory.Acquisition.Models;
-using CrudeObservatory.Intervals.Abstractions.Interfaces;
+﻿using CrudeObservatory.Abstractions.Interfaces;
 using CrudeObservatory.Intervals.Fixed.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CrudeObservatory.Intervals.Fixed
 {
@@ -23,7 +17,7 @@ namespace CrudeObservatory.Intervals.Fixed
 
         public Task ShutdownAsync(CancellationToken stoppingToken) => Task.CompletedTask;
 
-        public async Task<IEnumerable<DataValue>> WaitForIntervalAsync(CancellationToken stoppingToken)
+        public async Task<IEnumerable<IDataValue>> WaitForIntervalAsync(CancellationToken stoppingToken)
         {
 
             //Init the expiration if first call
@@ -33,7 +27,7 @@ namespace CrudeObservatory.Intervals.Fixed
             //Get the remaining time in msec rounded to nearest integer
             var msecTilExpiration = Convert.ToInt32(intervalExpiration - DateTimeOffset.Now.ToUnixTimeMilliseconds());
 
-            var intervalValues = new List<DataValue>()
+            var intervalValues = new List<IDataValue>()
             {
                 new DataValue()
                 {
