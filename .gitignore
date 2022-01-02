@@ -348,4 +348,4 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
-src/CrudeObservatory/Programs/CrudeObservatory.CLI/DataTarget.csv
+src/Programs/CrudeObservatory.CLI/DataTarget.csv
