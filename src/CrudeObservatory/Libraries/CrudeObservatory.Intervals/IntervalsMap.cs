@@ -15,11 +15,11 @@ namespace CrudeObservatory.Intervals
         {
             ConfigMap = new Dictionary<IntervalType, Type>()
             {
-                { IntervalType.Fixed, typeof(FixedIntervalConfig) },
+                { IntervalType.Periodic, typeof(PeriodicIntervalConfig) },
             };
             constructorMap = new Dictionary<Type, TriggerConstructor>()
             {
-                { typeof(FixedIntervalConfig), (x) =>  new FixedInterval((FixedIntervalConfig)x)},
+                { typeof(PeriodicIntervalConfig), (x) =>  new PeriodicInterval((PeriodicIntervalConfig)x)},
             };
 
         }

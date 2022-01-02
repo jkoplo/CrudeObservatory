@@ -2,6 +2,6 @@
 {
     public enum IntervalType
     {
-        Fixed,
+        Periodic,
     }
 }

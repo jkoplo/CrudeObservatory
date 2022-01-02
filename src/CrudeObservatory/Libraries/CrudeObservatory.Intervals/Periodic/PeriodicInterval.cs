@@ -3,12 +3,12 @@ using CrudeObservatory.Intervals.Fixed.Models;
 
 namespace CrudeObservatory.Intervals.Fixed
 {
-    internal class FixedInterval : IInterval
+    internal class PeriodicInterval : IInterval
     {
         private long? intervalExpiration = null;
-        public FixedIntervalConfig IntervalConfig { get; }
+        public PeriodicIntervalConfig IntervalConfig { get; }
 
-        public FixedInterval(FixedIntervalConfig intervalConfig)
+        public PeriodicInterval(PeriodicIntervalConfig intervalConfig)
         {
             IntervalConfig = intervalConfig ?? throw new ArgumentNullException(nameof(intervalConfig));
         }

@@ -8,7 +8,7 @@
     "DelaySeconds": 120.0
   },
   "Interval": {
-    "Type": "Fixed",
+    "Type": "Periodic",
     "PeriodSec": 0.5
   },
   "DataSources": [

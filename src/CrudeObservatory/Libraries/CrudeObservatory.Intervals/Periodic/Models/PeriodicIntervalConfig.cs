@@ -2,7 +2,7 @@
 
 namespace CrudeObservatory.Intervals.Fixed.Models
 {
-    public class FixedIntervalConfig : IIntervalConfig
+    public class PeriodicIntervalConfig : IIntervalConfig
     {
         public double PeriodSec { get; set; }
     }

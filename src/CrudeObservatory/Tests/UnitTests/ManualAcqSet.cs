@@ -38,7 +38,7 @@ namespace Tests
                     Tags = Enumerable.Range(0, 10).Select(x => new TagConfig(){Name=  $"TestDINT{x.ToString("0000")}", TagType= TagType.Dint }).ToList(),
                 },
             };
-            acq.Interval = new FixedIntervalConfig() { PeriodSec = .5 };
+            acq.Interval = new PeriodicIntervalConfig() { PeriodSec = .5 };
             acq.EndTrigger = new DelayTriggerConfig() { DelaySeconds = 10, };
             acq.DataTarget = new CsvDataTargetConfig() { FilePath = "DataTarget.csv" };
 
