@@ -10,7 +10,7 @@ using libplctag;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CrudeObservatory
+namespace Tests
 {
     internal static class ManualAcqSet
     {

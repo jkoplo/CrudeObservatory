@@ -1,4 +1,3 @@
-using CrudeObservatory;
 using CrudeObservatory.Acquisition.Services;
 using FluentAssertions;
 using System;

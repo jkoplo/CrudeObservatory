@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrudeObservatory.CLI", "Cru
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OptimizedLibplctagReads", "OptimizedLibplctagReads\OptimizedLibplctagReads.csproj", "{D952305F-17C9-4F5A-9917-880A8926C372}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{0D62C088-E927-4BDE-B763-13D6581BA3D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "Tests\UnitTests.csproj", "{0D62C088-E927-4BDE-B763-13D6581BA3D0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrudeObservatory.Abstractions", "CrudeObservatory.Abstractions\CrudeObservatory.Abstractions.csproj", "{0E64B7BF-04BA-4DD9-AA4F-26D0CE937AA3}"
 EndProject
@@ -20,6 +20,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrudeObservatory.Intervals", "CrudeObservatory.Intervals\CrudeObservatory.Intervals.csproj", "{DB643DE7-1E2C-459A-9A33-547D74F4985A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrudeObservatory.Acquisition", "CrudeObservatory.Acquisition\CrudeObservatory.Acquisition.csproj", "{98E8650F-5DBA-4D41-B5C7-2C198C45C6A3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Programs", "Programs", "{9D81AA10-B393-44A4-A4DA-AB2666F43247}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{B5D97AC7-3DA6-428C-A848-522490F68C76}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{CEC7A08A-77E8-4082-BA27-06A116508DE2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sandbox", "Sandbox", "{F4409B4C-6B3E-49B6-8980-AEA8BC83FC66}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -66,6 +74,17 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E27C6201-061C-42F4-8263-2FE702A5FADF} = {9D81AA10-B393-44A4-A4DA-AB2666F43247}
+		{D952305F-17C9-4F5A-9917-880A8926C372} = {F4409B4C-6B3E-49B6-8980-AEA8BC83FC66}
+		{0D62C088-E927-4BDE-B763-13D6581BA3D0} = {CEC7A08A-77E8-4082-BA27-06A116508DE2}
+		{0E64B7BF-04BA-4DD9-AA4F-26D0CE937AA3} = {B5D97AC7-3DA6-428C-A848-522490F68C76}
+		{6D7668CE-8DB0-4FF1-993C-714D6551342B} = {B5D97AC7-3DA6-428C-A848-522490F68C76}
+		{087098C4-99C6-474D-B81E-91FAB26FF4C2} = {B5D97AC7-3DA6-428C-A848-522490F68C76}
+		{56E4879E-3F9F-4A7C-BFAC-F69BD13E5EC5} = {B5D97AC7-3DA6-428C-A848-522490F68C76}
+		{DB643DE7-1E2C-459A-9A33-547D74F4985A} = {B5D97AC7-3DA6-428C-A848-522490F68C76}
+		{98E8650F-5DBA-4D41-B5C7-2C198C45C6A3} = {B5D97AC7-3DA6-428C-A848-522490F68C76}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {00689B49-5496-4D24-900C-17671694BD26}

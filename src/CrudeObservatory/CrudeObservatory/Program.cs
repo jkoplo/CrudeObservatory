@@ -1,5 +1,5 @@
-using CrudeObservatory;
 using CrudeObservatory.Acquisition.Services;
+using CrudeObservatory.CLI;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()
