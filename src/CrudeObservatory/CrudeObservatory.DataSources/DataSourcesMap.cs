@@ -1,16 +1,16 @@
 ﻿using CrudeObservatory.DataSources.Abstractions.Interfaces;
 using CrudeObservatory.DataSources.Abstractions.Models;
 using CrudeObservatory.DataSources.Implementations.Libplctag;
-using CrudeObservatory.DataSources.Implementations.Libplctag.Models;
 using CrudeObservatory.DataSources.Implementations.SineWave;
-using CrudeObservatory.DataSources.Implementations.SineWave.Models;
+using CrudeObservatory.DataSources.Libplctag.Models;
+using CrudeObservatory.DataSources.SineWave.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CrudeObservatory.DataSources.Implementations
+namespace CrudeObservatory.DataSources
 {
     internal static class DataSourcesMap
     {

@@ -1,4 +1,4 @@
-﻿using CrudeObservatory.DataSources.Implementations.Libplctag.Models;
+﻿using CrudeObservatory.DataSources.Libplctag.Models;
 using libplctag;
 using libplctag.DataTypes;
 using System;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CrudeObservatory.DataSources.Implementations.Libplctag
+namespace CrudeObservatory.DataSources.Libplctag
 {
     internal class TagTypeMap
     {

@@ -1,12 +1,12 @@
-﻿using CrudeObservatory.Triggers.Abstractions.Interfaces;
-using CrudeObservatory.Triggers.Implementations.Delay.Models;
+﻿using CrudeObservatory.Abstractions.Interfaces;
+using CrudeObservatory.Triggers.Delay.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CrudeObservatory.Triggers.Implementations.Delay
+namespace CrudeObservatory.Triggers.Delay
 {
     internal class DelayTrigger : ITrigger
     {

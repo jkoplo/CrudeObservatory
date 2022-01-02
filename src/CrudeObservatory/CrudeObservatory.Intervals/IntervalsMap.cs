@@ -1,14 +1,14 @@
-﻿using CrudeObservatory.Intervals.Abstractions.Interfaces;
-using CrudeObservatory.Intervals.Abstractions.Models;
+﻿using CrudeObservatory.Abstractions.Interfaces;
+using CrudeObservatory.Abstractions.Models;
+using CrudeObservatory.Intervals.Fixed.Models;
 using CrudeObservatory.Intervals.Implementations.Fixed;
-using CrudeObservatory.Intervals.Implementations.Fixed.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CrudeObservatory.Intervals.Implementations
+namespace CrudeObservatory.Intervals
 {
     internal static class IntervalsMap
     {
@@ -21,7 +21,7 @@ namespace CrudeObservatory.Intervals.Implementations
             ConfigMap = new Dictionary<IntervalType, Type>()
             {
                 { IntervalType.Fixed, typeof(FixedIntervalConfig) },
-            }; 
+            };
             constructorMap = new Dictionary<Type, TriggerConstructor>()
             {
                 { typeof(FixedIntervalConfig), (x) =>  new FixedInterval((FixedIntervalConfig)x)},
@@ -29,6 +29,6 @@ namespace CrudeObservatory.Intervals.Implementations
 
         }
 
-        internal static IInterval GetDataSource(IIntervalConfig config)=> constructorMap[config.GetType()].Invoke(config);
+        internal static IInterval GetDataSource(IIntervalConfig config) => constructorMap[config.GetType()].Invoke(config);
     }
 }

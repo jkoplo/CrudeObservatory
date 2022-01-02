@@ -1,4 +1,7 @@
-﻿namespace CrudeObservatory.Acquisition.Services
+﻿using CrudeObservatory.Acquisition.Models;
+using CrudeObservatory.Abstractions.Models;
+
+namespace CrudeObservatory.Acquisition.Services
 {
     internal class AcquisitionSetFactory
     {

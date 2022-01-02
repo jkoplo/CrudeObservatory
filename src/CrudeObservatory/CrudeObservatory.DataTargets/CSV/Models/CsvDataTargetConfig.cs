@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CrudeObservatory.DataTargets.Implementations.CSV.Models
+namespace CrudeObservatory.DataTargets.CSV.Models
 {
     public class CsvDataTargetConfig : IDataTargetConfig
     {

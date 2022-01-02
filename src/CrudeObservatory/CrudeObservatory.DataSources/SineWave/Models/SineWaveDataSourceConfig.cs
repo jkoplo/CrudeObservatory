@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CrudeObservatory.DataSources.Implementations.SineWave.Models
+namespace CrudeObservatory.DataSources.SineWave.Models
 {
     internal class SineWaveDataSourceConfig : IDataSourceConfig
     {

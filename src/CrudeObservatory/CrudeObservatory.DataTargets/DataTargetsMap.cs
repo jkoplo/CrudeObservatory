@@ -1,14 +1,14 @@
 ﻿using CrudeObservatory.DataTargets.Abstractions.Interfaces;
 using CrudeObservatory.DataTargets.Abstractions.Models;
+using CrudeObservatory.DataTargets.CSV.Models;
 using CrudeObservatory.DataTargets.Implementations.CSV;
-using CrudeObservatory.DataTargets.Implementations.CSV.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CrudeObservatory.DataSources.Implementations
+namespace CrudeObservatory.DataTargets
 {
     internal static class DataTargetsMap
     {

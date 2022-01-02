@@ -1,13 +1,13 @@
 ﻿using CrudeObservatory.Acquisition.Models;
 using CrudeObservatory.DataSources.Abstractions.Interfaces;
-using CrudeObservatory.DataSources.Implementations.SineWave.Models;
+using CrudeObservatory.DataSources.SineWave.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CrudeObservatory.DataSources.Implementations.SineWave
+namespace CrudeObservatory.DataSources.SineWave
 {
     internal class SineWaveDataSource : IDataSource
     {
@@ -23,7 +23,7 @@ namespace CrudeObservatory.DataSources.Implementations.SineWave
         public Task<IEnumerable<DataValue>> ReadDataAsync(CancellationToken stoppingToken)
         {
             //I don't need the fractional cycle, but it makes debug easier and my head hurt less
-            var totalCycles = (double)DateTimeOffset.Now.ToUnixTimeMilliseconds() / (double)(DataSourceConfig.PeriodSec * 1000);
+            var totalCycles = DateTimeOffset.Now.ToUnixTimeMilliseconds() / (double)(DataSourceConfig.PeriodSec * 1000);
             var fractionalCycle = totalCycles - Math.Truncate(totalCycles);
 
             var sineValue = Math.Sin(fractionalCycle * 360);

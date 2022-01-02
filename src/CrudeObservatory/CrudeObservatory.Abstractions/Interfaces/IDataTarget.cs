@@ -1,17 +1,12 @@
-﻿using CrudeObservatory.Acquisition.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CrudeObservatory.Abstractions.Models;
 
-namespace CrudeObservatory.DataTargets.Abstractions.Interfaces
+namespace CrudeObservatory.Abstractions.Interfaces
 {
-    internal interface IDataTarget
+    public interface IDataTarget
     {
         Task InitializeAsync(CancellationToken stoppingToken);
         Task WriteAcquisitionConfigAsync(AcquisitionConfig acqConfig, CancellationToken stoppingToken);
-        Task WriteDataAsync(IEnumerable<DataValue> dataValues, CancellationToken stoppingToken);
+        Task WriteDataAsync(IEnumerable<IDataValue> dataValues, CancellationToken stoppingToken);
         Task ShutdownAsync(CancellationToken stoppingToken);
     }
 }

@@ -1,6 +1,6 @@
 ﻿using CrudeObservatory.Acquisition.Models;
 using CrudeObservatory.DataTargets.Abstractions.Interfaces;
-using CrudeObservatory.DataTargets.Implementations.CSV.Models;
+using CrudeObservatory.DataTargets.CSV.Models;
 using CsvHelper;
 using CsvHelper.Configuration;
 using System;
@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CrudeObservatory.DataTargets.Implementations.CSV
+namespace CrudeObservatory.DataTargets.CSV
 {
     internal class CsvDataTarget : IDataTarget
     {

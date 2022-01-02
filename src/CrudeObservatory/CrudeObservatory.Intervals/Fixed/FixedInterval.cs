@@ -1,13 +1,13 @@
 ﻿using CrudeObservatory.Acquisition.Models;
 using CrudeObservatory.Intervals.Abstractions.Interfaces;
-using CrudeObservatory.Intervals.Implementations.Fixed.Models;
+using CrudeObservatory.Intervals.Fixed.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CrudeObservatory.Intervals.Implementations.Fixed
+namespace CrudeObservatory.Intervals.Fixed
 {
     internal class FixedInterval : IInterval
     {

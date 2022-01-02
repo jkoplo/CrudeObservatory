@@ -1,11 +1,11 @@
-﻿using CrudeObservatory.Intervals.Abstractions.Interfaces;
+﻿using CrudeObservatory.Abstractions.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CrudeObservatory.Intervals.Implementations.Fixed.Models
+namespace CrudeObservatory.Intervals.Fixed.Models
 {
     public class FixedIntervalConfig : IIntervalConfig
     {

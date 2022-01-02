@@ -1,18 +1,12 @@
-﻿using CrudeObservatory.Triggers.Abstractions.Interfaces;
-using CrudeObservatory.Triggers.Abstractions.Models;
-using CrudeObservatory.Triggers.Implementations.Auto.Models;
-using CrudeObservatory.Triggers.Implementations.Automatic;
-using CrudeObservatory.Triggers.Implementations.Delay;
-using CrudeObservatory.Triggers.Implementations.Delay.Models;
-using CrudeObservatory.Triggers.Implementations.Manual;
-using CrudeObservatory.Triggers.Implementations.Manual.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CrudeObservatory.Abstractions.Interfaces;
+using CrudeObservatory.Triggers.Auto;
+using CrudeObservatory.Triggers.Auto.Models;
+using CrudeObservatory.Triggers.Delay;
+using CrudeObservatory.Triggers.Delay.Models;
+using CrudeObservatory.Triggers.Manual;
+using CrudeObservatory.Triggers.Manual.Models;
 
-namespace CrudeObservatory.Triggers.Implementations
+namespace CrudeObservatory.Triggers
 {
     internal static class TriggersMap
     {

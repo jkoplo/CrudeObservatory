@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CrudeObservatory.DataSources.Implementations.Libplctag.Models
+namespace CrudeObservatory.DataSources.Libplctag.Models
 {
     public class LibplctagDataSourceConfig : IDataSourceConfig
     {

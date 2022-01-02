@@ -1,6 +1,6 @@
 ﻿using CrudeObservatory.Acquisition.Models;
 using CrudeObservatory.DataSources.Abstractions.Interfaces;
-using CrudeObservatory.DataSources.Implementations.Libplctag.Models;
+using CrudeObservatory.DataSources.Libplctag.Models;
 using libplctag;
 using libplctag.DataTypes.Simple;
 using System;
@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CrudeObservatory.DataSources.Implementations.Libplctag
+namespace CrudeObservatory.DataSources.Libplctag
 {
     internal class LibPlcTagDataSource : IDataSource
     {

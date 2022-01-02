@@ -1,11 +1,6 @@
-﻿using CrudeObservatory.Triggers.Abstractions.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CrudeObservatory.Abstractions.Interfaces;
 
-namespace CrudeObservatory.Triggers.Implementations.Auto.Models
+namespace CrudeObservatory.Triggers.Auto.Models
 {
     internal class AutoTriggerConfig : ITriggerConfig
     {

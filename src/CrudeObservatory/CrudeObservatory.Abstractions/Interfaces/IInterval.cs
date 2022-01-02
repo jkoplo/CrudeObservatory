@@ -1,16 +1,9 @@
-﻿using CrudeObservatory.Acquisition.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CrudeObservatory.Intervals.Abstractions.Interfaces
+﻿namespace CrudeObservatory.Abstractions.Interfaces
 {
-    internal interface IInterval
+    public interface IInterval
     {
         Task InitializeAsync(CancellationToken stoppingToken);
-        Task<IEnumerable<DataValue>> WaitForIntervalAsync(CancellationToken stoppingToken);
+        Task<IEnumerable<IDataValue>> WaitForIntervalAsync(CancellationToken stoppingToken);
         Task ShutdownAsync(CancellationToken stoppingToken);
     }
 }
