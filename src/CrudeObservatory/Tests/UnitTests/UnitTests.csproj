@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CrudeObservatory\CrudeObservatory.CLI.csproj" />
+    <ProjectReference Include="..\..\Libraries\CrudeObservatory.Acquisition\CrudeObservatory.Acquisition.csproj" />
   </ItemGroup>
 
 </Project>
