@@ -1,9 +1,4 @@
-﻿using CrudeObservatory.DataTargets.Abstractions.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CrudeObservatory.Abstractions.Interfaces;
 
 namespace CrudeObservatory.DataTargets.CSV.Models
 {

@@ -1,14 +1,9 @@
-﻿using CrudeObservatory.Acquisition.Models;
-using CrudeObservatory.DataTargets.Abstractions.Interfaces;
+﻿using CrudeObservatory.Abstractions.Interfaces;
+using CrudeObservatory.Abstractions.Models;
 using CrudeObservatory.DataTargets.CSV.Models;
 using CsvHelper;
 using CsvHelper.Configuration;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CrudeObservatory.DataTargets.CSV
 {
@@ -47,7 +42,7 @@ namespace CrudeObservatory.DataTargets.CSV
 
         }
 
-        public async Task WriteDataAsync(IEnumerable<DataValue> dataValues, CancellationToken stoppingToken)
+        public async Task WriteDataAsync(IEnumerable<IDataValue> dataValues, CancellationToken stoppingToken)
         {
             if (firstDataWrite)
             {
