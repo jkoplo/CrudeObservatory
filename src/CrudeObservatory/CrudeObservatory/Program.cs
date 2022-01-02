@@ -24,12 +24,14 @@ try
         var jsonConfig = File.ReadAllText(acqConfigPath);
 
         services.AddSingleton<ParseAcquisitionConfig>();
+        services.AddSingleton<AcquisitionSetFactory>();
 
         //We do this b/c in future we may want multiple workers running different acq configs
         services.AddHostedService<AcquisitionWorker>(x =>
             new AcquisitionWorker(x.GetRequiredService<ILogger<AcquisitionWorker>>(),
                                   x.GetRequiredService<IHostApplicationLifetime>(),
-                                  x.GetRequiredService<ParseAcquisitionConfig>().DeserializeFromJson(jsonConfig)));
+                                  x.GetRequiredService<ParseAcquisitionConfig>().DeserializeFromJson(jsonConfig),
+                                  x.GetRequiredService<AcquisitionSetFactory>()));
     })
     .Build();
 

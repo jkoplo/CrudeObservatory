@@ -1,5 +1,6 @@
 using CrudeObservatory.Abstractions.Models;
 using CrudeObservatory.Acquisition.Models;
+using CrudeObservatory.Acquisition.Services;
 using Microsoft.Extensions.Options;
 
 namespace CrudeObservatory
@@ -9,19 +10,24 @@ namespace CrudeObservatory
         private readonly ILogger<AcquisitionWorker> logger;
         private readonly IHostApplicationLifetime applicationLifetime;
         private readonly AcquisitionConfig acquisitionConfig;
+        private readonly AcquisitionSetFactory acquisitionSetFactory;
 
-        public AcquisitionWorker(ILogger<AcquisitionWorker> logger, IHostApplicationLifetime applicationLifetime, AcquisitionConfig acquisitionConfig)
+        public AcquisitionWorker(ILogger<AcquisitionWorker> logger,
+                                 IHostApplicationLifetime applicationLifetime,
+                                 AcquisitionConfig acquisitionConfig,
+                                 AcquisitionSetFactory acquisitionSetFactory)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.applicationLifetime = applicationLifetime ?? throw new ArgumentNullException(nameof(applicationLifetime));
             this.acquisitionConfig = acquisitionConfig ?? throw new ArgumentNullException(nameof(acquisitionConfig));
+            this.acquisitionSetFactory = acquisitionSetFactory ?? throw new ArgumentNullException(nameof(acquisitionSetFactory));
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             //Build out classes - might be at the Program.cs DI level
 
-            AcquisitionSet acq = ManualAcqSet.GetAcquisition(acquisitionConfig);
+            AcquisitionSet acq = acquisitionSetFactory.GetAcquisitionSet(acquisitionConfig);
 
             //Initiate connections? Could be DataSources (PLC) or DataTargets (DB) or Intervals(?)
             //Build a list of tasks to init so we can execute them in parallel
