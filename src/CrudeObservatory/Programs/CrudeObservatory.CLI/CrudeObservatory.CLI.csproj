@@ -24,7 +24,7 @@
 
 
 	<ItemGroup>
-		<ProjectReference Include="..\CrudeObservatory.Acquisition\CrudeObservatory.Acquisition.csproj" />
-		<ProjectReference Include="..\CrudeObservatory.Abstractions\CrudeObservatory.Abstractions.csproj" />
+	  <ProjectReference Include="..\..\Libraries\CrudeObservatory.Abstractions\CrudeObservatory.Abstractions.csproj" />
+	  <ProjectReference Include="..\..\Libraries\CrudeObservatory.Acquisition\CrudeObservatory.Acquisition.csproj" />
 	</ItemGroup>
 </Project>

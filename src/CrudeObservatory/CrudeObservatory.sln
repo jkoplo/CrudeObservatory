@@ -3,23 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrudeObservatory.CLI", "CrudeObservatory\CrudeObservatory.CLI.csproj", "{E27C6201-061C-42F4-8263-2FE702A5FADF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrudeObservatory.CLI", "Programs\CrudeObservatory.CLI\CrudeObservatory.CLI.csproj", "{E27C6201-061C-42F4-8263-2FE702A5FADF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OptimizedLibplctagReads", "OptimizedLibplctagReads\OptimizedLibplctagReads.csproj", "{D952305F-17C9-4F5A-9917-880A8926C372}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OptimizedLibplctagReads", "Sandbox\OptimizedLibplctagReads\OptimizedLibplctagReads.csproj", "{D952305F-17C9-4F5A-9917-880A8926C372}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "Tests\UnitTests.csproj", "{0D62C088-E927-4BDE-B763-13D6581BA3D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "Tests\UnitTests\UnitTests.csproj", "{0D62C088-E927-4BDE-B763-13D6581BA3D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrudeObservatory.Abstractions", "CrudeObservatory.Abstractions\CrudeObservatory.Abstractions.csproj", "{0E64B7BF-04BA-4DD9-AA4F-26D0CE937AA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrudeObservatory.Abstractions", "Libraries\CrudeObservatory.Abstractions\CrudeObservatory.Abstractions.csproj", "{0E64B7BF-04BA-4DD9-AA4F-26D0CE937AA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrudeObservatory.Triggers", "CrudeObservatory.Triggers\CrudeObservatory.Triggers.csproj", "{6D7668CE-8DB0-4FF1-993C-714D6551342B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrudeObservatory.Triggers", "Libraries\CrudeObservatory.Triggers\CrudeObservatory.Triggers.csproj", "{6D7668CE-8DB0-4FF1-993C-714D6551342B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrudeObservatory.DataSources", "CrudeObservatory.DataSources\CrudeObservatory.DataSources.csproj", "{087098C4-99C6-474D-B81E-91FAB26FF4C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrudeObservatory.DataSources", "Libraries\CrudeObservatory.DataSources\CrudeObservatory.DataSources.csproj", "{087098C4-99C6-474D-B81E-91FAB26FF4C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrudeObservatory.DataTargets", "CrudeObservatory.DataTargets\CrudeObservatory.DataTargets.csproj", "{56E4879E-3F9F-4A7C-BFAC-F69BD13E5EC5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrudeObservatory.DataTargets", "Libraries\CrudeObservatory.DataTargets\CrudeObservatory.DataTargets.csproj", "{56E4879E-3F9F-4A7C-BFAC-F69BD13E5EC5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrudeObservatory.Intervals", "CrudeObservatory.Intervals\CrudeObservatory.Intervals.csproj", "{DB643DE7-1E2C-459A-9A33-547D74F4985A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrudeObservatory.Intervals", "Libraries\CrudeObservatory.Intervals\CrudeObservatory.Intervals.csproj", "{DB643DE7-1E2C-459A-9A33-547D74F4985A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrudeObservatory.Acquisition", "CrudeObservatory.Acquisition\CrudeObservatory.Acquisition.csproj", "{98E8650F-5DBA-4D41-B5C7-2C198C45C6A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrudeObservatory.Acquisition", "Libraries\CrudeObservatory.Acquisition\CrudeObservatory.Acquisition.csproj", "{98E8650F-5DBA-4D41-B5C7-2C198C45C6A3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Programs", "Programs", "{9D81AA10-B393-44A4-A4DA-AB2666F43247}"
 EndProject
