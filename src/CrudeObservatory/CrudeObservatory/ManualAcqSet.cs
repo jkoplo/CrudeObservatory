@@ -1,4 +1,5 @@
-﻿using CrudeObservatory.Acquisition.Models;
+﻿using CrudeObservatory.Abstractions.Models;
+using CrudeObservatory.Acquisition.Models;
 using CrudeObservatory.Acquisition.Services;
 
 namespace CrudeObservatory

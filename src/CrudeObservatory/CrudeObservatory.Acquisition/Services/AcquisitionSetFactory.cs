@@ -1,12 +1,15 @@
 ﻿using CrudeObservatory.Acquisition.Models;
 using CrudeObservatory.Abstractions.Models;
 using CrudeObservatory.Triggers;
+using CrudeObservatory.DataSources;
+using CrudeObservatory.DataTargets;
+using CrudeObservatory.Intervals;
 
 namespace CrudeObservatory.Acquisition.Services
 {
-    internal class AcquisitionSetFactory
+    public class AcquisitionSetFactory
     {
-        internal AcquisitionSet GetAcquisitionSet(AcquisitionConfig config)
+        public AcquisitionSet GetAcquisitionSet(AcquisitionConfig config)
         {
             AcquisitionSet acq = new AcquisitionSet();
 

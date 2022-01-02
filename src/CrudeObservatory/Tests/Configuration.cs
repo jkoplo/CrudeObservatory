@@ -1,12 +1,6 @@
 using CrudeObservatory;
 using CrudeObservatory.Acquisition.Services;
-using CrudeObservatory.DataSources.Abstractions.Models;
-using CrudeObservatory.DataSources.Implementations.Libplctag.Models;
-using CrudeObservatory.DataSources.Implementations.SineWave.Models;
 using FluentAssertions;
-using JsonSubTypes;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using System;
 using System.IO;
 using Xunit;

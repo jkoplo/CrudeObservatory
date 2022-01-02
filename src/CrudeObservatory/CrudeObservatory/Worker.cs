@@ -1,3 +1,4 @@
+using CrudeObservatory.Abstractions.Models;
 using CrudeObservatory.Acquisition.Models;
 using Microsoft.Extensions.Options;
 

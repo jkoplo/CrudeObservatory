@@ -13,6 +13,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CrudeObservatory.Abstractions\CrudeObservatory.Abstractions.csproj" />
+    <ProjectReference Include="..\CrudeObservatory.DataSources\CrudeObservatory.DataSources.csproj" />
+    <ProjectReference Include="..\CrudeObservatory.DataTargets\CrudeObservatory.DataTargets.csproj" />
+    <ProjectReference Include="..\CrudeObservatory.Intervals\CrudeObservatory.Intervals.csproj" />
     <ProjectReference Include="..\CrudeObservatory.Triggers\CrudeObservatory.Triggers.csproj" />
   </ItemGroup>
 

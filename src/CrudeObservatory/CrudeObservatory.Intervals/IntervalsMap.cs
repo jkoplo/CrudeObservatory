@@ -5,9 +5,9 @@ using CrudeObservatory.Intervals.Fixed.Models;
 
 namespace CrudeObservatory.Intervals
 {
-    internal static class IntervalsMap
+    public static class IntervalsMap
     {
-        internal static Dictionary<IntervalType, Type> ConfigMap { get; }
+        public static Dictionary<IntervalType, Type> ConfigMap { get; }
         private static Dictionary<Type, TriggerConstructor> constructorMap;
         private delegate IInterval TriggerConstructor(IIntervalConfig config);
 
@@ -24,6 +24,6 @@ namespace CrudeObservatory.Intervals
 
         }
 
-        internal static IInterval GetDataSource(IIntervalConfig config) => constructorMap[config.GetType()].Invoke(config);
+        public static IInterval GetDataSource(IIntervalConfig config) => constructorMap[config.GetType()].Invoke(config);
     }
 }

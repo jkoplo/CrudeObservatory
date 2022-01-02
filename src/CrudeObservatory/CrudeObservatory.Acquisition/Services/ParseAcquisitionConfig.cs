@@ -1,26 +1,32 @@
 ﻿using CrudeObservatory.Abstractions.Interfaces;
 using CrudeObservatory.Abstractions.Models;
 using CrudeObservatory.Triggers;
+using CrudeObservatory.DataSources;
+using CrudeObservatory.DataTargets;
+using CrudeObservatory.Intervals;
 using JsonSubTypes;
 using Newtonsoft.Json;
 
 namespace CrudeObservatory.Acquisition.Services
 {
-    internal class ParseAcquisitionConfig
+    public class ParseAcquisitionConfig
     {
-        internal string SerializeToJson(AcquisitionConfig config)
-        {
-            JsonSerializerSettings settings = ConfigFileSerializerSettings();
+        private readonly JsonSerializerSettings settings;
 
+        public ParseAcquisitionConfig()
+        {
+            settings = ConfigFileSerializerSettings();
+        }
+
+        public string SerializeToJson(AcquisitionConfig config)
+        {
             string serialized = JsonConvert.SerializeObject(config, Formatting.Indented, settings);
 
             return serialized;
         }
 
-        internal AcquisitionConfig DeserializeFromJson(string jsonConfigString)
+        public AcquisitionConfig DeserializeFromJson(string jsonConfigString)
         {
-            JsonSerializerSettings settings = ConfigFileSerializerSettings();
-
             var config = JsonConvert.DeserializeObject<AcquisitionConfig>(jsonConfigString, settings);
 
             return config;
