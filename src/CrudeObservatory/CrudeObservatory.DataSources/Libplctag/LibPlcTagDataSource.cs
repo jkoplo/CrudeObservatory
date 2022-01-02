@@ -1,17 +1,10 @@
-﻿using CrudeObservatory.Acquisition.Models;
-using CrudeObservatory.DataSources.Abstractions.Interfaces;
+﻿using CrudeObservatory.Abstractions.Interfaces;
 using CrudeObservatory.DataSources.Libplctag.Models;
 using libplctag;
-using libplctag.DataTypes.Simple;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CrudeObservatory.DataSources.Libplctag
 {
-    internal class LibPlcTagDataSource : IDataSource
+    public class LibPlcTagDataSource : IDataSource
     {
         private List<ITag> tagList;
 
@@ -35,7 +28,7 @@ namespace CrudeObservatory.DataSources.Libplctag
             await Task.WhenAll(tagList.Select(x => x.InitializeAsync()));
         }
 
-        public async Task<IEnumerable<DataValue>> ReadDataAsync(CancellationToken stoppingToken)
+        public async Task<IEnumerable<IDataValue>> ReadDataAsync(CancellationToken stoppingToken)
         {
             await Task.WhenAll(tagList.Select(x => x.ReadAsync()));
 

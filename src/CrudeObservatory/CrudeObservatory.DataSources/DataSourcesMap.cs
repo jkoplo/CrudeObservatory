@@ -1,20 +1,15 @@
-﻿using CrudeObservatory.DataSources.Abstractions.Interfaces;
-using CrudeObservatory.DataSources.Abstractions.Models;
-using CrudeObservatory.DataSources.Implementations.Libplctag;
-using CrudeObservatory.DataSources.Implementations.SineWave;
+﻿using CrudeObservatory.Abstractions.Interfaces;
+using CrudeObservatory.Abstractions.Models;
+using CrudeObservatory.DataSources.Libplctag;
 using CrudeObservatory.DataSources.Libplctag.Models;
+using CrudeObservatory.DataSources.SineWave;
 using CrudeObservatory.DataSources.SineWave.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CrudeObservatory.DataSources
 {
-    internal static class DataSourcesMap
+    public static class DataSourcesMap
     {
-        internal static Dictionary<DataSourceType, Type> ConfigMap { get; }
+        public static Dictionary<DataSourceType, Type> ConfigMap { get; }
 
         private static Dictionary<Type, TriggerConstructor> constructorMap;
 
@@ -36,6 +31,6 @@ namespace CrudeObservatory.DataSources
             };
         }
 
-        internal static IDataSource GetDataSource(IDataSourceConfig config) => constructorMap[config.GetType()].Invoke(config);
+        public static IDataSource GetDataSource(IDataSourceConfig config) => constructorMap[config.GetType()].Invoke(config);
     }
 }

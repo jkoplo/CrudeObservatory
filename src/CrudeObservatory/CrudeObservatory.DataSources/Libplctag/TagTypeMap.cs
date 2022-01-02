@@ -1,15 +1,10 @@
 ﻿using CrudeObservatory.DataSources.Libplctag.Models;
 using libplctag;
 using libplctag.DataTypes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CrudeObservatory.DataSources.Libplctag
 {
-    internal class TagTypeMap
+    public class TagTypeMap
     {
         private readonly static Dictionary<TagType, TagConstructor> constructorMap;
 
@@ -69,7 +64,7 @@ namespace CrudeObservatory.DataSources.Libplctag
             };
 
         }
-        internal static ITag GetDataSource(TagType type) => constructorMap[type].Invoke();
+        public static ITag GetDataSource(TagType type) => constructorMap[type].Invoke();
 
     }
 }
