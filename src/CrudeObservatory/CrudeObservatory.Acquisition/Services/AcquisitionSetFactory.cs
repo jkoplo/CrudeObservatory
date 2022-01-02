@@ -1,9 +1,9 @@
-﻿using CrudeObservatory.Acquisition.Models;
-using CrudeObservatory.Abstractions.Models;
-using CrudeObservatory.Triggers;
+﻿using CrudeObservatory.Abstractions.Models;
+using CrudeObservatory.Acquisition.Models;
 using CrudeObservatory.DataSources;
 using CrudeObservatory.DataTargets;
 using CrudeObservatory.Intervals;
+using CrudeObservatory.Triggers;
 
 namespace CrudeObservatory.Acquisition.Services
 {

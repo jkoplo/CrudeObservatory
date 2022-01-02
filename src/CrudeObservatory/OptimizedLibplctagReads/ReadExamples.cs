@@ -1,10 +1,5 @@
 ﻿using libplctag.DataTypes.Simple;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OptimizedLibplctagReads
 {
@@ -63,22 +58,22 @@ namespace OptimizedLibplctagReads
             Console.WriteLine($"Tag ReadParallelForEach = {stopwatch.ElapsedMilliseconds} msec");
         }
 
-//        internal static async Task ReadAsyncParallelForEach(List<TagDint> allTags)
-//        {
-//            var stopwatch = new Stopwatch();
+        //        internal static async Task ReadAsyncParallelForEach(List<TagDint> allTags)
+        //        {
+        //            var stopwatch = new Stopwatch();
 
-//            ParallelOptions parallelOptions = new()
-//            {
-//                MaxDegreeOfParallelism = 3
-//            };
+        //            ParallelOptions parallelOptions = new()
+        //            {
+        //                MaxDegreeOfParallelism = 3
+        //            };
 
-//#error This code is not actually waiting for the reads to occur. It's bad.
+        //#error This code is not actually waiting for the reads to occur. It's bad.
 
-//            stopwatch.Restart();
-//            var result = Parallel.ForEach(allTags, parallelOptions, async x => await x.ReadAsync());
-//            stopwatch.Stop();
-//            Console.WriteLine($"Tag ReadAsyncParallelForEach = {stopwatch.ElapsedMilliseconds} msec");
-//        }
+        //            stopwatch.Restart();
+        //            var result = Parallel.ForEach(allTags, parallelOptions, async x => await x.ReadAsync());
+        //            stopwatch.Stop();
+        //            Console.WriteLine($"Tag ReadAsyncParallelForEach = {stopwatch.ElapsedMilliseconds} msec");
+        //        }
 
         internal static async Task ReadAsyncParallelForEachAsync(List<TagDint> allTags)
         {
@@ -90,7 +85,7 @@ namespace OptimizedLibplctagReads
 
             stopwatch.Restart();
 
-            await Parallel.ForEachAsync(allTags, parallelOptions, async (tag, token)  => await tag.ReadAsync(token));
+            await Parallel.ForEachAsync(allTags, parallelOptions, async (tag, token) => await tag.ReadAsync(token));
             stopwatch.Stop();
             Console.WriteLine($"Tag ReadAsyncParallelForEachAsync = {stopwatch.ElapsedMilliseconds} msec");
         }

@@ -1,10 +1,5 @@
 ﻿using CrudeObservatory.Abstractions.Interfaces;
 using CrudeObservatory.Triggers.Delay.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CrudeObservatory.Triggers.Delay
 {

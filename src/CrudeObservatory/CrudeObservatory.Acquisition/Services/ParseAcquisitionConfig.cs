@@ -1,9 +1,9 @@
 ﻿using CrudeObservatory.Abstractions.Interfaces;
 using CrudeObservatory.Abstractions.Models;
-using CrudeObservatory.Triggers;
 using CrudeObservatory.DataSources;
 using CrudeObservatory.DataTargets;
 using CrudeObservatory.Intervals;
+using CrudeObservatory.Triggers;
 using JsonSubTypes;
 using Newtonsoft.Json;
 

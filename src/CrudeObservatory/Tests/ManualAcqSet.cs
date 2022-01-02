@@ -1,20 +1,14 @@
-﻿using CrudeObservatory.Acquisition.Models;
+﻿using CrudeObservatory.Abstractions.Interfaces;
 using CrudeObservatory.Abstractions.Models;
-using CrudeObservatory.Triggers;
-using CrudeObservatory.DataSources;
-using CrudeObservatory.DataTargets;
-using CrudeObservatory.Intervals;
-using CrudeObservatory.Triggers.Auto.Models;
-using System.Collections.Generic;
-using CrudeObservatory.Abstractions.Interfaces;
-using CrudeObservatory.DataSources.SineWave.Models;
 using CrudeObservatory.DataSources.Libplctag.Models;
-using libplctag;
-using System.Linq;
-using CrudeObservatory.Intervals.Fixed.Models;
-using CrudeObservatory.Triggers.Delay.Models;
+using CrudeObservatory.DataSources.SineWave.Models;
 using CrudeObservatory.DataTargets.CSV.Models;
-using System.IO;
+using CrudeObservatory.Intervals.Fixed.Models;
+using CrudeObservatory.Triggers.Auto.Models;
+using CrudeObservatory.Triggers.Delay.Models;
+using libplctag;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CrudeObservatory
 {

@@ -1,7 +1,5 @@
 using CrudeObservatory;
-using CrudeObservatory.Acquisition.Models;
 using CrudeObservatory.Acquisition.Services;
-using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()

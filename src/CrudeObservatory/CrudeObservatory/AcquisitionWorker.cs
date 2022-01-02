@@ -1,7 +1,6 @@
 using CrudeObservatory.Abstractions.Models;
 using CrudeObservatory.Acquisition.Models;
 using CrudeObservatory.Acquisition.Services;
-using Microsoft.Extensions.Options;
 
 namespace CrudeObservatory
 {
