@@ -1,5 +1,6 @@
 ﻿using CrudeObservatory.Acquisition.Models;
 using CrudeObservatory.Abstractions.Models;
+using CrudeObservatory.Triggers;
 
 namespace CrudeObservatory.Acquisition.Services
 {

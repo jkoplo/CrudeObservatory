@@ -8,9 +8,9 @@ using CrudeObservatory.Triggers.Manual.Models;
 
 namespace CrudeObservatory.Triggers
 {
-    internal static class TriggersMap
+    public static class TriggersMap
     {
-        internal static Dictionary<TriggerType, Type> ConfigMap { get; }
+        public static Dictionary<TriggerType, Type> ConfigMap { get; }
 
         private static Dictionary<Type, TriggerConstructor> constructorMap;
 
@@ -33,6 +33,6 @@ namespace CrudeObservatory.Triggers
             };
         }
 
-        static internal ITrigger GetTrigger(ITriggerConfig config) => constructorMap[config.GetType()].Invoke(config);
+        static public ITrigger GetTrigger(ITriggerConfig config) => constructorMap[config.GetType()].Invoke(config);
     }
 }

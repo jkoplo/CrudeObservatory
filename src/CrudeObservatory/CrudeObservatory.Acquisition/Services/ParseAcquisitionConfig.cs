@@ -1,11 +1,6 @@
-﻿using CrudeObservatory.Acquisition.Models;
-using CrudeObservatory.DataSources.Abstractions.Interfaces;
-using CrudeObservatory.DataSources.Implementations;
-using CrudeObservatory.DataTargets.Abstractions.Interfaces;
-using CrudeObservatory.Intervals.Abstractions.Interfaces;
-using CrudeObservatory.Intervals.Implementations;
-using CrudeObservatory.Triggers.Abstractions.Interfaces;
-using CrudeObservatory.Triggers.Implementations;
+﻿using CrudeObservatory.Abstractions.Interfaces;
+using CrudeObservatory.Abstractions.Models;
+using CrudeObservatory.Triggers;
 using JsonSubTypes;
 using Newtonsoft.Json;
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CrudeObservatory.Triggers.Auto
 {
-    internal class AutoTrigger : ITrigger
+    public class AutoTrigger : ITrigger
     {
         public Task InitializeAsync(CancellationToken stoppingToken) => Task.CompletedTask;
 

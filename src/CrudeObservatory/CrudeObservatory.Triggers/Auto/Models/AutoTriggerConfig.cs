@@ -2,7 +2,7 @@
 
 namespace CrudeObservatory.Triggers.Auto.Models
 {
-    internal class AutoTriggerConfig : ITriggerConfig
+    public class AutoTriggerConfig : ITriggerConfig
     {
     }
 }

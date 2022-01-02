@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CrudeObservatory.Triggers.Manual
 {
-    internal class ManualTrigger : ITrigger
+    public class ManualTrigger : ITrigger
     {
         const int STD_INPUT_HANDLE = -10;
 

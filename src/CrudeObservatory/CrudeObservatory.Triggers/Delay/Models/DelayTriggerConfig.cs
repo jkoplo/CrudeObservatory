@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CrudeObservatory.Triggers.Delay.Models
 {
-    internal class DelayTriggerConfig : ITriggerConfig
+    public class DelayTriggerConfig : ITriggerConfig
     {
         public double DelaySeconds { get; set; }
     }

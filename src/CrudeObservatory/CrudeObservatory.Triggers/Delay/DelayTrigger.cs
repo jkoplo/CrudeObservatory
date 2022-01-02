@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CrudeObservatory.Triggers.Delay
 {
-    internal class DelayTrigger : ITrigger
+    public class DelayTrigger : ITrigger
     {
         public DelayTrigger(DelayTriggerConfig triggerConfig)
         {

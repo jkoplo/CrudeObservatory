@@ -21,4 +21,9 @@
 			<_Parameter1>Tests</_Parameter1>
 		</AssemblyAttribute>
 	</ItemGroup>
+
+
+	<ItemGroup>
+	  <ProjectReference Include="..\CrudeObservatory.Triggers\CrudeObservatory.Triggers.csproj" />
+	</ItemGroup>
 </Project>
