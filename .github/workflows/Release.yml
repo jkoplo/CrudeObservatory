@@ -34,7 +34,7 @@ jobs:
         shell: bash
         run: |
           tag=$(git describe --tags --abbrev=0)
-          release_name="App-$tag-${{ matrix.target }}"
+          release_name="CrudeObservatory-$tag-${{ matrix.target }}"
 
           # Build everything
           dotnet publish src/Programs/CrudeObservatory.CLI/CrudeObservatory.CLI.csproj --runtime "${{ matrix.target }}" -c Release -o "$release_name"
