@@ -118,7 +118,8 @@ Currently, the only available user interface is a CLI app. The application is bu
 Download the latest release and uncompress it to the folder of your choice.
 
 ### Operation
-1. Modify or copy the included "AcqConfig.json".
+1. Modify or copy the included "AcqConfig.json"
 2. Run the following:
    1. Windows: ```.\CrudeObservatory.CLI.exe --AcqConfigPath .\AcqConfig.json```
    2. Linux: ```.\CrudeObservatory.CLI --AcqConfigPath .\AcqConfig.json```
+3. Logging and CLI output can be adjusted in `appsettings.json`
