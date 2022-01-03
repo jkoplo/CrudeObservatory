@@ -21,7 +21,7 @@ namespace Tests
 
 
             acq.Name = "Manual Prototype Set";
-            acq.StartTrigger = new AutoTriggerConfig();
+            acq.StartTrigger = new ImmediateTriggerConfig();
             acq.DataSources = new List<IDataSourceConfig>()
             {
                 new SineWaveDataSourceConfig(){PeriodSec=5, Alias="Sine1" },
