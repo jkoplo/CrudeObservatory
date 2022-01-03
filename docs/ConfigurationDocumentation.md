@@ -80,14 +80,7 @@ Example Configuration:
 `Gateway` - IP address or hostname to PLC controller.
 `Path` - Control plane path for PLC, almost always "1,0".
 `Protocol` - `ab_eip` for Allen-Bradley PLCs and `modbus_tcp` for Modbus TCP PLCs.
-`PlcType` - Specifies the type of controller.
-- controllogix
-- plc5
-- slc500
-- logixpccc
-- micro800
-- micrologix
-- omron-njnx
+`PlcType` - Specifies the type of controller from the following list: `controllogix, plc5, slc500, logixpccc, micro800, micrologix, omron-njnx`
 `TimeoutSeconds` - The timeout for communications.
 `Tags` - An array of tags that should be read
 - `Name` - The name or path of the tag.
