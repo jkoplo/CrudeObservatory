@@ -50,7 +50,7 @@ PLCs/Controllers/etc that provide the values to be read/stored.
 ## Example Configuration
 Below is an example configuration that acquires data every 500 msec for 2 minutes from several PLC tags and from the purely virtual `SineWave` source.
 
-Documentation for configuration files can be found here: [Configuration Documentation](docs\ConfigurationDocumentation.md)
+Documentation for configuration files can be found here: [Configuration Documentation](docs/ConfigurationDocumentation.md)
 ```json
 {
   "Name": "Default Test Config",
