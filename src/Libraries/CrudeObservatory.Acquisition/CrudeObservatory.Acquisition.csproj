@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="JsonSubTypes" Version="1.8.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CrudeObservatory.Abstractions\CrudeObservatory.Abstractions.csproj" />
+    <ProjectReference Include="..\CrudeObservatory.DataSources\CrudeObservatory.DataSources.csproj" />
+    <ProjectReference Include="..\CrudeObservatory.DataTargets\CrudeObservatory.DataTargets.csproj" />
+    <ProjectReference Include="..\CrudeObservatory.Intervals\CrudeObservatory.Intervals.csproj" />
+    <ProjectReference Include="..\CrudeObservatory.Triggers\CrudeObservatory.Triggers.csproj" />
+  </ItemGroup>
+
+</Project>
