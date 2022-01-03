@@ -3,7 +3,7 @@
     public enum TriggerType
     {
         Manual,
-        Auto,
+        Immediate,
         Delay
     }
 }

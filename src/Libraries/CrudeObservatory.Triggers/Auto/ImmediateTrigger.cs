@@ -2,7 +2,7 @@
 
 namespace CrudeObservatory.Triggers.Auto
 {
-    public class AutoTrigger : ITrigger
+    public class ImmediateTrigger : ITrigger
     {
         public Task InitializeAsync(CancellationToken stoppingToken) => Task.CompletedTask;
 
