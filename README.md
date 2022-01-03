@@ -5,9 +5,10 @@ An application to acquire data from industrial control systems (PLCs and other c
 
 I appreciate community help with testing, submitting issues, and requesting features.
 
+Current assumptions/limitations are documented here: [Limitations & Assumptions](docs/Limitations-Assumptions.md)
 
 ## Overview
-Crude Observatory is built as a flexible way to acquire data from multiple sources and route that data to storage/endpoints. It's built using separate modules that can be combined via configuration to accomplish different acquisition scenarios.
+Crude Observatory is built as a flexible way to acquire data from multiple sources and route that data to storage/endpoints. It's built using separate modules that can be combined via configuration to accomplish different acquisition scenarios. It takes a lot of inspiration from logging frameworks (such as NLog/Serilog) and shipper agents (Elastic's Beats, SumoLogic's Collectors, Influx's Telegraf).
 
 ## Design
 To build an "Acquisition Set" configuration must be specified for the following:
@@ -109,3 +110,15 @@ Documentation for configuration files can be found here: [Configuration Document
   }
 }
 ```
+
+## Installation/Operation
+Currently, the only available user interface is a CLI app. The application is built in dotnet 6 and requires the host system to have the [ASP.NET Core Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) installed. Packages are built for both Windows and Linux.
+
+### Installation
+Download the latest release and uncompress it to the folder of your choice.
+
+### Operation
+1. Modify or copy the included "AcqConfig.json".
+2. Run the following:
+   1. Windows: ```.\CrudeObservatory.CLI.exe --AcqConfigPath .\AcqConfig.json```
+   2. Linux: ```.\CrudeObservatory.CLI --AcqConfigPath .\AcqConfig.json```
