@@ -67,7 +67,7 @@
           "TagType": "Dint"
         },
         {
-          "Name": "TestDINT0009",
+          "Name": "Program:TestProgram.TESTTimer.ACC",
           "TagType": "Dint"
         }
       ]
