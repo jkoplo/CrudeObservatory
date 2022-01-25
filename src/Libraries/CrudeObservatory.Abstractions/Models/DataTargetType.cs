@@ -3,5 +3,6 @@
     public enum DataTargetType
     {
         CSV,
+        InfluxDB
     }
 }
