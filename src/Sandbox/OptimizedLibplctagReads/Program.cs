@@ -6,60 +6,61 @@ using libplctag.DataTypes.Simple;
 using OptimizedLibplctagReads;
 using System.Diagnostics;
 
-Console.WriteLine("Hello, World!");
+Console.WriteLine("Tag Benchmark");
+Console.WriteLine("1) Compare Reads");
+Console.WriteLine("2) Read in loop");
+
 // Instantiate the tag with the appropriate mapper and datatype
 
+char choice = Console.ReadKey().KeyChar;
+Console.WriteLine();
 
-var allTags = new List<TagDint>();
-var length = 2000;
-
-var stopwatch = new Stopwatch();
-
-stopwatch.Start();
-
-for (int i = 0; i < length; i++)
+switch (choice)
 {
-    var myTag = new TagDint()
-    {
-        //Name is the full path to tag. 
-        Name = $"TestDINT{i.ToString("0000")}",
-        //Gateway is the IP Address of the PLC or communication module.
-        Gateway = "10.10.10.17",
-        //Path is the location in the control plane of the CPU. Almost always "1,0".
-        Path = "1,0",
-        PlcType = PlcType.ControlLogix,
-        Protocol = Protocol.ab_eip,
-        Timeout = TimeSpan.FromSeconds(5),
-    };
-    allTags.Add(myTag);
+    case '1':
+        var tagsReadCompare = await TagInstantation.Instantiate(2000, TimeSpan.FromSeconds(5));
+        ReadExamples.ReadForEach(tagsReadCompare);
+        await ReadExamples.ReadForEachAsync(tagsReadCompare);
+        await ReadExamples.ReadWhenAllAsync(tagsReadCompare);
+        ReadExamples.ReadParallelForEach(tagsReadCompare);
+        //ReadExamples.ReadAsyncParallelForEach(tags);
+        await ReadExamples.ReadAsyncParallelForEachAsync(tagsReadCompare);
+        break;
+
+    case '2':
+        var tagsReadLoop = await TagInstantation.Instantiate(2000, TimeSpan.FromMilliseconds(2000));
+        var exceptionStopwatch = new Stopwatch();
+        try
+        {
+            while (true)
+            {
+                exceptionStopwatch.Restart();
+                await ReadExamples.ReadWhenAllAsync(tagsReadLoop);
+            }
+        }
+        catch (Exception e)
+        {
+            exceptionStopwatch.Stop();
+            Console.WriteLine($"Exception: {e}");
+            Console.WriteLine($"Time Since start: {exceptionStopwatch.ElapsedMilliseconds}");
+        }
+
+        break;
+    default:
+        break;
 }
 
-stopwatch.Stop();
-Console.WriteLine($"Tag Instantiation = {stopwatch.ElapsedMilliseconds} msec");
-
-stopwatch.Restart();
-await Task.WhenAll(allTags.Select(x => x.InitializeAsync()));
-stopwatch.Stop();
-Console.WriteLine($"Tag InitWhenAllAsync = {stopwatch.ElapsedMilliseconds} msec");
 
 
-ReadExamples.ReadForEach(allTags);
 
-await ReadExamples.ReadForEachAsync(allTags);
 
-await ReadExamples.ReadWhenAllAsync(allTags);
 
-ReadExamples.ReadParallelForEach(allTags);
-
-//ReadExamples.ReadAsyncParallelForEach(allTags);
-
-await ReadExamples.ReadAsyncParallelForEachAsync(allTags);
 
 
 
 Console.ReadKey();
 
-//foreach (var item in allTags)
+//foreach (var item in tags)
 //{
 //    Console.WriteLine($"{item.Name} = {item.Value}");
 //}
