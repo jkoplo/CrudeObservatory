@@ -1,4 +1,5 @@
 ﻿using InfluxDB.Client.Writes;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -10,44 +11,72 @@ namespace CrudeObservatory.DataTargets.InfluxDB
 {
     internal static class FieldExtension
     {
-        internal static PointData SetFieldByObjectType(this PointData pointData, string name, object value)
+        internal static PointData.Builder SetFieldByObjectType(this PointData.Builder builder, string name, object value)
         {
-            var jobject = JObject.FromObject(value);
+            //var jobject = JObject.FromObject(value);
 
-            switch (jobject.Type)
+            switch (Type.GetTypeCode(value.GetType()))
             {
-                case JTokenType.Integer:
-                    pointData.Field(name, (int)value);
+                case TypeCode.Object:
+                    builder.Field(name, JsonConvert.SerializeObject(value));
                     break;
-                case JTokenType.Float:
-                    pointData.Field(name, (double)value);
+                case TypeCode.Boolean:
+                    builder.Field(name, (bool)value);
                     break;
-                case JTokenType.String:
-                    pointData.Field(name, (string)value);
+                case TypeCode.Byte:
+                    builder.Field(name, (byte)value);
                     break;
-                case JTokenType.Boolean:
-                    pointData.Field(name, (bool)value);
+                case TypeCode.Char:
+                    builder.Field(name, (char)value);
                     break;
-
-                case JTokenType.Object:
-                case JTokenType.Array:
-                case JTokenType.Constructor:
-                case JTokenType.Property:
-                case JTokenType.Comment:
-                case JTokenType.Null:
-                case JTokenType.Undefined:
-                case JTokenType.Date:
-                case JTokenType.Raw:
-                case JTokenType.Guid:
-                case JTokenType.Uri:
-                case JTokenType.Bytes:
-                case JTokenType.None:
-                case JTokenType.TimeSpan:
-                    pointData.Field(name, jobject.ToString());
+                case TypeCode.UInt16:
+                    builder.Field(name, (ushort)value);
+                    break;
+                case TypeCode.UInt32:
+                    builder.Field(name, (uint)value);
+                    break;
+                case TypeCode.UInt64:
+                    builder.Field(name, (ulong)value);
+                    break;
+                case TypeCode.SByte:
+                    builder.Field(name, (sbyte)value);
+                    break;
+                case TypeCode.Int16:
+                    builder.Field(name, (short)value);
+                    break;
+                case TypeCode.Int32:
+                    builder.Field(name, (int)value);
+                    break;
+                case TypeCode.Int64:
+                    builder.Field(name, (long)value);
+                    break;
+                case TypeCode.Single:
+                    builder.Field(name, (float)value);
+                    break;
+                case TypeCode.Double:
+                    builder.Field(name, (double)value);
+                    break;
+                case TypeCode.Decimal:
+                    builder.Field(name, (decimal)value);
+                    break;
+                case TypeCode.DateTime:
+                    //HACK: Make the opinionated decision that DateTime = Unix msec
+                    var dateTime = (DateTime)value;
+                    long unixTimeStampInSeconds = new DateTimeOffset(dateTime).ToUnixTimeMilliseconds();
+                    builder.Field(name, unixTimeStampInSeconds);
+                    break;
+                case TypeCode.String:
+                    builder.Field(name, (string)value);
+                    break;
+                case TypeCode.DBNull:
+                case TypeCode.Empty:
+                    //HACK: Write empty string
+                    builder.Field(name, "");
+                    break;
+                default:
                     break;
             }
-
-            return pointData;
+            return builder;
         }
 
     }

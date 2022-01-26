@@ -12,7 +12,7 @@ namespace CrudeObservatory.Acquisition.Models
 
         public IInterval Interval { get; set; }
         public List<IDataSource> DataSources { get; set; }
-        public IDataTarget DataTarget { get; set; }
+        public List<IDataTarget> DataTargets { get; set; }
 
     }
 }

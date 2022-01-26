@@ -24,7 +24,7 @@ namespace CrudeObservatory.Acquisition.Services
             acq.DataSources = config.DataSources.Select(x => DataSourcesMap.GetDataSource(x)).ToList();
 
             //Data Target
-            acq.DataTarget = DataTargetsMap.GetDataSource(config.DataTarget);
+            acq.DataTargets = config.DataTargets.Select(x => DataTargetsMap.GetDataTarget(x)).ToList();
 
             //Interval
             acq.Interval = IntervalsMap.GetDataSource(config.Interval);

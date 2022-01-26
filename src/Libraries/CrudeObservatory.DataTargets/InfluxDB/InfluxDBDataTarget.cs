@@ -37,10 +37,7 @@ namespace CrudeObservatory.DataTargets.InfluxDB
             return Task.CompletedTask;
         }
 
-        public Task WriteAcquisitionConfigAsync(AcquisitionConfig acqConfig, CancellationToken stoppingToken)
-        {
-            throw new NotImplementedException();
-        }
+        public Task WriteAcquisitionConfigAsync(AcquisitionConfig acqConfig, CancellationToken stoppingToken)=> Task.CompletedTask;
 
         public Task WriteDataAsync(IIntervalOutput intervalData, IEnumerable<IDataValue> sourceData, CancellationToken stoppingToken)
         {
@@ -58,10 +55,7 @@ namespace CrudeObservatory.DataTargets.InfluxDB
             {
                 writeApi.WritePoints(DataTargetConfig.Bucket, DataTargetConfig.Organization, points);
             }
-
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
-
-
     }
 }

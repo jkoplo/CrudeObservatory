@@ -73,8 +73,18 @@
       ]
     }
   ],
-  "DataTarget": {
-    "Type": "CSV",
-    "FilePath": "DataTarget.csv"
-  }
+  "DataTargets": [
+    {
+      "Type": "CSV",
+      "FilePath": "DataTarget.csv"
+    },
+    {
+      "Type": "InfluxDB",
+      "Measurement": "CrudeObservatory",
+      "Bucket": "test-bucket",
+      "Organization": "test-org",
+      "Token": "Obj8rUUOK2EkJ1y4gp0aKCZhFfANZMXsNbt2SSEN56mB8Foqx9zs3g4yJvJl7A0b3B4uqL_TY4zHufAKusLnYQ==",
+      "Url": "http://localhost:8086"
+    }
+  ]
 }

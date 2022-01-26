@@ -28,6 +28,6 @@ namespace CrudeObservatory.DataTargets
 
         }
 
-        public static IDataTarget GetDataSource(IDataTargetConfig config) => constructorMap[config.GetType()].Invoke(config);
+        public static IDataTarget GetDataTarget(IDataTargetConfig config) => constructorMap[config.GetType()].Invoke(config);
     }
 }
