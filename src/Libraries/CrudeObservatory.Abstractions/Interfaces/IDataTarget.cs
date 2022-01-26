@@ -6,7 +6,7 @@ namespace CrudeObservatory.Abstractions.Interfaces
     {
         Task InitializeAsync(CancellationToken stoppingToken);
         Task WriteAcquisitionConfigAsync(AcquisitionConfig acqConfig, CancellationToken stoppingToken);
-        Task WriteDataAsync(IEnumerable<IDataValue> dataValues, CancellationToken stoppingToken);
+        Task WriteDataAsync(IIntervalOutput intervalData, IEnumerable<IDataValue> sourceData, CancellationToken stoppingToken);
         Task ShutdownAsync(CancellationToken stoppingToken);
     }
 }

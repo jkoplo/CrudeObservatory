@@ -42,27 +42,21 @@ namespace CrudeObservatory.DataTargets.InfluxDB
             throw new NotImplementedException();
         }
 
-        public Task WriteDataAsync(IEnumerable<IDataValue> dataValues, CancellationToken stoppingToken)
+        public Task WriteDataAsync(IIntervalOutput intervalData, IEnumerable<IDataValue> sourceData, CancellationToken stoppingToken)
         {
-            //TODO: Need to either extract "Nominal Time" or pass timestamp on datavalues or pass an output from interval explicitly
 
-            var values = dataValues.Select(x => PointData
+            DateTimeOffset dateTimeOffset = DateTimeOffset.FromUnixTimeMilliseconds(intervalData.NominalTime);
+
+            var points = sourceData.Select(x => PointData
                                                   .Measurement(DataTargetConfig.Measurement)
                                                   //.Tag("host", "host2")
                                                   .SetFieldByObjectType(x.Name, x.Value)
-                                                  .Timestamp(DateTime.UtcNow, WritePrecision.Ns))
-                                                .ToList();
-
-
-            var point = PointData
-              .Measurement("mem")
-              .Tag("host", "host2")
-              .Field("used_percent", 38.43234543)
-              .Timestamp(DateTime.UtcNow, WritePrecision.Ns);
+                                                  .Timestamp(dateTimeOffset.UtcDateTime, WritePrecision.Ns)
+                                            ).ToList();
 
             using (var writeApi = client.GetWriteApi())
             {
-                writeApi.WritePoint(bucket, org, point);
+                writeApi.WritePoints(DataTargetConfig.Bucket, DataTargetConfig.Organization, points);
             }
 
             throw new NotImplementedException();
