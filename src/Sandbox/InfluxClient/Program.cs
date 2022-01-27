@@ -23,15 +23,46 @@ using var client = InfluxDBClientFactory.Create("http://localhost:8086", token);
 //    writeApi.WriteRecord(bucket, org, WritePrecision.Ns, data);
 //}
 
-var point = PointData
-  .Measurement("mem")
-  .Tag("host", "host2")
-  .Field("used_percent", 38.43234543)
-  .Timestamp(DateTime.UtcNow, WritePrecision.Ns);
-
-using (var writeApi = client.GetWriteApi())
+for (int i = 0; i < 10; i++)
 {
-    writeApi.WritePoint(bucket, org, point);
+    var points = new List<PointData>();
+
+    var value = i * 10;
+    Console.WriteLine(value);
+
+    var point1 = PointData
+    .Measurement("Sandbox")
+    //.Tag("host", "host2")
+    .Field("Some Value", value)
+    .Timestamp(DateTime.UtcNow, WritePrecision.Ns);
+
+    points.Add(point1);
+
+    object valueObject = value;
+
+    var pointBuilder = PointData.Builder
+        .Measurement("Sandbox")
+        .SetFieldByObjectType("Some Value Object", (object)value)
+        .Timestamp(DateTime.UtcNow, WritePrecision.Ns)
+        .ToPointData();
+
+
+    //var point2 = PointData.
+    //.Measurement("Sandbox")
+    ////.Tag("host", "host2")
+    ////.SetFieldByObjectType("Some Value Object", (object)value)
+    //.SetIntField("Some Value 2", value)
+    ////.Field("Some Value 2", (int)valueObject)
+    //.Timestamp(DateTime.UtcNow, WritePrecision.Ns);
+
+    points.Add(pointBuilder);
+
+    using (var writeApi = client.GetWriteApi())
+    {
+        writeApi.WritePoints(bucket, org, points);
+    }
+
+    await Task.Delay(1000);
 }
 
 //var mem = new Mem { Host = "host3", UsedPercent = 39.43234543, Time = DateTime.UtcNow };
