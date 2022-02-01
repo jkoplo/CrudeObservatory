@@ -11,7 +11,7 @@ namespace CrudeObservatory.Abstractions.Models
 
         public IIntervalConfig Interval { get; set; }
         public List<IDataSourceConfig> DataSources { get; set; }
-        public IDataTargetConfig DataTarget { get; set; }
+        public List<IDataTargetConfig> DataTargets { get; set; }
     }
 
 

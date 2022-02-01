@@ -2,6 +2,8 @@
 using CrudeObservatory.Abstractions.Models;
 using CrudeObservatory.DataTargets.CSV;
 using CrudeObservatory.DataTargets.CSV.Models;
+using CrudeObservatory.DataTargets.InfluxDB;
+using CrudeObservatory.DataTargets.InfluxDB.Models;
 
 namespace CrudeObservatory.DataTargets
 {
@@ -16,14 +18,16 @@ namespace CrudeObservatory.DataTargets
             ConfigMap = new Dictionary<DataTargetType, Type>()
             {
                 { DataTargetType.CSV, typeof(CsvDataTargetConfig) },
+                { DataTargetType.InfluxDB, typeof(InfluxDBDataTargetConfig) },
             };
             constructorMap = new Dictionary<Type, TriggerConstructor>()
             {
                 { typeof(CsvDataTargetConfig), (x) =>  new CsvDataTarget((CsvDataTargetConfig)x)},
+                { typeof(InfluxDBDataTargetConfig), (x) =>  new InfluxDBDataTarget((InfluxDBDataTargetConfig)x)},
             };
 
         }
 
-        public static IDataTarget GetDataSource(IDataTargetConfig config) => constructorMap[config.GetType()].Invoke(config);
+        public static IDataTarget GetDataTarget(IDataTargetConfig config) => constructorMap[config.GetType()].Invoke(config);
     }
 }

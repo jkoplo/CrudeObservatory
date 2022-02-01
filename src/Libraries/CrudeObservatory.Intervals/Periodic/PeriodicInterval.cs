@@ -17,7 +17,7 @@ namespace CrudeObservatory.Intervals.Fixed
 
         public Task ShutdownAsync(CancellationToken stoppingToken) => Task.CompletedTask;
 
-        public async Task<IEnumerable<IDataValue>> WaitForIntervalAsync(CancellationToken stoppingToken)
+        public async Task<IIntervalOutput> WaitForIntervalAsync(CancellationToken stoppingToken)
         {
 
             //Init the expiration if first call
@@ -27,23 +27,16 @@ namespace CrudeObservatory.Intervals.Fixed
             //Get the remaining time in msec rounded to nearest integer
             var msecTilExpiration = Convert.ToInt32(intervalExpiration - DateTimeOffset.Now.ToUnixTimeMilliseconds());
 
-            var intervalValues = new List<IDataValue>()
-            {
-                new DataValue()
-                {
-                    Name="Nominal Time",
-                    Value= intervalExpiration
-                }
-            };
+            var intervalOutput = new IntervalOutput() { NominalTime = intervalExpiration ?? long.MinValue };
 
             intervalExpiration += Convert.ToInt64(IntervalConfig.PeriodSec * 1000);
 
             if (msecTilExpiration < 0)
                 //TODO: Maybe this should error, or have a config option to error
-                return intervalValues;
+                return intervalOutput;
 
             await Task.Delay(msecTilExpiration);
-            return intervalValues;
+            return intervalOutput;
         }
     }
 }
