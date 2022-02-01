@@ -1,6 +1,6 @@
 ﻿using CrudeObservatory.Abstractions.Interfaces;
 
-namespace CrudeObservatory.Triggers.Auto
+namespace CrudeObservatory.Triggers.Immediate
 {
     public class ImmediateTrigger : ITrigger
     {

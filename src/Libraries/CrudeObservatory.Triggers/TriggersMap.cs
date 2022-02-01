@@ -1,8 +1,8 @@
 ﻿using CrudeObservatory.Abstractions.Interfaces;
 using CrudeObservatory.Triggers.Auto;
-using CrudeObservatory.Triggers.Auto.Models;
 using CrudeObservatory.Triggers.Delay;
 using CrudeObservatory.Triggers.Delay.Models;
+using CrudeObservatory.Triggers.Immediate.Models;
 using CrudeObservatory.Triggers.Manual;
 using CrudeObservatory.Triggers.Manual.Models;
 
