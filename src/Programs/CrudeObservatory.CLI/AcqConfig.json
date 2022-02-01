@@ -4,9 +4,12 @@
     "Type": "Immediate"
   },
   "EndTrigger": {
-    "Type": "Delay",
-    "DelaySeconds": 36000.0
+    "Type": "Never"
   },
+  //"EndTrigger": {
+  //  "Type": "Delay",
+  //  "DelaySeconds": 36000.0
+  //},
   "Interval": {
     "Type": "Periodic",
     "PeriodSec": 1.0

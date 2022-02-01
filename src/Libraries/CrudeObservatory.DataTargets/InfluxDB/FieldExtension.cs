@@ -13,8 +13,6 @@ namespace CrudeObservatory.DataTargets.InfluxDB
     {
         internal static PointData.Builder SetFieldByObjectType(this PointData.Builder builder, string name, object value)
         {
-            //var jobject = JObject.FromObject(value);
-
             switch (Type.GetTypeCode(value.GetType()))
             {
                 case TypeCode.Object:
