@@ -40,7 +40,7 @@ namespace Tests
             };
             acq.Interval = new PeriodicIntervalConfig() { PeriodSec = .5 };
             acq.EndTrigger = new DelayTriggerConfig() { DelaySeconds = 10, };
-            acq.DataTarget = new CsvDataTargetConfig() { FilePath = "DataTarget.csv" };
+            acq.DataTargets = new List<IDataTargetConfig>() { new CsvDataTargetConfig() { FilePath = "DataTarget.csv" } };
 
             return acq;
 
