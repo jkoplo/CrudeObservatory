@@ -1,10 +1,12 @@
 ﻿using CrudeObservatory.Abstractions.Interfaces;
-using CrudeObservatory.Triggers.Auto;
-using CrudeObservatory.Triggers.Auto.Models;
 using CrudeObservatory.Triggers.Delay;
 using CrudeObservatory.Triggers.Delay.Models;
+using CrudeObservatory.Triggers.Immediate;
+using CrudeObservatory.Triggers.Immediate.Models;
 using CrudeObservatory.Triggers.Manual;
 using CrudeObservatory.Triggers.Manual.Models;
+using CrudeObservatory.Triggers.Never;
+using CrudeObservatory.Triggers.Never.Models;
 
 namespace CrudeObservatory.Triggers
 {
@@ -21,6 +23,7 @@ namespace CrudeObservatory.Triggers
             ConfigMap = new Dictionary<TriggerType, Type>()
             {
                 { TriggerType.Immediate, typeof(ImmediateTriggerConfig) },
+                { TriggerType.Never, typeof(NeverTriggerConfig) },
                 { TriggerType.Manual, typeof(ManualTriggerConfig) },
                 { TriggerType.Delay, typeof(DelayTriggerConfig) },
             };
@@ -28,6 +31,7 @@ namespace CrudeObservatory.Triggers
             constructorMap = new Dictionary<Type, TriggerConstructor>()
             {
                 { typeof(ImmediateTriggerConfig), (x) =>  new ImmediateTrigger()},
+                { typeof(NeverTriggerConfig), (x) =>  new NeverTrigger()},
                 { typeof(ManualTriggerConfig), (x) =>  new ManualTrigger()},
                 { typeof(DelayTriggerConfig), (x) =>  new DelayTrigger((DelayTriggerConfig)x)},
             };

@@ -4,6 +4,7 @@
     {
         Manual,
         Immediate,
+        Never,
         Delay
     }
 }
