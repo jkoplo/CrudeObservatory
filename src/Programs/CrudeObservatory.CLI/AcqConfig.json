@@ -74,10 +74,10 @@
     }
   ],
   "DataTargets": [
-    //{
-    //  "Type": "CSV",
-    //  "FilePath": "DataTarget.csv"
-    //},
+    {
+      "Type": "CSV",
+      "FilePath": "DataTarget.csv"
+    },
     {
       "Type": "InfluxDB",
       "Measurement": "CrudeObservatory",

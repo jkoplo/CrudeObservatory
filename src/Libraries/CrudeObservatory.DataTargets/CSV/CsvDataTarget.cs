@@ -42,19 +42,22 @@ namespace CrudeObservatory.DataTargets.CSV
 
         }
 
-        public async Task WriteDataAsync(IEnumerable<IDataValue> dataValues, CancellationToken stoppingToken)
+        public async Task WriteDataAsync(IIntervalOutput intervalData, IEnumerable<IDataValue> sourceData, CancellationToken stoppingToken)
         {
             if (firstDataWrite)
             {
                 if (File.Exists(csvPath))
                     File.Delete(csvPath);
 
-                var names = dataValues.Select(x => x.Name as object).ToList();
+                var names = sourceData.Select(x => x.Name as object).ToList();
+                names.Insert(0, "Nominal Time");
                 await WriteCsvRow(names, stoppingToken);
                 firstDataWrite = false;
             }
 
-            var values = dataValues.Select(x => x.Value).ToList();
+            var values = sourceData.Select(x => x.Value).ToList();
+            //If value is null return -1
+            values.Insert(0, intervalData.NominalTime);
             await WriteCsvRow(values, stoppingToken);
         }
 

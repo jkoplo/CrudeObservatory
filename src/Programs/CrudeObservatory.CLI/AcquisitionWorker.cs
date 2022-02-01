@@ -35,19 +35,19 @@ namespace CrudeObservatory.CLI
                 acq.StartTrigger.InitializeAsync(stoppingToken),
                 acq.EndTrigger.InitializeAsync(stoppingToken),
                 acq.Interval.InitializeAsync(stoppingToken),
-                acq.DataTarget.InitializeAsync(stoppingToken)
             };
 
             //Add the list of additional inits
             initTasks.AddRange(acq.DataSources.Select(x => x.InitializeAsync(stoppingToken)));
+            initTasks.AddRange(acq.DataTargets.Select(x => x.InitializeAsync(stoppingToken)));
 
             await Task.WhenAll(initTasks);
 
             //Wait for start trigger
             await acq.StartTrigger.WaitForTriggerAsync(stoppingToken);
 
-            //Write config to Data Target
-            await acq.DataTarget.WriteAcquisitionConfigAsync(acquisitionConfig, stoppingToken);
+            //Write config to Data Targets
+            await Task.WhenAll(acq.DataTargets.Select(x => x.WriteAcquisitionConfigAsync(acquisitionConfig, stoppingToken)));
 
             //Acq started (or app cancelled)
             var endTrigger = acq.EndTrigger.WaitForTriggerAsync(stoppingToken);
@@ -66,15 +66,10 @@ namespace CrudeObservatory.CLI
                     //Get data from source(s)
                     var dataValues = await Task.WhenAll(acq.DataSources.Select(x => x.ReadDataAsync(stoppingToken)));
 
-                    var combinedDataValues = intervalTask.Result.ToList();
-
-                    foreach (var item in dataValues)
-                    {
-                        combinedDataValues.AddRange(item);
-                    }
+                    var combinedDataValues = dataValues.SelectMany(x => x);
 
                     //Write data to target(s)
-                    await acq.DataTarget.WriteDataAsync(combinedDataValues, stoppingToken);
+                    await Task.WhenAll(acq.DataTargets.Select(x => x.WriteDataAsync(intervalTask.Result, combinedDataValues, stoppingToken)));
 
                 }
                 //Repeat @ Wait for interval OR end trigger
