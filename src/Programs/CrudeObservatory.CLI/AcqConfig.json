@@ -5,11 +5,11 @@
   },
   "EndTrigger": {
     "Type": "Delay",
-    "DelaySeconds": 120.0
+    "DelaySeconds": 36000.0
   },
   "Interval": {
     "Type": "Periodic",
-    "PeriodSec": 0.5
+    "PeriodSec": 1.0
   },
   "DataSources": [
     {
@@ -62,10 +62,10 @@
           "Name": "TestDINT0007",
           "TagType": "Dint"
         },
-        {
-          "Name": "TestDINT0008",
-          "TagType": "Dint"
-        },
+        //{
+        //  "Name": "TestDINT0008",
+        //  "TagType": "Dint"
+        //},
         {
           "Name": "Program:TestProgram.TESTTimer.ACC",
           "TagType": "Dint"
@@ -73,8 +73,18 @@
       ]
     }
   ],
-  "DataTarget": {
-    "Type": "CSV",
-    "FilePath": "DataTarget.csv"
-  }
+  "DataTargets": [
+    //{
+    //  "Type": "CSV",
+    //  "FilePath": "DataTarget.csv"
+    //},
+    {
+      "Type": "InfluxDB",
+      "Measurement": "CrudeObservatory",
+      "Bucket": "test-bucket",
+      "Organization": "test-org",
+      "Token": "Obj8rUUOK2EkJ1y4gp0aKCZhFfANZMXsNbt2SSEN56mB8Foqx9zs3g4yJvJl7A0b3B4uqL_TY4zHufAKusLnYQ==",
+      "Url": "http://localhost:8086"
+    }
+  ]
 }
