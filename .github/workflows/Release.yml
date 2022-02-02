@@ -53,6 +53,6 @@ jobs:
       - name: Publish
         uses: softprops/action-gh-release@v1
         with:
-          files: "App*"
+          files: "${release_name}*"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
