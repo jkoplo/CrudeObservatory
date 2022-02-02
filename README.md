@@ -1,4 +1,4 @@
-# CrudeObservatory
+# Crude Observatory
 An application to acquire data from industrial control systems (PLCs and other controllers)
 
 **This project is in early development. It should be considered a technical demo and not relied on for production work loads. A small set of features is currently implemented with more planned in the future. There will be breaking changes as things get developed/refactored until a stable release is made.**
