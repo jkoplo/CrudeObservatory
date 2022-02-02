@@ -5,6 +5,8 @@ An application to acquire data from industrial control systems (PLCs and other c
 
 I appreciate community help with testing, submitting issues, and requesting features.
 
+For those wanting to jump right in to using Crude Observatory with InfluxDB (an open-source time series database) start here: [InfluxDB Configuration](docs/InfluxDB-Configuration.md)
+
 Current assumptions/limitations are documented here: [Limitations & Assumptions](docs/Limitations-Assumptions.md)
 
 ## Overview
@@ -27,6 +29,7 @@ To build an "Acquisition Set" configuration must be specified for the following:
 ### Triggers
 Used to start and stop an "Acquisition Set".
 * `Immediate`
+* `Never`
 * `Delay`
 * `ValueTrue` [Planned]
 * `ValueFalse` [Planned]
@@ -44,6 +47,7 @@ PLCs/Controllers/etc that provide the values to be read/stored.
 
 ### Data Targets
 * `CSV`
+* `InfluxDB`
 * `Json` [Planned]
 * `MQTT` [Planned]
 * `SQLite` [Planned]
@@ -116,6 +120,8 @@ Currently, the only available user interface is a CLI app. The application is bu
 
 ### Installation
 Download the latest release and uncompress it to the folder of your choice.
+
+If you want a quick start to using Crude Observatory with InfluxDB, read the documentation here: [InfluxDB Configuration](docs/InfluxDB-Configuration.md)
 
 ### Operation
 1. Modify or copy the included "AcqConfig.json"

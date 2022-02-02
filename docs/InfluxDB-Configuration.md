@@ -1,19 +1,23 @@
 # Using InfluxDB with Crude Observatory
 
+**Warning**: This program is under heavy development. Please use it, test and file issues, but don't depend on it for production scenarios.
+
 - [Using InfluxDB with Crude Observatory](#using-influxdb-with-crude-observatory)
   - [Download, install, and configure InfluxDB](#download-install-and-configure-influxdb)
   - [Configure an access token](#configure-an-access-token)
   - [Configure a Crude Observatory Acquisition Config](#configure-a-crude-observatory-acquisition-config)
   - [Run Crude Observatory](#run-crude-observatory)
+  - [View Data](#view-data)
+  - [Advanced](#advanced)
 
 ## Download, install, and configure InfluxDB
-1. Download InfluxDB OSS: [InfluxDB v2.1](https://docs.influxdata.com/influxdb/v2.1/install/)
+1. Download InfluxDB OSS: [InfluxDB OSS v2.1](https://docs.influxdata.com/influxdb/v2.1/install/)
    1. Installation instructions vary for different OS platforms
    2. InfluxDB is written in golang and is self-contained. The official instructions are generally to download, extract to a reasonable directory, and run `influxd`.
-2. Follow the instructions to configure InfluxDB (either through web or CLI)
+2. Follow the official instructions to configure InfluxDB (either through WebUI or CLI)
    1. 'Organization' is used to group and allow access for users. It can be named anything that makes sense. 
    2. 'Initial bucket' is used to group measurements/data and has a retention period. It can also be named anything that makes sense. 
-   3. Choose 'Configure Later' unless you'd also like to set up some host metrics (CPU/Memory/Influx metrics/etc)
+   3. For data sourcs, choose 'Configure Later' unless you'd also like to set up some host metrics (CPU/Memory/Influx metrics/etc)
 
 
 ## Configure an access token
@@ -47,3 +51,17 @@
 ```
 .\CrudeObservatory.CLI --AcqConfigPath .\AcqConfig.json
 ```
+
+## View Data
+In the InfluxDB WebUI navigate to 'Explore'. Select your bucket, measurement, and fields that you're interested in and choose graphing options then press 'Submit'. There's lots of ways to format graphs or even build dashboards.
+
+## Advanced
+
+This document shows a simple setup. For more information about using InfluxDB, refer to their official docs.
+
+**Note: On Windows, InfluxDB stores all configuration and data to `C:\Users\<username>\.influxdbv2` folder. Wipe this folder to reset. Back it up if your data is important. Be mindful of the security implications of this folder since it stores all secrets/keys.**
+
+Things that are possible:
+1. Setting InfluxDB to run as a service at startup
+2. Running InfluxDB on a separate machine with (potentially) several deployed instances of Crude Observatory sending data to it
+3. Connecting Grafana, Python, you name it to InfluxDB
