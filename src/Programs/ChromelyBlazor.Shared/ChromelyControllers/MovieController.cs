@@ -31,28 +31,28 @@ public class MovieController : ChromelyController
         }
     }
 
-    [ChromelyRoute(Path = "/democontroller/movies/get")]
-    public List<MovieInfo> GetMovies()
-    {
-        var movieInfos = new List<MovieInfo>();
-        var assemblyName = typeof(MovieInfo).Assembly.GetName().Name ?? string.Empty;
+    //[ChromelyRoute(Path = "/democontroller/movies/get")]
+    //public List<MovieInfo> GetMovies()
+    //{
+    //    var movieInfos = new List<MovieInfo>();
+    //    var assemblyName = typeof(MovieInfo).Assembly.GetName().Name ?? string.Empty;
 
-        movieInfos.Add(new MovieInfo(id: 1, title: "The Shawshank Redemption", year: 1994, votes: 678790, rating: 9.2, assembly: assemblyName));
-        movieInfos.Add(new MovieInfo(id: 2, title: "The Godfather", year: 1972, votes: 511495, rating: 9.2, assembly: assemblyName));
-        movieInfos.Add(new MovieInfo(id: 3, title: "The Godfather: Part II", year: 1974, votes: 319352, rating: 9.0, assembly: assemblyName));
-        movieInfos.Add(new MovieInfo(id: 4, title: "The Good, the Bad and the Ugly", year: 1966, votes: 213030, rating: 8.9, assembly: assemblyName));
-        movieInfos.Add(new MovieInfo(id: 5, title: "My Fair Lady", year: 1964, votes: 533848, rating: 8.9, assembly: assemblyName));
-        movieInfos.Add(new MovieInfo(id: 6, title: "12 Angry Men", year: 1957, votes: 164558, rating: 8.9, assembly: assemblyName));
+    //    movieInfos.Add(new MovieInfo(id: 1, title: "The Shawshank Redemption", year: 1994, votes: 678790, rating: 9.2, assembly: assemblyName));
+    //    movieInfos.Add(new MovieInfo(id: 2, title: "The Godfather", year: 1972, votes: 511495, rating: 9.2, assembly: assemblyName));
+    //    movieInfos.Add(new MovieInfo(id: 3, title: "The Godfather: Part II", year: 1974, votes: 319352, rating: 9.0, assembly: assemblyName));
+    //    movieInfos.Add(new MovieInfo(id: 4, title: "The Good, the Bad and the Ugly", year: 1966, votes: 213030, rating: 8.9, assembly: assemblyName));
+    //    movieInfos.Add(new MovieInfo(id: 5, title: "My Fair Lady", year: 1964, votes: 533848, rating: 8.9, assembly: assemblyName));
+    //    movieInfos.Add(new MovieInfo(id: 6, title: "12 Angry Men", year: 1957, votes: 164558, rating: 8.9, assembly: assemblyName));
 
-        return movieInfos;
-    }
+    //    return movieInfos;
+    //}
 
-    [ChromelyRoute(Path = "/democontroller/movies/post")]
-    public string SaveMovies(List<MovieInfo> movies)
-    {
-        var rowsReceived = movies != null ? movies.Count : 0;
-        return $"{DateTime.Now}: {rowsReceived} rows of data successfully saved.";
-    }
+    //[ChromelyRoute(Path = "/democontroller/movies/post")]
+    //public string SaveMovies(List<MovieInfo> movies)
+    //{
+    //    var rowsReceived = movies != null ? movies.Count : 0;
+    //    return $"{DateTime.Now}: {rowsReceived} rows of data successfully saved.";
+    //}
 }
 
 

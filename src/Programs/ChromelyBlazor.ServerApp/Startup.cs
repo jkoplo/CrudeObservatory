@@ -1,4 +1,6 @@
-﻿namespace ChromelyBlazor.ServerApp;
+﻿using ChromelyBlazor.ServerApp.Data;
+
+namespace ChromelyBlazor.ServerApp;
 
 public class Startup
 {
@@ -15,6 +17,7 @@ public class Startup
     {
         services.AddRazorPages();
         services.AddServerSideBlazor();
+        services.AddSingleton<WeatherForecastService>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

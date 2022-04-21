@@ -1,36 +1,39 @@
-﻿<nav class="navbar navbar-expand-sm navbar-light bg-faded">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-content" aria-controls="nav-content" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <!-- Brand -->
-    <a class="navbar-brand text-muted" href="#">Demos</a>
-
-    <!-- Links -->
-    <div class="collapse navbar-collapse justify-content-end" id="nav-content">
-        <ul class="nav nav-pills">
-            <li class="nav-item">
-                <a class="nav-link" href="/">home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/tmdbmovies">tmdb movies</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/todolist">todo list</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">basics</a>
-                <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="/messagerouterdemo">Message Router Demo</a>
-                    <a class="dropdown-item" href="/javascriptdemo">Execute JavaScript Demo</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/html5test">HTML5 Tests</a>
-                    <a class="dropdown-item" href="/html6test">HTML6 Tests</a>
-                    <a class="dropdown-item" href="/shakatests">Google Shaka Support Tests</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="http://command.com/democontroller/showdevtools">Show DevTools</a>
-                </div>
-            </li>
-        </ul>
+﻿<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">ChromelyBlazor</a>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
     </div>
-</nav>
+</div>
+
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+    <nav class="flex-column">
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Home
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="counter">
+                <span class="oi oi-plus" aria-hidden="true"></span> Counter
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="fetchdata">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
+            </NavLink>
+        </div>
+    </nav>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

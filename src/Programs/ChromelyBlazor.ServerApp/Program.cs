@@ -15,7 +15,7 @@ if (firstProcess)
         {
             BlazorAppBuilder.Create(args, port)
                 .Build()
-                .Run();
+                .Run(port);
 
         }, ServerAppUtil.BlazorTaskTokenSource.Token, TaskCreationOptions.LongRunning);
         ServerAppUtil.BlazorTask.Start();
@@ -42,6 +42,7 @@ if (port != -1)
     var core = typeof(IChromelyConfiguration).Assembly;
     var config = DefaultConfiguration.CreateForRuntimePlatform();
     config.WindowOptions.Title = "blazor server app demo";
+    //config.StartUrl = $"https://127.0.0.1:7082";
     config.StartUrl = $"https://127.0.0.1:{port}";
     config.DebuggingMode = true;
     config.WindowOptions.RelativePathToIconFile = "chromely.ico";

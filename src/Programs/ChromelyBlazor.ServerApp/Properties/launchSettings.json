@@ -2,10 +2,11 @@
   "profiles": {
     "ChromelyBlazor.ServerApp": {
       "commandName": "Project",
+      "applicationUrl": "https://localhost:7082;http://localhost:5082",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": ""
+      //"applicationUrl": ""
     }
   }
 }
