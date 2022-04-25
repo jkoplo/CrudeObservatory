@@ -16,7 +16,8 @@ namespace CrudeObservatory.DataSources.SineWave
 
         public Task<IEnumerable<IDataValue>> ReadDataAsync(CancellationToken stoppingToken)
         {
-            //I don't need the fractional cycle, but it makes debug easier and my head hurt less
+            //https://www.codeproject.com/Articles/30180/Simple-Signal-Generator
+
             double timeInSeconds = DateTimeOffset.Now.ToUnixTimeMilliseconds() / 1000;
 
             double rawValue = 0d;
