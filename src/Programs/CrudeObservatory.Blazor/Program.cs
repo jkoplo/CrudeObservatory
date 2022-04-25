@@ -75,6 +75,6 @@ public class DemoChromelyApp : ChromelyBasicApp
     public override void ConfigureServices(IServiceCollection services)
     {
         base.ConfigureServices(services);
-        RegisterChromelyControllerAssembly(services, typeof(MovieController).Assembly);
+        RegisterChromelyControllerAssembly(services, typeof(DemoController).Assembly);
     }
 }
