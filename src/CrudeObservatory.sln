@@ -33,6 +33,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChromelyBlazor.Shared", "Pr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrudeObservatory.Blazor", "Programs\CrudeObservatory.Blazor\CrudeObservatory.Blazor.csproj", "{8F596F94-B932-47F6-9BD3-7B7D6F97D54A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfluxDbManager", "Programs\InfluxDbManager\InfluxDbManager.csproj", "{2965D732-45B5-46F8-9473-1088407F32E9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -129,6 +131,14 @@ Global
 		{8F596F94-B932-47F6-9BD3-7B7D6F97D54A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8F596F94-B932-47F6-9BD3-7B7D6F97D54A}.Release|x64.ActiveCfg = Release|Any CPU
 		{8F596F94-B932-47F6-9BD3-7B7D6F97D54A}.Release|x64.Build.0 = Release|Any CPU
+		{2965D732-45B5-46F8-9473-1088407F32E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2965D732-45B5-46F8-9473-1088407F32E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2965D732-45B5-46F8-9473-1088407F32E9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2965D732-45B5-46F8-9473-1088407F32E9}.Debug|x64.Build.0 = Debug|Any CPU
+		{2965D732-45B5-46F8-9473-1088407F32E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2965D732-45B5-46F8-9473-1088407F32E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2965D732-45B5-46F8-9473-1088407F32E9}.Release|x64.ActiveCfg = Release|Any CPU
+		{2965D732-45B5-46F8-9473-1088407F32E9}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -145,6 +155,7 @@ Global
 		{98E8650F-5DBA-4D41-B5C7-2C198C45C6A3} = {B5D97AC7-3DA6-428C-A848-522490F68C76}
 		{B8532179-9BC1-46B3-A8E6-4474DC50433E} = {9D81AA10-B393-44A4-A4DA-AB2666F43247}
 		{8F596F94-B932-47F6-9BD3-7B7D6F97D54A} = {9D81AA10-B393-44A4-A4DA-AB2666F43247}
+		{2965D732-45B5-46F8-9473-1088407F32E9} = {9D81AA10-B393-44A4-A4DA-AB2666F43247}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {00689B49-5496-4D24-900C-17671694BD26}
