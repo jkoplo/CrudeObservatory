@@ -15,7 +15,6 @@ namespace CrudeObservatory.DataTargets.InfluxDB
 {
     public class InfluxDBDataTarget : IDataTarget
     {
-        private readonly InfluxDBDataTargetConfig config;
         private InfluxDBClient client;
 
         public InfluxDBDataTarget(InfluxDBDataTargetConfig dataTargetConfig)
@@ -28,6 +27,7 @@ namespace CrudeObservatory.DataTargets.InfluxDB
         public Task InitializeAsync(CancellationToken stoppingToken)
         {
             client = InfluxDBClientFactory.Create(DataTargetConfig.Url, DataTargetConfig.Token);
+
             return Task.CompletedTask;
         }
 
@@ -55,8 +55,9 @@ namespace CrudeObservatory.DataTargets.InfluxDB
 
             using (var writeApi = client.GetWriteApi())
             {
-                writeApi.WritePoints(DataTargetConfig.Bucket, DataTargetConfig.Organization, points);
+                writeApi.WritePoints(points, DataTargetConfig.Bucket, DataTargetConfig.Organization);
             }
+
             return Task.CompletedTask;
         }
     }
