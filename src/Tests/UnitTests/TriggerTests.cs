@@ -5,11 +5,6 @@ namespace Tests
     public class TriggerTests
     {
         [Fact]
-        public void SerializeToJson_AutoTrigger_RoundTripIdentical()
-        {
-
-
-        }
-
+        public void SerializeToJson_AutoTrigger_RoundTripIdentical() { }
     }
 }

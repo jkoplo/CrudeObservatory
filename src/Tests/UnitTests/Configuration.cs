@@ -8,7 +8,6 @@ namespace Tests
 {
     public class Configuration
     {
-
         [Fact]
         public void SerializeConfigToJson_RandomData_RoundTripEqual()
         {

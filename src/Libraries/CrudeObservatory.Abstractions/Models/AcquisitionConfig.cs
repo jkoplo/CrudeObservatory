@@ -8,12 +8,8 @@ namespace CrudeObservatory.Abstractions.Models
         public ITriggerConfig StartTrigger { get; set; }
         public ITriggerConfig EndTrigger { get; set; }
 
-
         public IIntervalConfig Interval { get; set; }
         public List<IDataSourceConfig> DataSources { get; set; }
         public List<IDataTargetConfig> DataTargets { get; set; }
     }
-
-
-
 }

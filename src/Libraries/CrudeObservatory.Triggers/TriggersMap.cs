@@ -30,10 +30,10 @@ namespace CrudeObservatory.Triggers
 
             constructorMap = new Dictionary<Type, TriggerConstructor>()
             {
-                { typeof(ImmediateTriggerConfig), (x) =>  new ImmediateTrigger()},
-                { typeof(NeverTriggerConfig), (x) =>  new NeverTrigger()},
-                { typeof(ManualTriggerConfig), (x) =>  new ManualTrigger()},
-                { typeof(DelayTriggerConfig), (x) =>  new DelayTrigger((DelayTriggerConfig)x)},
+                { typeof(ImmediateTriggerConfig), (x) => new ImmediateTrigger() },
+                { typeof(NeverTriggerConfig), (x) => new NeverTrigger() },
+                { typeof(ManualTriggerConfig), (x) => new ManualTrigger() },
+                { typeof(DelayTriggerConfig), (x) => new DelayTrigger((DelayTriggerConfig)x) },
             };
         }
 

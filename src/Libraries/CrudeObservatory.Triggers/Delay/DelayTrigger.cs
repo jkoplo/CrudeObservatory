@@ -13,7 +13,9 @@ namespace CrudeObservatory.Triggers.Delay
         public DelayTriggerConfig TriggerConfig { get; }
 
         public Task InitializeAsync(CancellationToken stoppingToken) => Task.CompletedTask;
+
         public Task ShutdownAsync(CancellationToken stoppingToken) => Task.CompletedTask;
+
         public Task WaitForTriggerAsync(CancellationToken stoppingToken)
         {
             //Convert seconds to nearest msec

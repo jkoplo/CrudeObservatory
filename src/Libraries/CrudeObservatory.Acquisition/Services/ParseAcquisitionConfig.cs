@@ -32,8 +32,6 @@ namespace CrudeObservatory.Acquisition.Services
             return config;
         }
 
-
-
         private JsonSerializerSettings ConfigFileSerializerSettings()
         {
             var settings = new JsonSerializerSettings();
@@ -45,17 +43,26 @@ namespace CrudeObservatory.Acquisition.Services
 
             //Intervals
             settings.Converters.Add(
-                MapTypes(typeof(IIntervalConfig), IntervalsMap.ConfigMap.ToDictionary(x => x.Key as object, x => x.Value))
+                MapTypes(
+                    typeof(IIntervalConfig),
+                    IntervalsMap.ConfigMap.ToDictionary(x => x.Key as object, x => x.Value)
+                )
             );
 
             //Data Sources
             settings.Converters.Add(
-                MapTypes(typeof(IDataSourceConfig), DataSourcesMap.ConfigMap.ToDictionary(x => x.Key as object, x => x.Value))
+                MapTypes(
+                    typeof(IDataSourceConfig),
+                    DataSourcesMap.ConfigMap.ToDictionary(x => x.Key as object, x => x.Value)
+                )
             );
 
             //Data Targets
             settings.Converters.Add(
-                MapTypes(typeof(IDataTargetConfig), DataTargetsMap.ConfigMap.ToDictionary(x => x.Key as object, x => x.Value))
+                MapTypes(
+                    typeof(IDataTargetConfig),
+                    DataTargetsMap.ConfigMap.ToDictionary(x => x.Key as object, x => x.Value)
+                )
             );
 
             settings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
@@ -64,8 +71,7 @@ namespace CrudeObservatory.Acquisition.Services
 
         private JsonConverter MapTypes(Type baseType, Dictionary<object, Type> map)
         {
-            var triggerConverterBuilder = JsonSubtypesConverterBuilder
-                .Of(baseType, "Type"); // type property is only defined here
+            var triggerConverterBuilder = JsonSubtypesConverterBuilder.Of(baseType, "Type"); // type property is only defined here
 
             foreach (var item in map)
             {

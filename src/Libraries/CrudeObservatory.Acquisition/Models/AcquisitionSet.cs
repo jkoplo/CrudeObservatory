@@ -1,5 +1,4 @@
-﻿
-using CrudeObservatory.Abstractions.Interfaces;
+﻿using CrudeObservatory.Abstractions.Interfaces;
 
 namespace CrudeObservatory.Acquisition.Models
 {
@@ -9,10 +8,8 @@ namespace CrudeObservatory.Acquisition.Models
         public ITrigger StartTrigger { get; set; }
         public ITrigger EndTrigger { get; set; }
 
-
         public IInterval Interval { get; set; }
         public List<IDataSource> DataSources { get; set; }
         public List<IDataTarget> DataTargets { get; set; }
-
     }
 }

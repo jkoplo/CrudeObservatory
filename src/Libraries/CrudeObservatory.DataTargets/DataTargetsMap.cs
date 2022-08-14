@@ -22,12 +22,12 @@ namespace CrudeObservatory.DataTargets
             };
             constructorMap = new Dictionary<Type, TriggerConstructor>()
             {
-                { typeof(CsvDataTargetConfig), (x) =>  new CsvDataTarget((CsvDataTargetConfig)x)},
-                { typeof(InfluxDBDataTargetConfig), (x) =>  new InfluxDBDataTarget((InfluxDBDataTargetConfig)x)},
+                { typeof(CsvDataTargetConfig), (x) => new CsvDataTarget((CsvDataTargetConfig)x) },
+                { typeof(InfluxDBDataTargetConfig), (x) => new InfluxDBDataTarget((InfluxDBDataTargetConfig)x) },
             };
-
         }
 
-        public static IDataTarget GetDataTarget(IDataTargetConfig config) => constructorMap[config.GetType()].Invoke(config);
+        public static IDataTarget GetDataTarget(IDataTargetConfig config) =>
+            constructorMap[config.GetType()].Invoke(config);
     }
 }

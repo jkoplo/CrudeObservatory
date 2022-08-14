@@ -5,6 +5,5 @@
         Task InitializeAsync(CancellationToken stoppingToken);
         Task<IEnumerable<IDataValue>> ReadDataAsync(CancellationToken stoppingToken);
         Task ShutdownAsync(CancellationToken stoppingToken);
-
     }
 }

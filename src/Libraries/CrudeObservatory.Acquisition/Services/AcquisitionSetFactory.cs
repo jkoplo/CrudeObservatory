@@ -30,8 +30,6 @@ namespace CrudeObservatory.Acquisition.Services
             acq.Interval = IntervalsMap.GetDataSource(config.Interval);
 
             return acq;
-
         }
-
     }
 }

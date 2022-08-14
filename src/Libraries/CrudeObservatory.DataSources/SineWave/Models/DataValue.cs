@@ -6,6 +6,10 @@ namespace CrudeObservatory.DataSources.SineWave.Models
     {
         public string Name { get; set; }
         public double Value { get; set; }
-        object IDataValue.Value { get => Value; set => Value = Convert.ToDouble(value); }
+        object IDataValue.Value
+        {
+            get => Value;
+            set => Value = Convert.ToDouble(value);
+        }
     }
 }

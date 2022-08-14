@@ -23,7 +23,7 @@ namespace OptimizedLibplctagReads
             {
                 var myTag = new TagDint()
                 {
-                    //Name is the full path to tag. 
+                    //Name is the full path to tag.
                     Name = $"TestDINT{i.ToString("0000")}",
                     //Gateway is the IP Address of the PLC or communication module.
                     Gateway = "10.10.10.17",

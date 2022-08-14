@@ -11,7 +11,11 @@ namespace CrudeObservatory.DataTargets.InfluxDB
 {
     internal static class FieldExtension
     {
-        internal static PointData.Builder SetFieldByObjectType(this PointData.Builder builder, string name, object value)
+        internal static PointData.Builder SetFieldByObjectType(
+            this PointData.Builder builder,
+            string name,
+            object value
+        )
         {
             switch (Type.GetTypeCode(value.GetType()))
             {
@@ -76,6 +80,5 @@ namespace CrudeObservatory.DataTargets.InfluxDB
             }
             return builder;
         }
-
     }
 }
