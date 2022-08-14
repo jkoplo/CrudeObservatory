@@ -2,7 +2,5 @@
 
 namespace CrudeObservatory.Triggers.Never.Models
 {
-    public class NeverTriggerConfig : ITriggerConfig
-    {
-    }
+    public class NeverTriggerConfig : ITriggerConfig { }
 }

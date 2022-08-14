@@ -14,7 +14,5 @@ namespace CrudeObservatory.DataTargets.InfluxDB.Models
         public string Organization { get; set; }
         public string Token { get; set; }
         public string Url { get; set; }
-
-
     }
 }

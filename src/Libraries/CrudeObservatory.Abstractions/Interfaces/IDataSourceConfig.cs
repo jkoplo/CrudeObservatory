@@ -1,6 +1,4 @@
 ﻿namespace CrudeObservatory.Abstractions.Interfaces
 {
-    public interface IDataSourceConfig
-    {
-    }
+    public interface IDataSourceConfig { }
 }

@@ -19,11 +19,11 @@ namespace CrudeObservatory.Intervals
             };
             constructorMap = new Dictionary<Type, TriggerConstructor>()
             {
-                { typeof(PeriodicIntervalConfig), (x) =>  new PeriodicInterval((PeriodicIntervalConfig)x)},
+                { typeof(PeriodicIntervalConfig), (x) => new PeriodicInterval((PeriodicIntervalConfig)x) },
             };
-
         }
 
-        public static IInterval GetDataSource(IIntervalConfig config) => constructorMap[config.GetType()].Invoke(config);
+        public static IInterval GetDataSource(IIntervalConfig config) =>
+            constructorMap[config.GetType()].Invoke(config);
     }
 }

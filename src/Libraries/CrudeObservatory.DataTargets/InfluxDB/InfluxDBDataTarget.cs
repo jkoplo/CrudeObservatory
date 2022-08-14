@@ -37,21 +37,28 @@ namespace CrudeObservatory.DataTargets.InfluxDB
             return Task.CompletedTask;
         }
 
-        public Task WriteAcquisitionConfigAsync(AcquisitionConfig acqConfig, CancellationToken stoppingToken)=> Task.CompletedTask;
+        public Task WriteAcquisitionConfigAsync(AcquisitionConfig acqConfig, CancellationToken stoppingToken) =>
+            Task.CompletedTask;
 
-        public Task WriteDataAsync(IIntervalOutput intervalData, IEnumerable<IDataValue> sourceData, CancellationToken stoppingToken)
+        public Task WriteDataAsync(
+            IIntervalOutput intervalData,
+            IEnumerable<IDataValue> sourceData,
+            CancellationToken stoppingToken
+        )
         {
-
             DateTimeOffset dateTimeOffset = DateTimeOffset.FromUnixTimeMilliseconds(intervalData.NominalTime);
 
-
-            var points = sourceData.Select(x => PointData.Builder
-                                                  .Measurement(DataTargetConfig.Measurement)
-                                                  //.Tag("host", "host2")
-                                                  .SetFieldByObjectType(x.Name, x.Value)
-                                                  .Timestamp(dateTimeOffset.UtcDateTime, WritePrecision.Ns)
-                                                  .ToPointData()
-                                            ).ToList();
+            var points = sourceData
+                .Select(
+                    x =>
+                        PointData.Builder
+                            .Measurement(DataTargetConfig.Measurement)
+                            //.Tag("host", "host2")
+                            .SetFieldByObjectType(x.Name, x.Value)
+                            .Timestamp(dateTimeOffset.UtcDateTime, WritePrecision.Ns)
+                            .ToPointData()
+                )
+                .ToList();
 
             using (var writeApi = client.GetWriteApi())
             {
