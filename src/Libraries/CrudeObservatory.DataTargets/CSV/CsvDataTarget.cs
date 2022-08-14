@@ -39,10 +39,13 @@ namespace CrudeObservatory.DataTargets.CSV
             //{
             //    await csv.WriteRecordsAsync(records, stoppingToken);
             //}
-
         }
 
-        public async Task WriteDataAsync(IIntervalOutput intervalData, IEnumerable<IDataValue> sourceData, CancellationToken stoppingToken)
+        public async Task WriteDataAsync(
+            IIntervalOutput intervalData,
+            IEnumerable<IDataValue> sourceData,
+            CancellationToken stoppingToken
+        )
         {
             if (firstDataWrite)
             {
@@ -63,16 +66,9 @@ namespace CrudeObservatory.DataTargets.CSV
 
         private async Task WriteCsvRow(List<object> values, CancellationToken stoppingToken)
         {
-            var csvRecord = new CsvRecord()
-            {
-                DataValues = values,
-            };
+            var csvRecord = new CsvRecord() { DataValues = values, };
 
-            var records = new List<CsvRecord>()
-            {
-                csvRecord
-            };
-
+            var records = new List<CsvRecord>() { csvRecord };
 
             // Append to the file.
             var config = new CsvConfiguration(CultureInfo.InvariantCulture)

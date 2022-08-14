@@ -2,7 +2,5 @@
 
 namespace CrudeObservatory.Triggers.Manual.Models
 {
-    public class ManualTriggerConfig : ITriggerConfig
-    {
-    }
+    public class ManualTriggerConfig : ITriggerConfig { }
 }

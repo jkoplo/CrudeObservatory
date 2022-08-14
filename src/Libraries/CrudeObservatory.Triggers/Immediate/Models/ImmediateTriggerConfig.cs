@@ -2,7 +2,5 @@
 
 namespace CrudeObservatory.Triggers.Immediate.Models
 {
-    public class ImmediateTriggerConfig : ITriggerConfig
-    {
-    }
+    public class ImmediateTriggerConfig : ITriggerConfig { }
 }

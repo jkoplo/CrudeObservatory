@@ -22,7 +22,6 @@ namespace CrudeObservatory.DataSources.Libplctag
             foreach (var item in DataSourceConfig.Tags)
             {
                 tagList.Add(GetTag(DataSourceConfig, item));
-
             }
 
             await Task.WhenAll(tagList.Select(x => x.InitializeAsync()));
@@ -50,7 +49,7 @@ namespace CrudeObservatory.DataSources.Libplctag
         {
             var tag = TagTypeMap.GetDataSource(tagConfig.TagType);
 
-            //Name is the full path to tag. 
+            //Name is the full path to tag.
             tag.Name = tagConfig.Name;
             //Gateway is the IP Address of the PLC or communication module.
             tag.Gateway = DataSourceConfig.Gateway;

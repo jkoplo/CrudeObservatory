@@ -16,16 +16,14 @@ namespace Tests
     {
         internal static AcquisitionConfig GetAcquisitionConfig()
         {
-
             AcquisitionConfig acq = new AcquisitionConfig();
-
 
             acq.Name = "Manual Prototype Set";
             acq.StartTrigger = new ImmediateTriggerConfig();
             acq.DataSources = new List<IDataSourceConfig>()
             {
-                new SineWaveDataSourceConfig(){PeriodSec=5, Alias="Sine1" },
-                new SineWaveDataSourceConfig(){PeriodSec=1, Alias="Sine2" },
+                new SineWaveDataSourceConfig() { PeriodSec = 5, Alias = "Sine1" },
+                new SineWaveDataSourceConfig() { PeriodSec = 1, Alias = "Sine2" },
                 new LibplctagDataSourceConfig()
                 {
                     //Gateway is the IP Address of the PLC or communication module.
@@ -35,16 +33,20 @@ namespace Tests
                     PlcType = PlcType.ControlLogix,
                     Protocol = Protocol.ab_eip,
                     TimeoutSeconds = 5,
-                    Tags = Enumerable.Range(0, 10).Select(x => new TagConfig(){Name=  $"TestDINT{x.ToString("0000")}", TagType= TagType.Dint }).ToList(),
+                    Tags = Enumerable
+                        .Range(0, 10)
+                        .Select(x => new TagConfig() { Name = $"TestDINT{x.ToString("0000")}", TagType = TagType.Dint })
+                        .ToList(),
                 },
             };
             acq.Interval = new PeriodicIntervalConfig() { PeriodSec = .5 };
             acq.EndTrigger = new DelayTriggerConfig() { DelaySeconds = 10, };
-            acq.DataTargets = new List<IDataTargetConfig>() { new CsvDataTargetConfig() { FilePath = "DataTarget.csv" } };
+            acq.DataTargets = new List<IDataTargetConfig>()
+            {
+                new CsvDataTargetConfig() { FilePath = "DataTarget.csv" }
+            };
 
             return acq;
-
         }
-
     }
 }
