@@ -352,3 +352,6 @@ MigrationBackup/
 #Crude Observatory Additions
 src/Programs/CrudeObservatory.CLI/DataTarget.csv
 .vscode/
+src/Programs/InfluxDbManager/.influxdbv2/configs
+src/Programs/InfluxDbManager/.influxdbv2/influxd.bolt
+src/Programs/InfluxDbManager/.influxdbv2/influxd.sqlite
