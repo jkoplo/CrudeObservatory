@@ -44,7 +44,8 @@ namespace InfluxDbManager
             {
                 @"--reporting-disabled",
                 $@"--bolt-path={storageFullPath}\influxd.bolt",
-                $@"--engine-path={storageFullPath}\engine"
+                $@"--engine-path={storageFullPath}\engine",
+                @"--http-bind-address=localhost:8086" //Force local and 8086 for now
             };
 
             var cmd = Cli.Wrap(dbExeFullPath).WithArguments(args);
