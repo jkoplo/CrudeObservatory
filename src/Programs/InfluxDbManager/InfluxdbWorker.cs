@@ -34,7 +34,7 @@ namespace InfluxDbManager
             var dbExeFullPath = Path.GetFullPath(dbExePath);
             var storageFullPath = Path.GetFullPath(storagePath);
 
-            if (!Directory.Exists(dbExeFullPath))
+            if (!File.Exists(dbExeFullPath))
                 dbExeFullPath = Path.Combine(procPath, dbExePath);
 
             if (!Directory.Exists(storageFullPath))
