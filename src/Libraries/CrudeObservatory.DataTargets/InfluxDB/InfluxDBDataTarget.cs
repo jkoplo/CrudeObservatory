@@ -24,23 +24,20 @@ namespace CrudeObservatory.DataTargets.InfluxDB
 
         public InfluxDBDataTargetConfig DataTargetConfig { get; }
 
-        public Task InitializeAsync(CancellationToken stoppingToken)
+        public async Task InitializeAsync(CancellationToken stoppingToken)
         {
             client = InfluxDBClientFactory.Create(DataTargetConfig.Url, DataTargetConfig.Token);
-
-            return Task.CompletedTask;
         }
 
-        public Task ShutdownAsync(CancellationToken stoppingToken)
+        public async Task ShutdownAsync(CancellationToken stoppingToken)
         {
             client.Dispose();
-            return Task.CompletedTask;
         }
 
         public Task WriteAcquisitionConfigAsync(AcquisitionConfig acqConfig, CancellationToken stoppingToken) =>
             Task.CompletedTask;
 
-        public Task WriteDataAsync(
+        public async Task WriteDataAsync(
             IIntervalOutput intervalData,
             IEnumerable<IDataValue> sourceData,
             CancellationToken stoppingToken
@@ -64,8 +61,6 @@ namespace CrudeObservatory.DataTargets.InfluxDB
             {
                 writeApi.WritePoints(points, DataTargetConfig.Bucket, DataTargetConfig.Organization);
             }
-
-            return Task.CompletedTask;
         }
     }
 }
