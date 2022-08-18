@@ -21,7 +21,7 @@ namespace InfluxDbManager
             this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
 
-        public async Task InitialConfigureClient()
+        public async Task InitialConfigureClient(InfluxdbConfig influxdbConfig)
         {
             var clientExePath = configuration["Influxdb:ClientExePath"];
             var storagePath = configuration["Influxdb:StoragePath"];
@@ -43,11 +43,12 @@ namespace InfluxDbManager
             {
                 @"setup",
                 @$"--configs-path {storageFullPath}\config",
-                @"--org example-org",
-                @"--bucket example-bucket",
+                @$"--org {influxdbConfig.Organization}",
+                @$"--bucket {influxdbConfig.Bucket}",
                 @"--username example-user",
                 @"--password ExAmPl3PA55W0rD",
                 @"--retention 0",
+                @$"--token {influxdbConfig.Token}",
                 @"--force"
             };
 
@@ -55,18 +56,7 @@ namespace InfluxDbManager
 
             // Calling `ExecuteBufferedAsync()` instead of `ExecuteAsync()`
             // implicitly configures pipes that write to in-memory buffers.
-            var result = await Cli.Wrap(clientExeFullPath)
-                .WithArguments(String.Join(' ', args))
-                //.WithArguments(
-                //    args =>
-                //        args.Add("setup")
-                //            .Add(@$"--configs-path {storageFullPath}\config")
-                //            .Add(@"--org example-org")
-                //            .Add(@"--bucket example-bucket")
-                //)
-                //.WithArguments(@$"--configs-path {storageFullPath}\config")
-                //.WithWorkingDirectory("work/dir/path")
-                .ExecuteBufferedAsync();
+            var result = await Cli.Wrap(clientExeFullPath).WithArguments(String.Join(' ', args)).ExecuteBufferedAsync();
 
             logger.LogInformation(
                 "Influxdb configured by client: Runtime={Runtime}, StandardOut={StandardOut}, StandardError={StandardError}",

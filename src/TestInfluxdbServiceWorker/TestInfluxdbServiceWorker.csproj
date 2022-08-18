@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Libraries\CrudeObservatory.DataTargets\CrudeObservatory.DataTargets.csproj" />
     <ProjectReference Include="..\Programs\InfluxDbManager\InfluxDbManager.csproj" />
   </ItemGroup>
 </Project>
