@@ -55,16 +55,16 @@ namespace InfluxDbManager
                 switch (cmdEvent)
                 {
                     case StartedCommandEvent started:
-                        Console.WriteLine($"Process started; ID: {started.ProcessId}");
+                        logger.LogInformation($"Influxdb started: ID={started.ProcessId}");
                         break;
                     case StandardOutputCommandEvent stdOut:
-                        Console.WriteLine($"Out> {stdOut.Text}");
+                        logger.LogInformation($"Influxdb: {stdOut.Text}");
                         break;
                     case StandardErrorCommandEvent stdErr:
-                        Console.WriteLine($"Err> {stdErr.Text}");
+                        logger.LogError($"Influxdb: {stdErr.Text}");
                         break;
                     case ExitedCommandEvent exited:
-                        Console.WriteLine($"Process exited; Code: {exited.ExitCode}");
+                        logger.LogInformation($"Process exited; Code: {exited.ExitCode}");
                         break;
                 }
             }
