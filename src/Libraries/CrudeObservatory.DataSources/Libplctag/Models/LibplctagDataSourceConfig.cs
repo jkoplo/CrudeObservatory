@@ -12,6 +12,5 @@ namespace CrudeObservatory.DataSources.Libplctag.Models
         public float TimeoutSeconds { get; set; }
 
         public List<TagConfig> Tags { get; set; }
-
     }
 }

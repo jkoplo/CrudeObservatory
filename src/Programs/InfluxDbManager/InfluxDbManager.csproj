@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="influxdb\influxdb2-2.3.0-windows-amd64\influxdb2_windows_amd64\influxd.exe" />
+    <None Remove="influxdb\influxdb2-2.3.0-windows-amd64\influxdb2_windows_amd64\LICENSE" />
+    <None Remove="influxdb\influxdb2-2.3.0-windows-amd64\influxdb2_windows_amd64\README.md" />
+    <None Remove="influxdb\influxdb2-client-2.3.0-windows-amd64\influxdb2-client-2.3.0-windows-amd64\influx.exe" />
+    <None Remove="influxdb\influxdb2-client-2.3.0-windows-amd64\influxdb2-client-2.3.0-windows-amd64\LICENSE" />
+    <None Remove="influxdb\influxdb2-client-2.3.0-windows-amd64\influxdb2-client-2.3.0-windows-amd64\README.md" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="influxdb\influxdb2-2.3.0-windows-amd64\influxdb2_windows_amd64\influxd.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="influxdb\influxdb2-2.3.0-windows-amd64\influxdb2_windows_amd64\LICENSE">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="influxdb\influxdb2-2.3.0-windows-amd64\influxdb2_windows_amd64\README.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="influxdb\influxdb2-client-2.3.0-windows-amd64\influxdb2-client-2.3.0-windows-amd64\influx.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="influxdb\influxdb2-client-2.3.0-windows-amd64\influxdb2-client-2.3.0-windows-amd64\LICENSE">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="influxdb\influxdb2-client-2.3.0-windows-amd64\influxdb2-client-2.3.0-windows-amd64\README.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CliWrap" Version="3.4.4" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.1" />
+  </ItemGroup>
+
+</Project>

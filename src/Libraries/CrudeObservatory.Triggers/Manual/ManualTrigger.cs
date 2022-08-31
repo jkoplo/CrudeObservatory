@@ -13,8 +13,8 @@ namespace CrudeObservatory.Triggers.Manual
         [DllImport("kernel32.dll", SetLastError = true)]
         static extern bool CancelIoEx(IntPtr handle, IntPtr lpOverlapped);
 
-
         public Task InitializeAsync(CancellationToken stoppingToken) => Task.CompletedTask;
+
         public Task ShutdownAsync(CancellationToken stoppingToken)
         {
             throw new NotImplementedException();

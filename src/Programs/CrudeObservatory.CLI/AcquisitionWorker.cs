@@ -11,15 +11,19 @@ namespace CrudeObservatory.CLI
         private readonly AcquisitionConfig acquisitionConfig;
         private readonly AcquisitionSetFactory acquisitionSetFactory;
 
-        public AcquisitionWorker(ILogger<AcquisitionWorker> logger,
-                                 IHostApplicationLifetime applicationLifetime,
-                                 AcquisitionConfig acquisitionConfig,
-                                 AcquisitionSetFactory acquisitionSetFactory)
+        public AcquisitionWorker(
+            ILogger<AcquisitionWorker> logger,
+            IHostApplicationLifetime applicationLifetime,
+            AcquisitionConfig acquisitionConfig,
+            AcquisitionSetFactory acquisitionSetFactory
+        )
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            this.applicationLifetime = applicationLifetime ?? throw new ArgumentNullException(nameof(applicationLifetime));
+            this.applicationLifetime =
+                applicationLifetime ?? throw new ArgumentNullException(nameof(applicationLifetime));
             this.acquisitionConfig = acquisitionConfig ?? throw new ArgumentNullException(nameof(acquisitionConfig));
-            this.acquisitionSetFactory = acquisitionSetFactory ?? throw new ArgumentNullException(nameof(acquisitionSetFactory));
+            this.acquisitionSetFactory =
+                acquisitionSetFactory ?? throw new ArgumentNullException(nameof(acquisitionSetFactory));
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -47,7 +51,9 @@ namespace CrudeObservatory.CLI
             await acq.StartTrigger.WaitForTriggerAsync(stoppingToken);
 
             //Write config to Data Targets
-            await Task.WhenAll(acq.DataTargets.Select(x => x.WriteAcquisitionConfigAsync(acquisitionConfig, stoppingToken)));
+            await Task.WhenAll(
+                acq.DataTargets.Select(x => x.WriteAcquisitionConfigAsync(acquisitionConfig, stoppingToken))
+            );
 
             //Acq started (or app cancelled)
             var endTrigger = acq.EndTrigger.WaitForTriggerAsync(stoppingToken);
@@ -69,18 +75,19 @@ namespace CrudeObservatory.CLI
                     var combinedDataValues = dataValues.SelectMany(x => x);
 
                     //Write data to target(s)
-                    await Task.WhenAll(acq.DataTargets.Select(x => x.WriteDataAsync(intervalTask.Result, combinedDataValues, stoppingToken)));
-
+                    await Task.WhenAll(
+                        acq.DataTargets.Select(
+                            x => x.WriteDataAsync(intervalTask.Result, combinedDataValues, stoppingToken)
+                        )
+                    );
                 }
                 //Repeat @ Wait for interval OR end trigger
-
             }
 
             //Not sure if needed - if cancellation we should wait for endtrigger to cancel
             await endTrigger;
             logger.LogInformation("End trigger [{@EndTrigger}] fired", acquisitionConfig.EndTrigger);
             applicationLifetime.StopApplication();
-
         }
     }
 }

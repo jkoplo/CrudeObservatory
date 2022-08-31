@@ -24,41 +24,43 @@ namespace CrudeObservatory.DataTargets.InfluxDB
 
         public InfluxDBDataTargetConfig DataTargetConfig { get; }
 
-        public Task InitializeAsync(CancellationToken stoppingToken)
+        public async Task InitializeAsync(CancellationToken stoppingToken)
         {
             client = InfluxDBClientFactory.Create(DataTargetConfig.Url, DataTargetConfig.Token);
-
-            return Task.CompletedTask;
         }
 
-        public Task ShutdownAsync(CancellationToken stoppingToken)
+        public async Task ShutdownAsync(CancellationToken stoppingToken)
         {
             client.Dispose();
-            return Task.CompletedTask;
         }
 
-        public Task WriteAcquisitionConfigAsync(AcquisitionConfig acqConfig, CancellationToken stoppingToken)=> Task.CompletedTask;
+        public Task WriteAcquisitionConfigAsync(AcquisitionConfig acqConfig, CancellationToken stoppingToken) =>
+            Task.CompletedTask;
 
-        public Task WriteDataAsync(IIntervalOutput intervalData, IEnumerable<IDataValue> sourceData, CancellationToken stoppingToken)
+        public async Task WriteDataAsync(
+            IIntervalOutput intervalData,
+            IEnumerable<IDataValue> sourceData,
+            CancellationToken stoppingToken
+        )
         {
-
             DateTimeOffset dateTimeOffset = DateTimeOffset.FromUnixTimeMilliseconds(intervalData.NominalTime);
 
-
-            var points = sourceData.Select(x => PointData.Builder
-                                                  .Measurement(DataTargetConfig.Measurement)
-                                                  //.Tag("host", "host2")
-                                                  .SetFieldByObjectType(x.Name, x.Value)
-                                                  .Timestamp(dateTimeOffset.UtcDateTime, WritePrecision.Ns)
-                                                  .ToPointData()
-                                            ).ToList();
+            var points = sourceData
+                .Select(
+                    x =>
+                        PointData.Builder
+                            .Measurement(DataTargetConfig.Measurement)
+                            //.Tag("host", "host2")
+                            .SetFieldByObjectType(x.Name, x.Value)
+                            .Timestamp(dateTimeOffset.UtcDateTime, WritePrecision.Ns)
+                            .ToPointData()
+                )
+                .ToList();
 
             using (var writeApi = client.GetWriteApi())
             {
                 writeApi.WritePoints(points, DataTargetConfig.Bucket, DataTargetConfig.Organization);
             }
-
-            return Task.CompletedTask;
         }
     }
 }

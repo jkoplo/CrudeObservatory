@@ -16,15 +16,23 @@ namespace CrudeObservatory.DataSources.SineWave
 
         public Task<IEnumerable<IDataValue>> ReadDataAsync(CancellationToken stoppingToken)
         {
-            //I don't need the fractional cycle, but it makes debug easier and my head hurt less
-            var totalCycles = DateTimeOffset.Now.ToUnixTimeMilliseconds() / (double)(DataSourceConfig.PeriodSec * 1000);
-            var fractionalCycle = totalCycles - Math.Truncate(totalCycles);
+            //https://www.codeproject.com/Articles/30180/Simple-Signal-Generator
 
-            var sineValue = Math.Sin(fractionalCycle * 360);
+            double timeInSeconds = DateTimeOffset.Now.ToUnixTimeMilliseconds() / 1000;
+
+            double rawValue = 0d;
+            double t = DataSourceConfig.Frequency * timeInSeconds + DataSourceConfig.Phase;
+
+            // sin( 2 * pi * t )
+            rawValue = (double)Math.Sin(2f * Math.PI * t);
+
+            double invert = DataSourceConfig.Invert ? 1 : -1;
+
+            var scaledValue = (invert * DataSourceConfig.Amplitude * rawValue + DataSourceConfig.Offset);
 
             var results = new List<IDataValue>()
             {
-                new DataValue() { Name = DataSourceConfig.Alias, Value = sineValue }
+                new DataValue() { Name = DataSourceConfig.Alias, Value = scaledValue }
             };
 
             return Task.FromResult(results.AsEnumerable());

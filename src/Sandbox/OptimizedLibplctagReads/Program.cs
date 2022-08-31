@@ -50,19 +50,9 @@ switch (choice)
         break;
 }
 
-
-
-
-
-
-
-
-
 Console.ReadKey();
 
 //foreach (var item in tags)
 //{
 //    Console.WriteLine($"{item.Name} = {item.Value}");
 //}
-
-

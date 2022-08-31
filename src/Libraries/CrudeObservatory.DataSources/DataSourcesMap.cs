@@ -15,7 +15,6 @@ namespace CrudeObservatory.DataSources
 
         private delegate IDataSource TriggerConstructor(IDataSourceConfig config);
 
-
         static DataSourcesMap()
         {
             ConfigMap = new Dictionary<DataSourceType, Type>()
@@ -26,11 +25,12 @@ namespace CrudeObservatory.DataSources
 
             constructorMap = new Dictionary<Type, TriggerConstructor>()
             {
-                { typeof(LibplctagDataSourceConfig), (x) =>  new LibPlcTagDataSource((LibplctagDataSourceConfig)x)},
-                { typeof(SineWaveDataSourceConfig), (x) =>  new SineWaveDataSource((SineWaveDataSourceConfig)x)},
+                { typeof(LibplctagDataSourceConfig), (x) => new LibPlcTagDataSource((LibplctagDataSourceConfig)x) },
+                { typeof(SineWaveDataSourceConfig), (x) => new SineWaveDataSource((SineWaveDataSourceConfig)x) },
             };
         }
 
-        public static IDataSource GetDataSource(IDataSourceConfig config) => constructorMap[config.GetType()].Invoke(config);
+        public static IDataSource GetDataSource(IDataSourceConfig config) =>
+            constructorMap[config.GetType()].Invoke(config);
     }
 }

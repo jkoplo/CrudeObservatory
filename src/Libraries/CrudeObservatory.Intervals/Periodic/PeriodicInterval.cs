@@ -19,10 +19,10 @@ namespace CrudeObservatory.Intervals.Fixed
 
         public async Task<IIntervalOutput> WaitForIntervalAsync(CancellationToken stoppingToken)
         {
-
             //Init the expiration if first call
             if (intervalExpiration == null)
-                intervalExpiration = DateTimeOffset.Now.ToUnixTimeMilliseconds() + Convert.ToInt64(IntervalConfig.PeriodSec * 1000);
+                intervalExpiration =
+                    DateTimeOffset.Now.ToUnixTimeMilliseconds() + Convert.ToInt64(IntervalConfig.PeriodSec * 1000);
 
             //Get the remaining time in msec rounded to nearest integer
             var msecTilExpiration = Convert.ToInt32(intervalExpiration - DateTimeOffset.Now.ToUnixTimeMilliseconds());
