@@ -31,15 +31,6 @@ namespace TestInfluxdbServiceWorker
             await Task.Delay(3000, stoppingToken);
             await influxdbClient.InitialConfigureClient(dbConfig);
 
-            //var dataTargetConfig = new InfluxDBDataTargetConfig
-            //{
-            //    Token = dbConfig.Token,
-            //    Bucket = dbConfig.Bucket,
-            //    Organization = dbConfig.Organization,
-            //    Url = dbConfig.Url,
-            //    Measurement = "TestMeasurement"
-            //};
-
             var client = InfluxDBClientFactory.Create(dbConfig.Url, dbConfig.Token);
             using var writeApi = client.GetWriteApi();
 
