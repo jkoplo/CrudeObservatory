@@ -38,7 +38,6 @@ namespace TestInfluxdbServiceWorker
                 dbConfig = new InfluxdbConfig
                 {
                     Token = Guid.NewGuid().ToString(),
-                    //Bucket = "TEST",
                     Organization = "TestOrg",
                     Url = "http://localhost:8086"
                 };
@@ -48,6 +47,7 @@ namespace TestInfluxdbServiceWorker
 
             var client = InfluxDBClientFactory.Create(dbConfig.Url, dbConfig.Token);
 
+            //Get the organization by name
             var org = (
                 await client
                     .GetOrganizationsApi()
@@ -56,6 +56,7 @@ namespace TestInfluxdbServiceWorker
 
             var orgBuckets = await client.GetBucketsApi().FindBucketsByOrganizationAsync(org, stoppingToken);
 
+            //If no default bucket, create it
             if (!orgBuckets.Select(x => x.Name).Contains(DEFAULT_BUCKET))
             {
                 //Create default bucket

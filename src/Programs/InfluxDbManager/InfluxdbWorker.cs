@@ -44,7 +44,10 @@ namespace InfluxDbManager
                 dbExeFullPath = Path.Combine(procPath, dbExePath);
 
             if (!Directory.Exists(storageFullPath))
+            {
                 storageFullPath = Path.Combine(procPath, storagePath);
+                Directory.CreateDirectory(storageFullPath);
+            }
 
             var pidFullPath = $@"{storageFullPath}\pid";
 
