@@ -7,12 +7,13 @@ using InfluxDbManager;
 
 namespace TestInfluxdbServiceWorker
 {
-    public class TestConfigureInfluxdbWorker : BackgroundService
+    public class SingleInfluxdbAcqWorker : BackgroundService
     {
-        private readonly ILogger<TestConfigureInfluxdbWorker> _logger;
+        private const string DEFAULT_BUCKET = "crude_observatory";
+        private readonly ILogger<SingleInfluxdbAcqWorker> _logger;
         private readonly InfluxdbClient influxdbClient;
 
-        public TestConfigureInfluxdbWorker(ILogger<TestConfigureInfluxdbWorker> logger, InfluxdbClient influxdbClient)
+        public SingleInfluxdbAcqWorker(ILogger<SingleInfluxdbAcqWorker> logger, InfluxdbClient influxdbClient)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.influxdbClient = influxdbClient ?? throw new ArgumentNullException(nameof(influxdbClient));
@@ -20,18 +21,52 @@ namespace TestInfluxdbServiceWorker
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            var dbConfig = new InfluxdbConfig
-            {
-                Token = Guid.NewGuid().ToString(),
-                Bucket = "TEST",
-                Organization = "TestOrg",
-                Url = "http://localhost:8086"
-            };
-
+            //Wait for the other worker to bring the process up
             await Task.Delay(3000, stoppingToken);
-            await influxdbClient.InitialConfigureClient(dbConfig);
+
+            //We need to make sure the Influx instance is configured
+            //and that we have proper values for use with our client
+            // 1) Local CLI config present - read from disk and use
+            // 2) No local CLI config present - configure Influx
+            // 3) TODO: Influx is controlled outside of this application
+
+            var dbConfig = await influxdbClient.GetLocalConfig();
+
+            //No config present - configure the client
+            if (dbConfig == null)
+            {
+                dbConfig = new InfluxdbConfig
+                {
+                    Token = Guid.NewGuid().ToString(),
+                    //Bucket = "TEST",
+                    Organization = "TestOrg",
+                    Url = "http://localhost:8086"
+                };
+
+                await influxdbClient.InitialConfigureClient(dbConfig);
+            }
 
             var client = InfluxDBClientFactory.Create(dbConfig.Url, dbConfig.Token);
+
+            var org = (
+                await client
+                    .GetOrganizationsApi()
+                    .FindOrganizationsAsync(org: dbConfig.Organization, cancellationToken: stoppingToken)
+            ).Single();
+
+            var orgBuckets = await client.GetBucketsApi().FindBucketsByOrganizationAsync(org, stoppingToken);
+
+            if (!orgBuckets.Select(x => x.Name).Contains(DEFAULT_BUCKET))
+            {
+                //Create default bucket
+
+                var retention = new BucketRetentionRules(BucketRetentionRules.TypeEnum.Expire, 0);
+
+                var bucket = await client
+                    .GetBucketsApi()
+                    .CreateBucketAsync(DEFAULT_BUCKET, retention, org, stoppingToken);
+            }
+
             using var writeApi = client.GetWriteApi();
 
             while (!stoppingToken.IsCancellationRequested)
@@ -57,7 +92,7 @@ namespace TestInfluxdbServiceWorker
                         .ToPointData(),
                 };
 
-                writeApi.WritePoints(points, dbConfig.Bucket, dbConfig.Organization);
+                writeApi.WritePoints(points, DEFAULT_BUCKET, dbConfig.Organization);
             }
         }
 
