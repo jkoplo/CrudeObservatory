@@ -7,6 +7,7 @@ using CliWrap;
 using CliWrap.Buffered;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration.Ini;
 
 namespace InfluxDbManager
 {
@@ -21,33 +22,62 @@ namespace InfluxDbManager
             this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
 
+        public async Task<InfluxdbConfig?> GetLocalConfig()
+        {
+            var procPath = Path.GetDirectoryName(Environment.ProcessPath);
+            var iniFullPath = GetIniPath(procPath, configuration);
+
+            if (!File.Exists(iniFullPath))
+            {
+                //TODO: Maybe we need to check requested config against actual?
+                logger.LogInformation("No file exists at {InfluxClientIniPath}", iniFullPath);
+                return default;
+            }
+
+            var clientConfiguration = new ConfigurationBuilder()
+                .AddIniFile(iniFullPath, optional: true, reloadOnChange: true)
+                .Build();
+
+            var dbConfig = new InfluxdbConfig
+            {
+                Token = clientConfiguration["default:token"],
+                //Bucket = clientConfiguration["default:token"],
+                Organization = clientConfiguration["default:org"],
+                Url = clientConfiguration["default:url"]
+            };
+
+            return dbConfig;
+        }
+
         public async Task InitialConfigureClient(InfluxdbConfig influxdbConfig)
         {
-            var clientExePath = configuration["Influxdb:ClientExePath"];
-            var storagePath = configuration["Influxdb:StoragePath"];
-
             var procPath = Path.GetDirectoryName(Environment.ProcessPath);
             var currPath = Environment.CurrentDirectory;
 
-            //Assume an absolute or relative path
-            var clientExeFullPath = Path.GetFullPath(clientExePath);
-            var storageFullPath = Path.GetFullPath(storagePath);
+            var iniFullPath = GetIniPath(procPath, configuration);
 
+            //Assume an absolute or relative path
+            var clientExePath = configuration["Influxdb:ClientExePath"];
+            var clientExeFullPath = Path.GetFullPath(clientExePath);
             if (!File.Exists(clientExeFullPath))
                 clientExeFullPath = Path.Combine(procPath, clientExePath);
 
-            if (!Directory.Exists(storageFullPath))
-                storageFullPath = Path.Combine(procPath, storagePath);
+            if (File.Exists(iniFullPath))
+            {
+                //TODO: Maybe we need to check requested config against actual?
+                logger.LogInformation("Influxdb CLI client is already configured");
+                return;
+            }
 
             var args = new List<string>
             {
                 @"setup",
-                @$"--configs-path {storageFullPath}\config",
+                @$"--configs-path {iniFullPath}",
                 @$"--org {influxdbConfig.Organization}",
-                @$"--bucket {influxdbConfig.Bucket}",
+                //@$"--bucket {influxdbConfig.Bucket}",
+                //@"--retention 0",
                 @"--username example-user",
                 @"--password ExAmPl3PA55W0rD",
-                @"--retention 0",
                 @$"--token {influxdbConfig.Token}",
                 @"--force"
             };
@@ -64,6 +94,16 @@ namespace InfluxDbManager
                 result.StandardOutput,
                 result.StandardError
             );
+        }
+
+        private string GetIniPath(string basePath, IConfiguration configuration)
+        {
+            var iniPath = configuration["Influxdb:StoragePath"];
+            var iniFullPath = Path.GetFullPath(iniPath);
+            if (!Directory.Exists(iniFullPath))
+                iniFullPath = Path.Combine(basePath, iniPath);
+
+            return @$"{iniFullPath}\config";
         }
     }
 }
