@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using System.Diagnostics;
 
 namespace InfluxDbManager
 {
@@ -24,6 +25,11 @@ namespace InfluxDbManager
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            var processes = Process.GetProcessesByName("influxd");
+
+            foreach (var process in processes)
+                logger.LogWarning("Found a running influxd: PID={pid}", process.Id);
+
             var dbExePath = configuration["Influxdb:DbExePath"];
             var storagePath = configuration["Influxdb:StoragePath"];
 
@@ -39,6 +45,20 @@ namespace InfluxDbManager
 
             if (!Directory.Exists(storageFullPath))
                 storageFullPath = Path.Combine(procPath, storagePath);
+
+            var pidFullPath = $@"{storageFullPath}\pid";
+
+            //Check if the previously started influxd is still running
+            if (File.Exists(pidFullPath))
+            {
+                var pidString = await File.ReadAllTextAsync(pidFullPath);
+                var pid = int.Parse(pidString);
+                var processToKill = Process.GetProcesses().SingleOrDefault(x => x.Id == pid);
+
+                //Verify it's actually an influxd
+                if (processToKill?.ProcessName == "influxd" && processToKill != null)
+                    processToKill.Kill();
+            }
 
             var args = new List<string>
             {
@@ -56,6 +76,13 @@ namespace InfluxDbManager
                 {
                     case StartedCommandEvent started:
                         logger.LogInformation($"Influxdb started: ID={started.ProcessId}");
+
+                        await File.WriteAllTextAsync(pidFullPath, started.ProcessId.ToString(), stoppingToken);
+
+                        //var process = Process.GetProcessById(started.ProcessId);
+                        //logger.LogInformation($"Influxdb started: Process={@process}", process);
+                        //process.Kill();
+
                         break;
                     case StandardOutputCommandEvent stdOut:
                         logger.LogInformation($"Influxdb: {stdOut.Text}");
