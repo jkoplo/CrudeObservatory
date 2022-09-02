@@ -11,12 +11,12 @@ using Microsoft.Extensions.Configuration.Ini;
 
 namespace InfluxDbManager
 {
-    public class InfluxdbClient
+    public class InfluxdbCliClient
     {
-        private readonly ILogger<InfluxdbClient> logger;
+        private readonly ILogger<InfluxdbCliClient> logger;
         private readonly IConfiguration configuration;
 
-        public InfluxdbClient(ILogger<InfluxdbClient> logger, IConfiguration configuration)
+        public InfluxdbCliClient(ILogger<InfluxdbCliClient> logger, IConfiguration configuration)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));

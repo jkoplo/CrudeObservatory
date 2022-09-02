@@ -5,7 +5,7 @@ IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices(services =>
     {
         services.AddHostedService<InfluxdbWorker>();
-        services.AddTransient<InfluxdbClient>();
+        services.AddTransient<InfluxdbCliClient>();
         services.AddHostedService<SingleInfluxdbAcqWorker>();
     })
     .Build();

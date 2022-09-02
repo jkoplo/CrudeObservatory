@@ -12,9 +12,9 @@ namespace TestInfluxdbServiceWorker
     {
         private const string DEFAULT_BUCKET = "crude_observatory";
         private readonly ILogger<SingleInfluxdbAcqWorker> _logger;
-        private readonly InfluxdbClient influxdbClient;
+        private readonly InfluxdbCliClient influxdbClient;
 
-        public SingleInfluxdbAcqWorker(ILogger<SingleInfluxdbAcqWorker> logger, InfluxdbClient influxdbClient)
+        public SingleInfluxdbAcqWorker(ILogger<SingleInfluxdbAcqWorker> logger, InfluxdbCliClient influxdbClient)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.influxdbClient = influxdbClient ?? throw new ArgumentNullException(nameof(influxdbClient));
