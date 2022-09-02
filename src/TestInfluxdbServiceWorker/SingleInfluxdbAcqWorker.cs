@@ -4,6 +4,7 @@ using InfluxDB.Client;
 using InfluxDB.Client.Api.Domain;
 using InfluxDB.Client.Writes;
 using InfluxDbManager;
+using System.Security.Cryptography;
 
 namespace TestInfluxdbServiceWorker
 {
@@ -37,7 +38,8 @@ namespace TestInfluxdbServiceWorker
             {
                 dbConfig = new InfluxdbConfig
                 {
-                    Token = Guid.NewGuid().ToString(),
+                    //Default Influx tokens are 512 bit random
+                    Token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64)),
                     Organization = "TestOrg",
                     Url = "http://localhost:8086"
                 };
