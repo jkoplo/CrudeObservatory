@@ -81,7 +81,11 @@ namespace CrudeObservatory.CLI
 
                     //Write data to channel
                     await channel.WriteAsync(
-                        new Measurement { DataValues = combinedDataValues, IntervalOutput = intervalTask.Result },
+                        new Measurement
+                        {
+                            DataValues = combinedDataValues.ToList(),
+                            IntervalOutput = intervalTask.Result
+                        },
                         stoppingToken
                     );
 

@@ -31,7 +31,7 @@ namespace CrudeObservatory.CLI
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             //Wait for the other worker to bring the process up
-            //await Task.Delay(3000, stoppingToken);
+            await Task.Delay(3000, stoppingToken);
 
             //We need to make sure the Influx instance is configured
             //and that we have proper values for use with our client
@@ -90,15 +90,20 @@ namespace CrudeObservatory.CLI
 
             InfluxDBDataTarget influxTarget = new(dataTargetConfig);
 
-            try
+            await influxTarget.InitializeAsync(stoppingToken);
+
+            while (!stoppingToken.IsCancellationRequested)
             {
-                //We could also read all
-                var message = await channel.ReadAsync(stoppingToken);
-                await influxTarget.WriteDataAsync(message.IntervalOutput, message.DataValues, stoppingToken);
-            }
-            catch (OperationCanceledException ex)
-            {
-                logger.LogWarning($"DataTargetWorker > forced stop");
+                try
+                {
+                    //We could also read all
+                    var message = await channel.ReadAsync(stoppingToken);
+                    await influxTarget.WriteDataAsync(message.IntervalOutput, message.DataValues, stoppingToken);
+                }
+                catch (OperationCanceledException ex)
+                {
+                    logger.LogWarning($"DataTargetWorker > forced stop");
+                }
             }
         }
     }

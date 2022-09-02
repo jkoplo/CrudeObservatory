@@ -26,8 +26,10 @@ try
                 services.AddSingleton<AcquisitionSetFactory>();
 
                 //Add the CLI client and the Daemon for Influx
+                services.AddTransient<InfluxdbDaemon>();
                 services.AddTransient<InfluxdbCliClient>();
                 services.AddHostedService<InfluxdbWorker>();
+                services.AddHostedService<DataTargetWorker>();
 
                 var channel = Channel.CreateBounded<Measurement>(100);
                 services.AddSingleton<ChannelWriter<Measurement>>(channel);
@@ -44,8 +46,6 @@ try
                             x.GetRequiredService<ChannelWriter<Measurement>>()
                         )
                 );
-
-                services.AddHostedService<DataTargetWorker>();
             }
         )
         .Build();

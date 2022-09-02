@@ -16,13 +16,11 @@ namespace InfluxDbManager
     {
         private readonly ILogger<InfluxdbWorker> logger;
         private readonly InfluxdbDaemon influxdbDaemon;
-        private readonly IConfiguration configuration;
 
         public InfluxdbWorker(ILogger<InfluxdbWorker> logger, InfluxdbDaemon influxdbDaemon)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.influxdbDaemon = influxdbDaemon ?? throw new ArgumentNullException(nameof(influxdbDaemon));
-            this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
