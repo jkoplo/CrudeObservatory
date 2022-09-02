@@ -52,7 +52,7 @@ namespace CrudeObservatory.DataTargets.InfluxDB
                             .Measurement(DataTargetConfig.Measurement)
                             //.Tag("host", "host2")
                             .SetFieldByObjectType(x.Name, x.Value)
-                            .Timestamp(dateTimeOffset.UtcDateTime, WritePrecision.Ns)
+                            .Timestamp(dateTimeOffset.UtcDateTime, WritePrecision.Ms)
                             .ToPointData()
                 )
                 .ToList();

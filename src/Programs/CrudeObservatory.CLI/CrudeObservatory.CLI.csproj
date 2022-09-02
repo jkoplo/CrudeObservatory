@@ -23,5 +23,6 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\..\Libraries\CrudeObservatory.Abstractions\CrudeObservatory.Abstractions.csproj" />
 	  <ProjectReference Include="..\..\Libraries\CrudeObservatory.Acquisition\CrudeObservatory.Acquisition.csproj" />
+	  <ProjectReference Include="..\InfluxDbManager\InfluxDbManager.csproj" />
 	</ItemGroup>
 </Project>
