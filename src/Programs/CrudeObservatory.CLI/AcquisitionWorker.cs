@@ -33,75 +33,93 @@ namespace CrudeObservatory.CLI
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            //Build out classes - might be at the Program.cs DI level
-
-            AcquisitionSet acq = acquisitionSetFactory.GetAcquisitionSet(acquisitionConfig);
-
-            //Initiate connections? Could be DataSources (PLC) or DataTargets (DB) or Intervals(?)
-            //Build a list of tasks to init so we can execute them in parallel
-            var initTasks = new List<Task>()
+            try
             {
-                acq.StartTrigger.InitializeAsync(stoppingToken),
-                acq.EndTrigger.InitializeAsync(stoppingToken),
-                acq.Interval.InitializeAsync(stoppingToken),
-            };
+                //Build out classes - might be at the Program.cs DI level
 
-            //Add the list of additional inits
-            initTasks.AddRange(acq.DataSources.Select(x => x.InitializeAsync(stoppingToken)));
-            initTasks.AddRange(acq.DataTargets.Select(x => x.InitializeAsync(stoppingToken)));
+                AcquisitionSet acq = acquisitionSetFactory.GetAcquisitionSet(acquisitionConfig);
 
-            await Task.WhenAll(initTasks);
-
-            //Wait for start trigger
-            await acq.StartTrigger.WaitForTriggerAsync(stoppingToken);
-
-            //Write config to Data Targets
-            await Task.WhenAll(
-                acq.DataTargets.Select(x => x.WriteAcquisitionConfigAsync(acquisitionConfig, stoppingToken))
-            );
-
-            //Acq started (or app cancelled)
-            var endTrigger = acq.EndTrigger.WaitForTriggerAsync(stoppingToken);
-
-            while (!endTrigger.IsCompleted & !stoppingToken.IsCancellationRequested)
-            {
-                //Wait for interval OR end trigger
-                var intervalTask = acq.Interval.WaitForIntervalAsync(stoppingToken);
-                Task.WaitAny(intervalTask, endTrigger);
-
-                logger.LogInformation("Interval trigger [{@interval}] fired", acquisitionConfig.Interval);
-
-                //If the end hasn't been triggered and we haven't been cancelled, get data
-                if (!endTrigger.IsCompleted & !stoppingToken.IsCancellationRequested)
+                //Initiate connections? Could be DataSources (PLC) or DataTargets (DB) or Intervals(?)
+                //Build a list of tasks to init so we can execute them in parallel
+                var initTasks = new List<Task>()
                 {
-                    //Get data from source(s)
-                    var dataValues = await Task.WhenAll(acq.DataSources.Select(x => x.ReadDataAsync(stoppingToken)));
+                    acq.StartTrigger.InitializeAsync(stoppingToken),
+                    acq.EndTrigger.InitializeAsync(stoppingToken),
+                    acq.Interval.InitializeAsync(stoppingToken),
+                };
 
-                    var combinedDataValues = dataValues.SelectMany(x => x);
+                //Add the list of additional inits
+                //foreach (var item in acq.DataSources)
+                //{
+                //    await item.InitializeAsync(stoppingToken);
+                //}
 
-                    //Write data to channel
-                    await channel.WriteAsync(
-                        new Measurement
-                        {
-                            DataValues = combinedDataValues.ToList(),
-                            IntervalOutput = intervalTask.Result
-                        },
-                        stoppingToken
-                    );
+                initTasks.AddRange(acq.DataSources.Select(x => x.InitializeAsync(stoppingToken)));
+                //initTasks.AddRange(acq.DataTargets.Select(x => x.InitializeAsync(stoppingToken)));
 
-                    //await Task.WhenAll(
-                    //    acq.DataTargets.Select(
-                    //        x => x.WriteDataAsync(intervalTask.Result, combinedDataValues, stoppingToken)
-                    //    )
-                    //);
+                await Task.WhenAll(initTasks);
+
+                //Wait for start trigger
+                await acq.StartTrigger.WaitForTriggerAsync(stoppingToken);
+
+                //Write config to Data Targets
+                //await Task.WhenAll(
+                //    acq.DataTargets.Select(x => x.WriteAcquisitionConfigAsync(acquisitionConfig, stoppingToken))
+                //);
+
+                //Acq started (or app cancelled)
+                var endTrigger = acq.EndTrigger.WaitForTriggerAsync(stoppingToken);
+
+                while (!endTrigger.IsCompleted & !stoppingToken.IsCancellationRequested)
+                {
+                    //Wait for interval OR end trigger
+                    var intervalTask = acq.Interval.WaitForIntervalAsync(stoppingToken);
+                    Task.WaitAny(intervalTask, endTrigger);
+
+                    logger.LogInformation("Interval trigger [{@interval}] fired", acquisitionConfig.Interval);
+
+                    //If the end hasn't been triggered and we haven't been cancelled, get data
+                    if (!endTrigger.IsCompleted & !stoppingToken.IsCancellationRequested)
+                    {
+                        //Get data from source(s)
+                        var dataValues = await Task.WhenAll(
+                            acq.DataSources.Select(x => x.ReadDataAsync(stoppingToken))
+                        );
+
+                        var combinedDataValues = dataValues.SelectMany(x => x);
+
+                        //Write data to channel
+                        await channel.WriteAsync(
+                            new Measurement
+                            {
+                                DataValues = combinedDataValues.ToList(),
+                                IntervalOutput = intervalTask.Result
+                            },
+                            stoppingToken
+                        );
+
+                        //await Task.WhenAll(
+                        //    acq.DataTargets.Select(
+                        //        x => x.WriteDataAsync(intervalTask.Result, combinedDataValues, stoppingToken)
+                        //    )
+                        //);
+                    }
+                    //Repeat @ Wait for interval OR end trigger
                 }
-                //Repeat @ Wait for interval OR end trigger
-            }
 
-            //Not sure if needed - if cancellation we should wait for endtrigger to cancel
-            await endTrigger;
-            logger.LogInformation("End trigger [{@EndTrigger}] fired", acquisitionConfig.EndTrigger);
-            applicationLifetime.StopApplication();
+                //Not sure if needed - if cancellation we should wait for endtrigger to cancel
+                await endTrigger;
+                logger.LogInformation("End trigger [{@EndTrigger}] fired", acquisitionConfig.EndTrigger);
+                applicationLifetime.StopApplication();
+            }
+            catch (OperationCanceledException)
+            {
+                logger.LogInformation("AcquisitionWorker shutdown by request");
+            }
+            catch (Exception ex)
+            {
+                logger.LogError("Acquisition Worker Exception: {@Exception}", ex);
+            }
         }
     }
 }

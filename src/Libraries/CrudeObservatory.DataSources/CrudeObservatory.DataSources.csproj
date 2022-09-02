@@ -8,7 +8,6 @@
 
 	<ItemGroup>
 		<PackageReference Include="libplctag" Version="1.1.0-alpha.1" />
-		<PackageReference Include="libplctag.NativeImport" Version="1.0.33" />
 	</ItemGroup>
 
 

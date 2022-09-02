@@ -1,6 +1,7 @@
 ﻿using CrudeObservatory.Abstractions.Interfaces;
 using CrudeObservatory.DataSources.Libplctag.Models;
 using libplctag;
+using libplctag.DataTypes;
 
 namespace CrudeObservatory.DataSources.Libplctag
 {
@@ -24,7 +25,7 @@ namespace CrudeObservatory.DataSources.Libplctag
                 tagList.Add(GetTag(DataSourceConfig, item));
             }
 
-            await Task.WhenAll(tagList.Select(x => x.InitializeAsync()));
+            await Task.WhenAll(tagList.Select(x => x.InitializeAsync(stoppingToken)));
         }
 
         public async Task<IEnumerable<IDataValue>> ReadDataAsync(CancellationToken stoppingToken)
