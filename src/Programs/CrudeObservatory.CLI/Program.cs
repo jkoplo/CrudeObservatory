@@ -1,6 +1,9 @@
+using CrudeObservatory.Abstractions.Interfaces;
 using CrudeObservatory.Acquisition.Services;
 using CrudeObservatory.CLI;
+using InfluxDbManager;
 using Serilog;
+using System.Threading.Channels;
 
 Log.Logger = new LoggerConfiguration().WriteTo.Console().CreateBootstrapLogger();
 
@@ -22,6 +25,14 @@ try
                 services.AddSingleton<ParseAcquisitionConfig>();
                 services.AddSingleton<AcquisitionSetFactory>();
 
+                //Add the CLI client and the Daemon for Influx
+                services.AddTransient<InfluxdbCliClient>();
+                services.AddHostedService<InfluxdbWorker>();
+
+                var channel = Channel.CreateBounded<Measurement>(100);
+                services.AddSingleton<ChannelWriter<Measurement>>(channel);
+                services.AddSingleton<ChannelReader<Measurement>>(channel);
+
                 //We do this b/c in future we may want multiple workers running different acq configs
                 services.AddHostedService<AcquisitionWorker>(
                     x =>
@@ -29,9 +40,12 @@ try
                             x.GetRequiredService<ILogger<AcquisitionWorker>>(),
                             x.GetRequiredService<IHostApplicationLifetime>(),
                             x.GetRequiredService<ParseAcquisitionConfig>().DeserializeFromJson(jsonConfig),
-                            x.GetRequiredService<AcquisitionSetFactory>()
+                            x.GetRequiredService<AcquisitionSetFactory>(),
+                            x.GetRequiredService<ChannelWriter<Measurement>>()
                         )
                 );
+
+                services.AddHostedService<DataTargetWorker>();
             }
         )
         .Build();

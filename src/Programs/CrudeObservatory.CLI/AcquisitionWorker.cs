@@ -1,6 +1,8 @@
+using CrudeObservatory.Abstractions.Interfaces;
 using CrudeObservatory.Abstractions.Models;
 using CrudeObservatory.Acquisition.Models;
 using CrudeObservatory.Acquisition.Services;
+using System.Threading.Channels;
 
 namespace CrudeObservatory.CLI
 {
@@ -10,12 +12,14 @@ namespace CrudeObservatory.CLI
         private readonly IHostApplicationLifetime applicationLifetime;
         private readonly AcquisitionConfig acquisitionConfig;
         private readonly AcquisitionSetFactory acquisitionSetFactory;
+        private readonly ChannelWriter<Measurement> channel;
 
         public AcquisitionWorker(
             ILogger<AcquisitionWorker> logger,
             IHostApplicationLifetime applicationLifetime,
             AcquisitionConfig acquisitionConfig,
-            AcquisitionSetFactory acquisitionSetFactory
+            AcquisitionSetFactory acquisitionSetFactory,
+            ChannelWriter<Measurement> channel
         )
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -24,6 +28,7 @@ namespace CrudeObservatory.CLI
             this.acquisitionConfig = acquisitionConfig ?? throw new ArgumentNullException(nameof(acquisitionConfig));
             this.acquisitionSetFactory =
                 acquisitionSetFactory ?? throw new ArgumentNullException(nameof(acquisitionSetFactory));
+            this.channel = channel ?? throw new ArgumentNullException(nameof(channel));
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -74,12 +79,17 @@ namespace CrudeObservatory.CLI
 
                     var combinedDataValues = dataValues.SelectMany(x => x);
 
-                    //Write data to target(s)
-                    await Task.WhenAll(
-                        acq.DataTargets.Select(
-                            x => x.WriteDataAsync(intervalTask.Result, combinedDataValues, stoppingToken)
-                        )
+                    //Write data to channel
+                    await channel.WriteAsync(
+                        new Measurement { DataValues = combinedDataValues, IntervalOutput = intervalTask.Result },
+                        stoppingToken
                     );
+
+                    //await Task.WhenAll(
+                    //    acq.DataTargets.Select(
+                    //        x => x.WriteDataAsync(intervalTask.Result, combinedDataValues, stoppingToken)
+                    //    )
+                    //);
                 }
                 //Repeat @ Wait for interval OR end trigger
             }

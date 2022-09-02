@@ -1,3 +1,4 @@
+using CrudeObservatory.Abstractions.Interfaces;
 using CrudeObservatory.DataTargets.InfluxDB;
 using CrudeObservatory.DataTargets.InfluxDB.Models;
 using InfluxDB.Client;
@@ -5,25 +6,32 @@ using InfluxDB.Client.Api.Domain;
 using InfluxDB.Client.Writes;
 using InfluxDbManager;
 using System.Security.Cryptography;
+using System.Threading.Channels;
 
 namespace CrudeObservatory.CLI
 {
     public class DataTargetWorker : BackgroundService
     {
         private const string DEFAULT_BUCKET = "crude_observatory";
-        private readonly ILogger<DataTargetWorker> _logger;
+        private readonly ILogger<DataTargetWorker> logger;
         private readonly InfluxdbCliClient influxdbClient;
+        private readonly ChannelReader<Measurement> channel;
 
-        public DataTargetWorker(ILogger<DataTargetWorker> logger, InfluxdbCliClient influxdbClient)
+        public DataTargetWorker(
+            ILogger<DataTargetWorker> logger,
+            InfluxdbCliClient influxdbClient,
+            ChannelReader<Measurement> channel
+        )
         {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.influxdbClient = influxdbClient ?? throw new ArgumentNullException(nameof(influxdbClient));
+            this.channel = channel ?? throw new ArgumentNullException(nameof(channel));
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             //Wait for the other worker to bring the process up
-            await Task.Delay(3000, stoppingToken);
+            //await Task.Delay(3000, stoppingToken);
 
             //We need to make sure the Influx instance is configured
             //and that we have proper values for use with our client
@@ -70,49 +78,28 @@ namespace CrudeObservatory.CLI
                     .CreateBucketAsync(DEFAULT_BUCKET, retention, org, stoppingToken);
             }
 
-            using var writeApi = client.GetWriteApi();
-
-            while (!stoppingToken.IsCancellationRequested)
-            {
-                await Task.Delay(100);
-                DateTimeOffset dateTimeOffset = DateTimeOffset.Now;
-
-                var sineWave = SineWave();
-
-                var points = new List<PointData>
+            InfluxDBDataTargetConfig dataTargetConfig =
+                new()
                 {
-                    PointData.Builder
-                        .Measurement("TestMeasurement")
-                        //.Tag("host", "host2")
-                        .Field("First", sineWave)
-                        .Timestamp(dateTimeOffset.UtcDateTime, WritePrecision.Ns)
-                        .ToPointData(),
-                    PointData.Builder
-                        .Measurement("TestMeasurement")
-                        //.Tag("host", "host2")
-                        .Field("Second", sineWave * -1)
-                        .Timestamp(dateTimeOffset.UtcDateTime, WritePrecision.Ns)
-                        .ToPointData(),
+                    Url = dbConfig.Url,
+                    Organization = dbConfig.Organization,
+                    Bucket = DEFAULT_BUCKET,
+                    Token = dbConfig.Token,
+                    Measurement = "CLI_Test"
                 };
 
-                writeApi.WritePoints(points, DEFAULT_BUCKET, dbConfig.Organization);
+            InfluxDBDataTarget influxTarget = new(dataTargetConfig);
+
+            try
+            {
+                //We could also read all
+                var message = await channel.ReadAsync(stoppingToken);
+                await influxTarget.WriteDataAsync(message.IntervalOutput, message.DataValues, stoppingToken);
             }
-        }
-
-        private double SineWave()
-        {
-            //https://www.codeproject.com/Articles/30180/Simple-Signal-Generator
-
-            double timeInSeconds = DateTimeOffset.Now.ToUnixTimeMilliseconds() / 1000;
-
-            double rawValue = 0d;
-            double t = .01 * timeInSeconds;
-
-            // sin( 2 * pi * t )
-            rawValue = (double)Math.Sin(2f * Math.PI * t);
-
-            var scaledValue = 100 * rawValue;
-            return scaledValue;
+            catch (OperationCanceledException ex)
+            {
+                logger.LogWarning($"DataTargetWorker > forced stop");
+            }
         }
     }
 }
